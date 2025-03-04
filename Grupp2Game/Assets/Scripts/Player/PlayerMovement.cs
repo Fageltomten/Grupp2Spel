@@ -10,7 +10,8 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     [SerializeField] private float acceleration = 5f;
     [SerializeField] private float maxSpeed = 5f;
-    [SerializeField] private float stopSpeed = 0.1f;
+    [SerializeField] private float stopSpeed = 5f;
+    [SerializeField] private float sidewaysStopSpeed = 5f;
 
     private InputAction movementInput;
 
@@ -48,8 +49,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 targetVelocity = (movementDirection.z * transform.forward + movementDirection.x * transform.right);
             float dottedValue = (Vector3.Dot(rigidbody.linearVelocity.normalized, movementDirection.z * transform.forward + movementDirection.x * transform.right)+1)/2 ;
+            Vector3 sidewaysVelocity = Vector3.Cross(transform.up, targetVelocity) * Vector3.Dot(Vector3.Cross(transform.up, targetVelocity.normalized), rigidbody.linearVelocity);
             forceToAdd += (1 - (currentSpeed /* dottedValue */ / maxSpeed)) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
-            //forceToAdd = Vector3.Scale(rigidbody.linearVelocity, targetVelocity) * stopSpeed;
+            forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
+            Debug.DrawLine(transform.position, transform.position + forceToAdd, Color.red);
+            Debug.DrawLine(transform.position, transform.position + targetVelocity, Color.green);
+            Debug.DrawLine(transform.position, transform.position + rigidbody.linearVelocity, Color.blue);
+            Debug.DrawLine(transform.position, transform.position + (sidewaysVelocity) , Color.yellow);
         }
 
         rigidbody.AddForce(forceToAdd, ForceMode.Acceleration);
