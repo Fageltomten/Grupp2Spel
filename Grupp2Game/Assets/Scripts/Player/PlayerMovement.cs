@@ -46,10 +46,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            Vector3 targetVelocity = (movementDirection.z * transform.forward + movementDirection.x * transform.right);
             float dottedValue = (Vector3.Dot(rigidbody.linearVelocity.normalized, movementDirection.z * transform.forward + movementDirection.x * transform.right)+1)/2 ;
-            print(dottedValue);
-            forceToAdd += (1 - (currentSpeed * dottedValue) / maxSpeed) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
-            forceToAdd -= (Vector3.one - (movementDirection.z * transform.forward + movementDirection.x * transform.right)) * stopSpeed;
+            forceToAdd += (1 - (currentSpeed /* dottedValue */ / maxSpeed)) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
+            //forceToAdd = Vector3.Scale(rigidbody.linearVelocity, targetVelocity) * stopSpeed;
         }
 
         rigidbody.AddForce(forceToAdd, ForceMode.Acceleration);
@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetData()
     {
-        movementDirection = new Vector3(movementInput.ReadValue<Vector2>().x, 0, movementInput.ReadValue<Vector2>().y).normalized;
+        movementDirection = new Vector3(movementInput.ReadValue<Vector2>().x, 0, movementInput.ReadValue<Vector2>().y);
         inputMagnitude = movementDirection.magnitude;
         currentSpeed = rigidbody.linearVelocity.magnitude;
     }
