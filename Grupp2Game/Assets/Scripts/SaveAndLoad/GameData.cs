@@ -10,8 +10,8 @@ public class GameData : MonoBehaviour
 
 
 
-    public PlayerData? PlayerData;
-    public CollectableData? CollectableData;
+    public PlayerData PlayerData;
+    public CollectableData CollectableData;
 }
 public class CollectableData
 {
