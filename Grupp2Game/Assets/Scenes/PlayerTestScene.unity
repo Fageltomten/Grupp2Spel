@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 1094170369}
   - component: {fileID: 1094170371}
   - component: {fileID: 1094170372}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295,7 +295,7 @@ Transform:
   m_GameObject: {fileID: 1094170368}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -317,8 +317,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 50
   maxSpeed: 5
-  stopSpeed: 0.5
-  sidewaysStopSpeed: 0.1
+  stopSpeed: 5
+  sidewaysStopSpeed: 5
+  grouldClearance: 0.75
+  groundCheckDistance: 1
+  groundStickiness: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 51
 --- !u!114 &1094170372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,7 +462,7 @@ GameObject:
   - component: {fileID: 1138094345}
   - component: {fileID: 1138094344}
   - component: {fileID: 1138094343}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,7 +723,7 @@ Transform:
   m_GameObject: {fileID: 1226589045}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -2}
+  m_LocalPosition: {x: 0, y: 2.1, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -735,7 +741,7 @@ GameObject:
   - component: {fileID: 1913636427}
   - component: {fileID: 1913636426}
   - component: {fileID: 1913636425}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Eyes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,7 +848,7 @@ GameObject:
   - component: {fileID: 1984958911}
   - component: {fileID: 1984958912}
   - component: {fileID: 1984958913}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CinemachineCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
