@@ -36,8 +36,8 @@ public class ActivationListener : MonoBehaviour
             ActivateObject();
         }
 
-        ActivationManager.instance.OnActivation += ReceiveActivationRequest;
-        ActivationManager.instance.OnDeactivate += ReceiveDeactivationRequest;
+        ActivationManager.Instance.OnActivation += ReceiveActivationRequest;
+        ActivationManager.Instance.OnDeactivate += ReceiveDeactivationRequest;
 
     }
 
@@ -77,7 +77,7 @@ public class ActivationListener : MonoBehaviour
 
     private void OnDestroy()
     {
-        ActivationManager.instance.OnActivation -= ReceiveActivationRequest;
-        ActivationManager.instance.OnDeactivate -= ReceiveDeactivationRequest;
+        ActivationManager.Instance.OnActivation -= ReceiveActivationRequest;
+        ActivationManager.Instance.OnDeactivate -= ReceiveDeactivationRequest;
     }
 }

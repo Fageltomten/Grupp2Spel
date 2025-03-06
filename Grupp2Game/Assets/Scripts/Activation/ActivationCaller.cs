@@ -6,7 +6,7 @@ using UnityEngine;
 public class ActivationCaller : MonoBehaviour
 {
     [Header("Activation Caller Settings")]
-    [SerializeField] int CallingChannel;
+    [SerializeField] int callingChannel;
 
     private void Start()
     {
@@ -20,10 +20,10 @@ public class ActivationCaller : MonoBehaviour
 
     public void SendActivation()
     {
-        ActivationManager.instance.Activate(CallingChannel);
+        ActivationManager.Instance.Activate(callingChannel);
     }
     public void SendDeactivation()
     {
-        ActivationManager.instance.Deactivate(CallingChannel);
+        ActivationManager.Instance.Deactivate(callingChannel);
     }
 }
