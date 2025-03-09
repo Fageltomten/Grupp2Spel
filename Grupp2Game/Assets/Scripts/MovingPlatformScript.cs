@@ -13,7 +13,7 @@ public class MovingPlatformScript : MonoBehaviour
         transform.position = waypoints[startingPoint].position;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (Vector3.Distance(transform.position, waypoints[i].position) < 0.05f)
         {
@@ -25,5 +25,13 @@ public class MovingPlatformScript : MonoBehaviour
             }
         }
         transform.position = Vector3.MoveTowards(transform.position, waypoints[i].position, speed * Time.deltaTime);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+            other.transform.SetParent(transform);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        other.transform.SetParent(null);
     }
 }
