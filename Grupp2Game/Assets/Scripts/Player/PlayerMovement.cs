@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movementSpeed;
     private float currentSpeed;
     private bool isGrounded;
+    private bool hasAirJumped;
 
     [SerializeField] private float acceleration = 5f;
     [SerializeField] private float maxSpeed = 5f;
@@ -31,7 +33,7 @@ public class PlayerMovement : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         movementInput = InputSystem.actions.FindAction("Move");
         jumpInput = InputSystem.actions.FindAction("Jump");
-        movementInput.performed += OnMove;
+        jumpInput.performed += _ => OnJump();
     }
 
     // Update is called once per frame
@@ -95,8 +97,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if(isGrounded)
         {
+            hasAirJumped = false;
             rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
+        else if(!hasAirJumped)
+        {
+            hasAirJumped = true;
+            rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+        }
+    }
+
+    private IEnumerator JumpBuffer()
+    {
+        yield return new WaitForSeconds(0.1f);
+        hasAirJumped = false;
     }
 
     private void SetData()
