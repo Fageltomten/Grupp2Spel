@@ -66,7 +66,8 @@ public class PlayerMovement : MonoBehaviour
             float dottedValue = (Vector3.Dot(rigidbody.linearVelocity.normalized, movementDirection.z * transform.forward + movementDirection.x * transform.right)+1)/2 ;
             Vector3 sidewaysVelocity = Vector3.Cross(transform.up, targetVelocity) * Vector3.Dot(Vector3.Cross(transform.up, targetVelocity.normalized), rigidbody.linearVelocity);
             sidewaysVelocity = Vector3.Scale(sidewaysVelocity, Vector3.one - transform.up);
-            forceToAdd += (1 - (currentSpeed /* dottedValue */ / maxSpeed)) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
+            var moveSpeed = Vector3.Scale(rigidbody.linearVelocity, Vector3.one - transform.up).magnitude;
+            forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed)) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
             forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
             
             Debug.DrawLine(transform.position, transform.position + forceToAdd, Color.red);
