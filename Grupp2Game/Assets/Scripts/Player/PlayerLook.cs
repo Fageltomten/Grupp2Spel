@@ -1,9 +1,9 @@
 using UnityEngine;
 
-//Anton Andersson
 public class PlayerLook : MonoBehaviour
 {
     Rigidbody rb;
+    [SerializeField] Transform cameraPivotPoint;
 
     [Header("MouseInputs")]
     [SerializeField] Vector2 mouseVector;
@@ -34,10 +34,14 @@ public class PlayerLook : MonoBehaviour
     void CalculateRotation()
     {
         horizontalRotation += mouseVector.x;
+        verticalRotation -= mouseVector.y;
     }
 
     void ApplyRotation()
     {
-        transform.rotation = Quaternion.Euler(0, horizontalRotation, 0);
+        transform.rotation = Quaternion.Euler(0, horizontalRotation, 0); //Horizontal
+        /* Vertical */
+        cameraPivotPoint.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+
     }
 }
