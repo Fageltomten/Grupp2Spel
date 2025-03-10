@@ -8,12 +8,20 @@ public class Fan : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Rigidbody rb = other.GetComponent<Rigidbody>();
-        rb.linearDamping = 2f;
+        if (rb != null)
+        {
+            rb.linearDamping = 2f;
+        }
+        
     }
     private void OnTriggerExit(Collider other)
     {
         Rigidbody rb = other.GetComponent<Rigidbody>();
-        rb.linearDamping = 0f;
+        if (rb != null)
+        {
+            rb.linearDamping = 0f;
+        }
+        
     }
     private void OnTriggerStay(Collider other)
     {
