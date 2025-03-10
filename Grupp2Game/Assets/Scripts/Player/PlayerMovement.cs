@@ -60,13 +60,14 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        else if (isGrounded)
+        else //if (isGrounded)
         {
             Vector3 targetVelocity = (movementDirection.z * transform.forward + movementDirection.x * transform.right);
             float dottedValue = (Vector3.Dot(rigidbody.linearVelocity.normalized, movementDirection.z * transform.forward + movementDirection.x * transform.right)+1)/2 ;
             Vector3 sidewaysVelocity = Vector3.Cross(transform.up, targetVelocity) * Vector3.Dot(Vector3.Cross(transform.up, targetVelocity.normalized), rigidbody.linearVelocity);
             sidewaysVelocity = Vector3.Scale(sidewaysVelocity, Vector3.one - transform.up);
-            forceToAdd += (1 - (currentSpeed /* dottedValue */ / maxSpeed)) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
+            var moveSpeed = Vector3.Scale(rigidbody.linearVelocity, Vector3.one - transform.up).magnitude;
+            forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed)) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
             forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
             
             Debug.DrawLine(transform.position, transform.position + forceToAdd, Color.red);
@@ -81,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
     private void IsGrounded()
     {
         isGrounded = false;
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, groundCheckDistance, groundLayer))
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, groundCheckDistance, groundLayer, QueryTriggerInteraction.Ignore))
         {
             transform.position += (hit.normal * grouldClearance - hit.normal * hit.distance) * groundStickiness * Time.fixedDeltaTime;
             if(grouldClearance>= hit.distance)
