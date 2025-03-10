@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-        else if (isGrounded)
+        else //if (isGrounded)
         {
             Vector3 targetVelocity = (movementDirection.z * transform.forward + movementDirection.x * transform.right);
             float dottedValue = (Vector3.Dot(rigidbody.linearVelocity.normalized, movementDirection.z * transform.forward + movementDirection.x * transform.right)+1)/2 ;
@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
     private void IsGrounded()
     {
         isGrounded = false;
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, groundCheckDistance, groundLayer))
+        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, groundCheckDistance, groundLayer, QueryTriggerInteraction.Ignore))
         {
             transform.position += (hit.normal * grouldClearance - hit.normal * hit.distance) * groundStickiness * Time.fixedDeltaTime;
             if(grouldClearance>= hit.distance)
