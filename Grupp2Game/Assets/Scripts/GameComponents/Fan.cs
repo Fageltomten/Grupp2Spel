@@ -1,9 +1,10 @@
 using UnityEngine;
+using static UnityEngine.LightAnchor;
 
 //Author Clara Lönnkrans
 public class Fan : MonoBehaviour
 {
-    private float upForce = 15f;
+    private float upForce = 30f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -28,8 +29,12 @@ public class Fan : MonoBehaviour
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb != null )
         {
-            rb.AddForce(0, 30, 0);
-            
+            //New Code
+            rb.AddForce(transform.up * upForce);
+
+            //Old code 
+            //rb.AddForce(0, 30, 0); You didn't use your upForce  variable?
+
         }
     }
 }

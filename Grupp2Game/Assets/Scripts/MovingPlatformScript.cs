@@ -1,16 +1,28 @@
 using UnityEngine;
 
+// Anton Sundell, 030325
+
 public class MovingPlatformScript : MonoBehaviour
 {
-    // Anton Sundell, 030325
     [SerializeField] float speed;
     [SerializeField] Transform[] waypoints;
     private int startingPoint, i;
+
+    [SerializeField] private bool useRandomStartPoint = false;
     
 
     void Start()
     {
-        transform.position = waypoints[startingPoint].position;
+        //Added an option to choose between random start point or default start point
+        if(useRandomStartPoint)
+        {
+           int startIndex = Random.Range(0, waypoints.Length);
+            transform.position = waypoints[startIndex].position;
+        }
+        else
+        {
+            transform.position = waypoints[startingPoint].position;
+        }
     }
 
     void FixedUpdate()
