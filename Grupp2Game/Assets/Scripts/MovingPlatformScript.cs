@@ -24,11 +24,14 @@ public class MovingPlatformScript : MonoBehaviour
                 i = 0; 
             }
         }
-        transform.position = Vector3.MoveTowards(transform.position, waypoints[i].position, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, waypoints[i].position, speed * Time.fixedDeltaTime);
     }
     private void OnTriggerEnter(Collider other)
     {
-            other.transform.SetParent(transform);
+        Debug.Log("Entering platform");
+        //  other.transform.SetParent(transform);
+        other.transform.parent = transform;
+
     }
     private void OnTriggerExit(Collider other)
     {
