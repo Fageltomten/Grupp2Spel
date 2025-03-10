@@ -35,6 +35,11 @@ public class PlayerLook : MonoBehaviour
     {
         horizontalRotation += mouseVector.x;
         verticalRotation -= mouseVector.y;
+
+        int min = -90;
+        int max = 90;
+
+        verticalRotation = Mathf.Clamp(verticalRotation, min, max);
     }
 
     void ApplyRotation()
@@ -42,6 +47,7 @@ public class PlayerLook : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, horizontalRotation, 0); //Horizontal
         /* Vertical */
         cameraPivotPoint.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
+
 
     }
 }
