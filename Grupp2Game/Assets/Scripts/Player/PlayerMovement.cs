@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         Vector3 forceToAdd = Vector3.zero;
-        if (inputMagnitude == 0 && currentSpeed != 0)
+        if (inputMagnitude == 0 && currentSpeed != 0 && isGrounded)
         {
             forceToAdd -= rigidbody.linearVelocity * stopSpeed;
         }
