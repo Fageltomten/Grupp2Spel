@@ -1218,7 +1218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378276978482154734, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
       propertyPath: m_Name
-      value: MovingPlatformX (2)
+      value: MovingPlatform (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1631,7 +1631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378276978482154734, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
       propertyPath: m_Name
-      value: MovingPlatformX
+      value: MovingPlatform
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1712,7 +1712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378276978482154734, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
       propertyPath: m_Name
-      value: MovingPlatformX (1)
+      value: MovingPlatform (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2623,7 +2623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378276978482154734, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
       propertyPath: m_Name
-      value: MovingPlatformX (6)
+      value: MovingPlatform (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14630,7 +14630,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378276978482154734, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
       propertyPath: m_Name
-      value: MovingPlatformX (4)
+      value: MovingPlatform (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15697,7 +15697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378276978482154734, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
       propertyPath: m_Name
-      value: MovingPlatformX (3)
+      value: MovingPlatform (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17517,7 +17517,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8378276978482154734, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
       propertyPath: m_Name
-      value: MovingPlatformX (5)
+      value: MovingPlatform (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
