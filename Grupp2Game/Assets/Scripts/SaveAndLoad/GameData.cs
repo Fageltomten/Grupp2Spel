@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Author Vidar Edlund
 public class GameData : MonoBehaviour
 {
     //Frågor

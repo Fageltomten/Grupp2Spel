@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+//Author Vidar Edlund
 public class PlayerHUD : MonoBehaviour
 {
     [SerializeField] private TMP_Text collectedCollectablesText;
