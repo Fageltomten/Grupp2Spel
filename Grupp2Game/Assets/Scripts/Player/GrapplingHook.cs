@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GrapplingHook : MonoBehaviour
@@ -10,6 +11,8 @@ public class GrapplingHook : MonoBehaviour
     private float ropeLength;
 
     [SerializeField] private int PhysicsIterations = 10;
+    [SerializeField] private LayerMask grapplingLayerMask;
+    [SerializeField] private int lineCollisionDetail = 10;
     [SerializeField] float ropeWidth = 0.1f;
     [SerializeField] float ropeOffset = 0.03f;
     [SerializeField] float checkDistance = 0.1f;
@@ -65,10 +68,27 @@ public class GrapplingHook : MonoBehaviour
             grapplePoints[0] = hit.point + (grapplePoints[0] - hit.point).normalized * ropeWidth;
         }
 
-        if (Physics.SphereCast(grapplePoints[0], ropeWidth, grapplePoints[1] - grapplePoints[0], out hit, (grapplePoints[0] - grapplePoints[1]).magnitude))
+        for (float detail = 0f / lineCollisionDetail; detail <= lineCollisionDetail; detail += 1f / lineCollisionDetail)
         {
-            grapplePoints.Insert(1, hit.point + (GetClosestPoint(hit.point, grapplePoints[0], grapplePoints[1]) - hit.point).normalized * ropeWidth);
+            var lerpedVector = Vector3.Lerp(grapplingLastPoint, grapplePoints[0], detail);
+            if (Physics.SphereCast(grapplePoints[0], ropeWidth, grapplePoints[1] - lerpedVector, out RaycastHit hit4, Vector3.Distance(grapplePoints[1], lerpedVector), grapplingLayerMask))
+            {
+                Vector3 point = hit4.point;
+                var direction = (GetClosestPoint(point, grapplePoints[0], grapplePoints[1]) - hit4.point).normalized;
+                point += direction * (ropeWidth + ropeOffset);
+                Physics.OverlapSphere(point, ropeWidth, grapplingLayerMask).ToList().ForEach(x =>
+                {
+                    var tempPoint = point - x.ClosestPoint(point);
+                    point = x.ClosestPoint(point) + (tempPoint.normalized * (ropeWidth + ropeOffset));
+                    //hasCollided = true;
+                });
+                if (grapplePoints.Exists(x => Vector3.Distance(x, point) < 0.1f))
+                    continue;
+                grapplePoints.Insert(1, point);
+                //hasCollided = true;
+            }
         }
+
         float length = 0;
         for (int i = 0; i < grapplePoints.Count - 1; i++)
         {
