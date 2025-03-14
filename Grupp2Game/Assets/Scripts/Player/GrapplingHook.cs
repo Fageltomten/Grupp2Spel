@@ -39,7 +39,7 @@ public class GrapplingHook : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        grapplePoints[Index.End] = transform.position;
+        grapplePoints[grapplePoints.Count-1] = transform.position;
         for (int i = 0; i < PhysicsIterations; i++)
         {
             CheckCollisionPoints();
@@ -98,10 +98,12 @@ public class GrapplingHook : MonoBehaviour
                 checkPoint2 = (grapplePoints[2] - grapplePoints[1]).normalized * checkDistance;
             }
 
-            while (grapplePoints.Count > 2 && !Physics.SphereCast(checkPoint1, ropeWidth,checkPoint2-checkPoint1, out RaycastHit hit2, (checkPoint2-checkPoint1).magnitude, grapplingLayerMask) && 
-                   !Physics.SphereCast(grapplePoints[0],ropeWidth,grapplePoints[1] - grapplePoints[0],out hit2, (checkPoint2-checkPoint1).magnitude, grapplingLayerMask))
+            while (grapplePoints.Count > 2 && (!Physics.SphereCast(checkPoint1, ropeWidth,checkPoint2-checkPoint1, out RaycastHit hit2, (checkPoint2-checkPoint1).magnitude, grapplingLayerMask) && 
+                   !Physics.SphereCast(grapplePoints[0],ropeWidth,grapplePoints[2] - grapplePoints[0],out hit2, (checkPoint2-checkPoint1).magnitude, grapplingLayerMask)))
             {
                 Debug.DrawLine(checkPoint1, checkPoint2, Color.red, 2);
+                Debug.DrawLine(grapplePoints[0], grapplePoints[2], Color.red, 2);
+                Debug.Log("Removing point");
                 grapplePoints.RemoveAt(1);
                 if (grapplePoints.Count > 2)
                 {
