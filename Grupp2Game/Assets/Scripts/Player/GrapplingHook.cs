@@ -94,15 +94,14 @@ public class GrapplingHook : MonoBehaviour
 
             if (grapplePoints.Count > 2)
             {
-                checkPoint1 = (grapplePoints[0] - grapplePoints[1]).normalized * checkDistance;
-                checkPoint2 = (grapplePoints[2] - grapplePoints[1]).normalized * checkDistance;
+                checkPoint1 = grapplePoints[1] + (grapplePoints[0] - grapplePoints[1]).normalized * checkDistance;
+                checkPoint2 = grapplePoints[1] + (grapplePoints[2] - grapplePoints[1]).normalized * checkDistance;
             }
-
+            
             while (grapplePoints.Count > 2 && (!Physics.SphereCast(checkPoint1, ropeWidth,checkPoint2-checkPoint1, out RaycastHit hit2, (checkPoint2-checkPoint1).magnitude, grapplingLayerMask) && 
-                   !Physics.SphereCast(grapplePoints[0],ropeWidth,grapplePoints[2] - grapplePoints[0],out hit2, (checkPoint2-checkPoint1).magnitude, grapplingLayerMask)))
+                   !Physics.SphereCast(grapplePoints[0],ropeWidth,grapplePoints[2] - grapplePoints[0],out hit2, (grapplePoints[2] - grapplePoints[0]).magnitude, grapplingLayerMask)))
             {
-                Debug.DrawLine(checkPoint1, checkPoint2, Color.red, 2);
-                Debug.DrawLine(grapplePoints[0], grapplePoints[2], Color.red, 2);
+                
                 Debug.Log("Removing point");
                 grapplePoints.RemoveAt(1);
                 if (grapplePoints.Count > 2)

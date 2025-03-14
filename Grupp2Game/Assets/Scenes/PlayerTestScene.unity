@@ -386,7 +386,7 @@ MonoBehaviour:
   lineCollisionDetail: 10
   ropeWidth: 2
   ropeOffset: 0.03
-  checkDistance: 0.1
+  checkDistance: 0.3
 --- !u!120 &1094170375
 LineRenderer:
   serializedVersion: 2
@@ -1420,10 +1420,10 @@ MonoBehaviour:
   grapplingLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  lineCollisionDetail: 10
+  lineCollisionDetail: 20
   ropeWidth: 0.2
-  ropeOffset: 0.2
-  checkDistance: 0.2
+  ropeOffset: 0.05
+  checkDistance: 0.3
 --- !u!4 &2082995684
 Transform:
   m_ObjectHideFlags: 0
