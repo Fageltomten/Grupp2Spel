@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class PlayerLook : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class PlayerLook : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
