@@ -1,11 +1,10 @@
 using UnityEngine;
-using static UnityEngine.LightAnchor;
 
 //Author Clara Lönnkrans
 public class Fan : MonoBehaviour
 {
-    private float upForce = 30f;
-
+    [SerializeField] private float upForce = 30f;
+    
     private void OnTriggerEnter(Collider other)
     {
         Rigidbody rb = other.GetComponent<Rigidbody>();

@@ -11,6 +11,7 @@ public class Launchpad : MonoBehaviour
         if (rb != null)
         {
             //New Code
+            rb.linearVelocity = Vector3.zero;
             rb.AddForce(transform.up * launchForce, ForceMode.Impulse); //Make it launch in the up direction of the launchpad
 
             //Old code 
