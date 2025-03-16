@@ -4,5 +4,6 @@ public interface ISaver
 {
     void Save(GameData gameData);
     GameData Load(string currentScene);
+    GameData LoadLatest();
     bool FileExists(string filePath);
 }

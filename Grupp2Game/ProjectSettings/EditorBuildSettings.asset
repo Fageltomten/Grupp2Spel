@@ -23,9 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/CPULevel.unity
     guid: 74c7283f4308ec64b99712612fc49fa5
-  - enabled: 0
-    path: Assets/Scenes/firstPrototypeScene.unity
-    guid: ee98cb67e12ad5b4a9b679601029ea3b
+  - enabled: 1
+    path: Assets/Scenes/PersistManagersScene.unity
+    guid: 4a949920ecbf05446aa98662a7cd6dba
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
