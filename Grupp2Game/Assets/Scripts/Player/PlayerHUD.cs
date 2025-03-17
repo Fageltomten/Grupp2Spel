@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //Author Vidar Edlund
-public class PlayerHUD : Singleton<PlayerHUD>, ISaveable
+public class PlayerHUD : MonoBehaviour, ISaveable
 {
     [SerializeField] private TMP_Text collectedCollectablesText;
     [SerializeField] private TMP_Text timerScoreText;
@@ -21,12 +21,11 @@ public class PlayerHUD : Singleton<PlayerHUD>, ISaveable
     [SerializeField] private Image crosshair; //Change color and stuff when interacting?
     [SerializeField] private SaveManager saveManager;
 
-    public override void Awake()
+    public void Awake()
     {
         //Call LevelManager to update collect score
         //Or SaveManager
         // DefaultTextValues();
-        base.Awake();
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
        // SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         FindAnyObjectByType<PlayerInteract>().OnPickedUpCollectable += PlayerInteract_OnPickedUpCollectable;

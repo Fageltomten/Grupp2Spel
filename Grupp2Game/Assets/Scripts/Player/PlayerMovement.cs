@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : Singleton<PlayerMovement> //Player needs to be singleton because we don't want to destroy it between scenes
+public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rigidbody;
     private Vector3 movementDirection;
