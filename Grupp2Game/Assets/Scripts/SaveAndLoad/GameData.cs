@@ -2,55 +2,54 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Author Vidar Edlund
-public class GameData : MonoBehaviour
+public class GameData
 {
-    //Frågor
-    //Hur ska man veta vilken data som ska hämtas baserat på scene
-    //Enums är svaret
-    //Note this is NOT the final save thing, its just pseudo code
+    public int collectedCollectables;
+    public string ActiveScene;
+    public List<CollectableData> Collectable;
+    public TimePlayed TimePlayed; //TODO make this global for everyone
 
-
-
-    public PlayerData PlayerData;
-    public CollectableData CollectableData;
-}
-public class CollectableData
-{
-    public List<Collectable> CPUs;
-    public List<Collectable> GPUs;
-    public List<Collectable> Motherboards;
-
-    public CollectableData(List<Collectable> cPUs, List<Collectable> gPUs, List<Collectable> motherboards)
+    //Default values when creating a new GameData
+    public GameData()
     {
-        CPUs = cPUs;
-        GPUs = gPUs;
-        Motherboards = motherboards;
-    }
-    public CollectableData GetCollectableData()
-    {
-        return new CollectableData(CPUs, GPUs, Motherboards);
+        collectedCollectables = 0;
+        ActiveScene = null;
+        TimePlayed = new TimePlayed(0, 0, 0);
+        Collectable = new List<CollectableData>();
+        Debug.Log("GameData with Default values initialized");
     }
 }
+[System.Serializable]
 public class PlayerData
 {
+    public Vector2 Position;
+    public float CurrentHealth;
+    public int Deaths;
+}
+[System.Serializable]
+public class CollectableData
+{
+    public string ID;
     public Vector3 Position;
-    public int CPUsCollected;
-    public int GPUsCollected;
-    public int MotherboardsCollected;
-    public PlayerData(Vector3 position, int cPUsCollected, int gPUsCollected, int motherboardsCollected)
+    public bool IsCollected;
+
+    public CollectableData(string iD, Vector3 position, bool isCollected)
     {
+        ID = iD;
         Position = position;
-        CPUsCollected = cPUsCollected;
-        GPUsCollected = gPUsCollected;
-        MotherboardsCollected = motherboardsCollected;
-    }
-    public PlayerData GetPlayerData()
-    {
-        return new PlayerData(Position, CPUsCollected, GPUsCollected, MotherboardsCollected);
+        IsCollected = isCollected;
     }
 }
-public class Collectable
+[System.Serializable]
+public class TimePlayed
 {
-    public Vector3? Position;
-    public bool IsCollected;
+    public int Hours;
+    public int Minutes;
+    public int Seconds;
+    public TimePlayed(int hours, int minutes, int seconds)
+    {
+        Hours = hours;
+        Minutes = minutes;
+        Seconds = seconds;
+    }
 }

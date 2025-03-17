@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Singleton<PlayerMovement> //Player needs to be singleton because we don't want to destroy it between scenes
 {
     private Rigidbody rigidbody;
     private Vector3 movementDirection;
@@ -121,4 +121,5 @@ public class PlayerMovement : MonoBehaviour
         inputMagnitude = movementDirection.magnitude;
         currentSpeed = rigidbody.linearVelocity.magnitude;
     }
+    
 }
