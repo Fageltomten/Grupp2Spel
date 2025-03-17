@@ -163,6 +163,75 @@ public class JsonSaver : ISaver
 
         return gameData;
     }
+    public bool FilesExists()
+    {
+        DirectoryInfo directoryInfo = new DirectoryInfo(dirPath);
+        FileInfo[] fileInfo = directoryInfo.GetFiles("*.json");
+        return fileInfo.Length > 0;
+    }
+    public void DeleteAllFiles()
+    {
+        if (!Directory.Exists(dirPath))
+        {
+            Debug.LogWarning("Directory does not exist: " + dirPath);
+            return;
+        }
+        Debug.Log("Deleting files from: " + dirPath);
+
+        DirectoryInfo directoryInfo = new DirectoryInfo(dirPath);
+        FileInfo[] fileInfo = directoryInfo.GetFiles("*.json");
+
+        for (int i = fileInfo.Length; i > 0; i--)
+        {
+            try
+            {
+                File.Delete(fileInfo[i - 1].FullName);
+                Debug.Log("Deleted: " + fileInfo[i - 1].FullName);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Failed to delete file: " + fileInfo[i - 1].FullName + " Error: " + ex.Message);
+            }
+        }
+
+        //foreach (FileInfo file in fileInfo)
+        //{
+        //    try
+        //    {
+        //        File.Delete(file.FullName);
+        //        Debug.Log("Deleted: " + file.FullName);
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        Debug.LogError("Failed to delete file: " + file.FullName + " Error: " + ex.Message);
+        //    }
+        //}
+
+        Debug.Log("All save files successfully deleted.");
+
+
+        //Maybe use these
+
+        /*
+         * if (!Application.isEditor && !Application.isPlaying)
+{
+    Debug.LogWarning("File deletion is disabled outside of play mode!");
+    return;
+}
+
+if (!Directory.Exists(dirPath)) return;
+
+if (fileInfo.Length > 0)
+{
+    Debug.LogWarning("Are you sure you want to delete all saves? Press a button to confirm.");
+    return;
+}
+         */
+    }
+    public bool DeleteAllFilesConfirmation(bool shouldDelete)
+    {
+        return shouldDelete;
+    }
     private void GetLatestSaveFile()
     {
         if (fileName == null)

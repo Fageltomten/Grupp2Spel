@@ -6,4 +6,7 @@ public interface ISaver
     GameData Load(string currentScene);
     GameData LoadLatest();
     bool FileExists(string filePath);
+    bool FilesExists();
+    void DeleteAllFiles();
+    bool DeleteAllFilesConfirmation(bool shouldDelete);
 }
