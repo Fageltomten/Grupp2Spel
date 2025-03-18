@@ -69,7 +69,7 @@ public class GrapplingHook : MonoBehaviour
 
     private void UpdatePhysics()
     {
-        //playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint);
+        playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint)/Time.fixedDeltaTime;
         Vector3 velocity = grapplePoints[0] - grapplingLastPoint;
         Vector3 gravity = Vector3.down * 9.8f * Time.fixedDeltaTime;
         Vector3 toAdd = velocity  + (forceToAdd + gravity) * Time.fixedDeltaTime;
@@ -183,7 +183,7 @@ public class GrapplingHook : MonoBehaviour
             return;
         transform.position = grapplePoints[0];
         print($"GrappleReleased\nGrapplepoint 0: {grapplePoints[0]}\nlastPoint: {grapplingLastPoint}");
-        playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint) * Time.fixedDeltaTime;
+        //playerRigidbody.AddForce((grapplePoints[0] - grapplingLastPoint) * Time.fixedDeltaTime, ForceMode.VelocityChange);
         grapplePoints = new List<Vector3>();
     }
 
