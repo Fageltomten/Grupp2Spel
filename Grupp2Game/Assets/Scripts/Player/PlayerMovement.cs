@@ -124,4 +124,5 @@ public class PlayerMovement : MonoBehaviour
         inputMagnitude = movementDirection.magnitude;
         currentSpeed = rigidbody.linearVelocity.magnitude;
     }
+    
 }

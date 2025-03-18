@@ -47,5 +47,6 @@ public class MovingPlatform : Platform
     protected override void OnTriggerExit(Collider other)
     {
         other.transform.SetParent(null);
+        DontDestroyOnLoad(other.transform);
     }
 }
