@@ -6,7 +6,7 @@ public class Launchpad : MonoBehaviour
     [SerializeField] private float launchForce = 200f; //Added a variable for force
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Triggered");
+        //Debug.Log("Triggered");
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb != null)
         {

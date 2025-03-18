@@ -66,8 +66,9 @@ public class PlayerMovement : MonoBehaviour
             float dottedValue = (Vector3.Dot(rigidbody.linearVelocity.normalized, movementDirection.z * transform.forward + movementDirection.x * transform.right)+1)/2 ;
             Vector3 sidewaysVelocity = Vector3.Cross(transform.up, targetVelocity) * Vector3.Dot(Vector3.Cross(transform.up, targetVelocity.normalized), rigidbody.linearVelocity);
             sidewaysVelocity = Vector3.Scale(sidewaysVelocity, Vector3.one - transform.up);
-            var moveSpeed = Vector3.Scale(rigidbody.linearVelocity, Vector3.one - transform.up).magnitude;
-            forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed)) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
+            var moveVector = Vector3.Scale(rigidbody.linearVelocity, Vector3.one - transform.up);
+            var moveSpeed = moveVector.magnitude;
+            forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
             forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
             
             Debug.DrawLine(transform.position, transform.position + forceToAdd, Color.red);
@@ -89,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
             {   
                 rigidbody.linearVelocity = Vector3.Scale(rigidbody.linearVelocity, Vector3.one - transform.up);
                 isGrounded = true;
+                hasAirJumped = false;
             }
         }
     }
@@ -104,6 +106,7 @@ public class PlayerMovement : MonoBehaviour
         else if(!hasAirJumped)
         {
             hasAirJumped = true;
+            rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, 0, rigidbody.linearVelocity.z);
             rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         }

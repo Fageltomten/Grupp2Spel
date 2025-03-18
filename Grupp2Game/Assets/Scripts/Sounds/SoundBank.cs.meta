@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: e5b69c02b4788414faa2ca3a15bb1dd9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - stepSound: {instanceID: 0}
+  - jumpSound: {fileID: 8300000, guid: ffae0c3fdee026647ace5974e3a9d236, type: 3}
+  - swingSound: {instanceID: 0}
+  - pickUpSound: {instanceID: 0}
+  - fanSound: {instanceID: 0}
+  - launchpadSound: {instanceID: 0}
+  - doorSound: {instanceID: 0}
+  - portalSound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
