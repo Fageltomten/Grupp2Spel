@@ -62,13 +62,14 @@ public class GrapplingHook : MonoBehaviour
         lineRenderer.SetPositions(grapplePoints.ToArray());
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
+        print($"Position set\nGrapplepoint 0: {grapplePoints[0]}\nlastPoint: {grapplingLastPoint}");
         transform.position = grapplePoints[0];
-        playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint);
+        //playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint);
     }
 
     private void UpdatePhysics()
     {
-        playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint);
+        //playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint);
         Vector3 velocity = grapplePoints[0] - grapplingLastPoint;
         Vector3 gravity = Vector3.down * 9.8f * Time.fixedDeltaTime;
         Vector3 toAdd = velocity  + (forceToAdd + gravity) * Time.fixedDeltaTime;
@@ -180,7 +181,9 @@ public class GrapplingHook : MonoBehaviour
         lineRenderer.positionCount = 0;
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
-        //playerRigidbody.linearVelocity = grapplePoints[0] - grapplingLastPoint;
+        transform.position = grapplePoints[0];
+        print($"GrappleReleased\nGrapplepoint 0: {grapplePoints[0]}\nlastPoint: {grapplingLastPoint}");
+        playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint) * Time.fixedDeltaTime;
         grapplePoints = new List<Vector3>();
     }
 
