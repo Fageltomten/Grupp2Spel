@@ -29,30 +29,33 @@ public class Fan : MonoBehaviour, IActivatable
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (isActivated == true)
+        if (isActivated)
         {
             Rigidbody rb = other.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.linearDamping = 2f;
+                Debug.LogWarning(rb.linearDamping);
             }
         }
+        
     }
     private void OnTriggerExit(Collider other)
     {
-        if (isActivated == true)
+        if (isActivated)
         {
 
             Rigidbody rb = other.GetComponent<Rigidbody>();
             if (rb != null)
             {
                 rb.linearDamping = 0f;
+                Debug.LogWarning(rb.linearDamping);
             }
         }
     }
     private void OnTriggerStay(Collider other)
     {
-        if (isActivated == true)
+        if (isActivated)
         {
             Rigidbody rb = other.GetComponent<Rigidbody>();
             if (rb != null)
