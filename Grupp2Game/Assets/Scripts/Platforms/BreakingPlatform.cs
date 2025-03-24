@@ -1,15 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
+// Author Anton Sundell
 public class BreakingPlatform : Platform
 {
-    //TODO
-    //Platform that breaks after you jump on it
-    //And then despawn again
-    //Make the platform shake or change color before it breaks
-    //Make it spawn again after some time
+  
     [SerializeField] private float breakingDelay = 3f;
-    [SerializeField] private float spawnDelay = 10f;
     private float timer;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
@@ -62,23 +58,27 @@ public class BreakingPlatform : Platform
     }
     private IEnumerator BreakPlatform()
     {
-        yield return new WaitForSeconds(breakingDelay);
+        
+        float elapsedTime = 0f;
+        Renderer renderer = GetComponent<Renderer>();
+        Color startColor = renderer.material.color;
+        Color endColor = Color.red; 
+
+        while (elapsedTime < breakingDelay)
+        {
+            float t = elapsedTime / breakingDelay; 
+            renderer.material.color = Color.Lerp(startColor, endColor, t);
+            yield return null; 
+            elapsedTime += Time.deltaTime;
+        }
+
+        renderer.material.color = startColor;
+
         foreach (Transform child in transform)
         {
             child.SetParent(null);
         }
+
         gameObject.SetActive(false);
-        StartCoroutine(RespawnAfterDelay());
-    }
-    private IEnumerator RespawnAfterDelay()
-    {
-        yield return new WaitForSeconds(spawnDelay);
-        RespawnPlatform();
-    }
-    private void RespawnPlatform()
-    {
-        transform.position = initialPosition;
-        transform.rotation = initialRotation;
-        gameObject.SetActive(true);
     }
 }
