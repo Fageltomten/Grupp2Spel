@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         SetData();
-        IsGrounded();
+        CheckGrounded();
         Move();
     }
 
@@ -77,13 +78,13 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawLine(transform.position, transform.position + (sidewaysVelocity) , Color.yellow);
         }
         forceToAdd = Vector3.Scale(forceToAdd, Vector3.one - transform.up);
-        rigidbody.AddForce(forceToAdd, ForceMode.Acceleration);
+        AddForce(forceToAdd, ForceMode.Acceleration);
     }
 
-    private void IsGrounded()
+    private void CheckGrounded()
     {
         isGrounded = false;
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hit, groundCheckDistance, groundLayer, QueryTriggerInteraction.Ignore))
+        if (Physics.BoxCast(transform.position - transform.up * (grouldClearance/2), new(0.5f,grouldClearance/2,0.5f), -transform.up, out RaycastHit hit,quaternion.identity, 1 ,groundLayer, QueryTriggerInteraction.Ignore))
         {
             transform.position += (hit.normal * grouldClearance - hit.normal * hit.distance) * groundStickiness * Time.fixedDeltaTime;
             if(grouldClearance>= hit.distance)
@@ -101,13 +102,13 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded)
         {
             hasAirJumped = false;
-            rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
         else if(!hasAirJumped)
         {
             hasAirJumped = true;
             rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, 0, rigidbody.linearVelocity.z);
-            rigidbody.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
         }
     }
@@ -125,4 +126,20 @@ public class PlayerMovement : MonoBehaviour
         currentSpeed = rigidbody.linearVelocity.magnitude;
     }
     
+    public bool IsGrounded()
+    {
+        return isGrounded;
+    }
+
+    public void AddForce(Vector3 force, ForceMode forceMode)
+    {
+        if (GetComponent<GrapplingHook>().IsGrappled())
+        {
+            GetComponent<GrapplingHook>().AddForce(force, forceMode);
+        }
+        else
+        {
+            rigidbody.AddForce(force, forceMode);
+        }
+    }
 }

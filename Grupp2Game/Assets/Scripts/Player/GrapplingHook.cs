@@ -6,7 +6,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.InputSystem;
+using System.Drawing;
 
+[RequireComponent(typeof(LineRenderer))]
+[RequireComponent(typeof(Rigidbody))]
 public class GrapplingHook : MonoBehaviour
 {
     private LineRenderer lineRenderer;
@@ -62,7 +65,7 @@ public class GrapplingHook : MonoBehaviour
         lineRenderer.SetPositions(grapplePoints.ToArray());
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
-        print($"Position set\nGrapplepoint 0: {grapplePoints[0]}\nlastPoint: {grapplingLastPoint}");
+        //print($"Position set\nGrapplepoint 0: {grapplePoints[0]}\nlastPoint: {grapplingLastPoint}");
         transform.position = grapplePoints[0];
         //playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint);
     }
@@ -71,7 +74,18 @@ public class GrapplingHook : MonoBehaviour
     {
         playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint)/Time.fixedDeltaTime;
         Vector3 velocity = grapplePoints[0] - grapplingLastPoint;
-        Vector3 gravity = Vector3.down * 9.8f * Time.fixedDeltaTime;
+        Vector3 gravity = Vector3.zero;
+        print(GetComponent<PlayerMovement>().IsGrounded());
+        if (!GetComponent<PlayerMovement>().IsGrounded())
+        {
+            gravity = Vector3.down * 9.8f * Time.fixedDeltaTime;
+        }
+        else
+        {
+            velocity = Vector3.Scale(playerRigidbody.linearVelocity.normalized, Vector3.one - transform.up) * playerRigidbody.linearVelocity.magnitude * Time.fixedDeltaTime;
+            grapplingLastPoint = grapplePoints[0];
+        }
+
         Vector3 toAdd = velocity  + (forceToAdd + gravity) * Time.fixedDeltaTime;
         Vector3 nextPoint = grapplePoints[0] + toAdd;
         grapplingLastPoint = grapplePoints[0];
@@ -81,17 +95,17 @@ public class GrapplingHook : MonoBehaviour
 
     private void CheckCollisionPoints()
     {
-        Physics.OverlapSphere(grapplePoints[0], ropeWidth, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
-        {
-            if (x.transform.tag == "Player")
-                return;
-            var tempPoint = grapplePoints[0] - x.ClosestPoint(grapplePoints[0]);
-            grapplePoints[0] = x.ClosestPoint(grapplePoints[0]) + (tempPoint.normalized * (ropeWidth + ropeOffset));
-        });
-
         for (float detail = 0f / lineCollisionDetail; detail <= lineCollisionDetail; detail += 1f / lineCollisionDetail)
         {
             var lerpedVector = Vector3.Lerp(grapplingLastPoint, grapplePoints[0], detail);
+            Physics.OverlapSphere(lerpedVector, transform.lossyScale.x/2, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
+            {
+                if (x.transform.tag == "Player")
+                    return;
+                var tempPoint = lerpedVector - x.ClosestPoint(grapplePoints[0]);
+                grapplePoints[0] = x.ClosestPoint(grapplePoints[0]) + (tempPoint.normalized * (transform.lossyScale.x/2 + 0.05f));
+                grapplingLastPoint = x.ClosestPoint(grapplePoints[0]) + (tempPoint.normalized * (transform.lossyScale.x / 2 + 0.05f));
+            });
             if (Physics.SphereCast(grapplePoints[0], ropeWidth, grapplePoints[1] - lerpedVector, out RaycastHit hit4, Vector3.Distance(grapplePoints[1], lerpedVector), grapplingLayerMask,QueryTriggerInteraction.Ignore))
             {
                 if (hit4.transform.tag == "Player")
@@ -108,7 +122,13 @@ public class GrapplingHook : MonoBehaviour
                     continue;
                 grapplePoints.Insert(1, point);
             }
-            
+
+            Physics.OverlapSphere(grapplePoints[1], ropeWidth, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
+            {
+                var tempPoint = grapplePoints[0] - x.ClosestPoint(grapplePoints[1]);
+                grapplePoints[1] = x.ClosestPoint(grapplePoints[1]) + (tempPoint.normalized * (ropeWidth + ropeOffset));
+            });
+
             Vector3 checkPoint1 = new();
             Vector3 checkPoint2 = new();
 
@@ -118,7 +138,7 @@ public class GrapplingHook : MonoBehaviour
                 checkPoint2 = grapplePoints[1] + (grapplePoints[2] - grapplePoints[1]).normalized * MathF.Min(checkDistance, (grapplePoints[2] - grapplePoints[1]).magnitude);
             }
             
-            while (grapplePoints.Count > 2 && (!Physics.SphereCast(checkPoint1, ropeWidth,checkPoint2-checkPoint1, out RaycastHit hit2, (checkPoint2-checkPoint1).magnitude, grapplingLayerMask, QueryTriggerInteraction.Ignore) && 
+            if (grapplePoints.Count > 2 && (!Physics.SphereCast(checkPoint1, ropeWidth,checkPoint2-checkPoint1, out RaycastHit hit2, (checkPoint2-checkPoint1).magnitude, grapplingLayerMask, QueryTriggerInteraction.Ignore) && 
                    !Physics.SphereCast(grapplePoints[0],ropeWidth,grapplePoints[2] - grapplePoints[0],out hit2, (grapplePoints[2] - grapplePoints[0]).magnitude, grapplingLayerMask, QueryTriggerInteraction.Ignore)))
             {
                 grapplePoints.RemoveAt(1);
@@ -220,4 +240,8 @@ public class GrapplingHook : MonoBehaviour
         }
     }
 
+    public bool IsGrappled()
+    {
+        return !(grapplePoints == null || grapplePoints.Count == 0);
+    }
 }
