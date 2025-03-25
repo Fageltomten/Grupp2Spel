@@ -1,13 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
+// Author Anton Sundell
 public class BreakingPlatform : Platform
 {
-    //TODO
-    //Platform that breaks after you jump on it
-    //And then despawn again
+  
+    [SerializeField] private float breakingDelay = 3f;
+    private float timer;
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
     protected override void Awake()
     {
         SetInitialStartingPosition();
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
     }
 
     protected override void FixedUpdate()
@@ -43,10 +49,36 @@ public class BreakingPlatform : Platform
     protected override void OnTriggerEnter(Collider other)
     {
         other.transform.SetParent(transform);
+        StartCoroutine(BreakPlatform());
 
     }
     protected override void OnTriggerExit(Collider other)
     {
         other.transform.SetParent(null);
+    }
+    private IEnumerator BreakPlatform()
+    {
+        
+        float elapsedTime = 0f;
+        Renderer renderer = GetComponent<Renderer>();
+        Color startColor = renderer.material.color;
+        Color endColor = Color.red; 
+
+        while (elapsedTime < breakingDelay)
+        {
+            float t = elapsedTime / breakingDelay; 
+            renderer.material.color = Color.Lerp(startColor, endColor, t);
+            yield return null; 
+            elapsedTime += Time.deltaTime;
+        }
+
+        renderer.material.color = startColor;
+
+        foreach (Transform child in transform)
+        {
+            child.SetParent(null);
+        }
+
+        gameObject.SetActive(false);
     }
 }
