@@ -2,7 +2,7 @@ using UnityEngine;
 
 
 // Author: Carl Åslund
-public class SettingsController : MonoBehaviour
+public class SettingsMenuController : MonoBehaviour
 {
 
     [SerializeField] GameObject aside;
@@ -23,6 +23,7 @@ public class SettingsController : MonoBehaviour
         DeactivateScreens();
         aside.SetActive(false);
         mainMenu.SetActive(true);
+        SettingsManager.SaveSettings();
     }
 
 
@@ -30,6 +31,8 @@ public class SettingsController : MonoBehaviour
     {
         DeactivateScreens();
         graphicsScreen.SetActive(true);
+
+       
     }
 
     public void GoToAudio()
