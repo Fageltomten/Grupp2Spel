@@ -1,40 +1,31 @@
 {
-    "collectedCollectables": 0,
+    "collectedCollectables": 1,
     "ActiveScene": "HubLevel",
     "Collectable": [
+        {
+            "ID": "dy33",
+            "Position": {
+                "x": 9.149999618530274,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "IsCollected": true
+        },
+        {
+            "ID": "mt22",
+            "Position": {
+                "x": -4.440000057220459,
+                "y": 0.8700000047683716,
+                "z": 4.800000190734863
+            },
+            "IsCollected": false
+        },
         {
             "ID": "od22",
             "Position": {
                 "x": 1.090000033378601,
                 "y": 1.5,
                 "z": 3.2100000381469728
-            },
-            "IsCollected": false
-        },
-        {
-            "ID": "dk77",
-            "Position": {
-                "x": 5.409999847412109,
-                "y": 2.180000066757202,
-                "z": -4.039999961853027
-            },
-            "IsCollected": false
-        },
-        {
-            "ID": "qy66",
-            "Position": {
-                "x": -5.150000095367432,
-                "y": 1.5700000524520875,
-                "z": -4.269999980926514
-            },
-            "IsCollected": false
-        },
-        {
-            "ID": "po93",
-            "Position": {
-                "x": -1.2200000286102296,
-                "y": 0.3799999952316284,
-                "z": -8.859999656677246
             },
             "IsCollected": false
         },
@@ -48,15 +39,6 @@
             "IsCollected": false
         },
         {
-            "ID": "dy33",
-            "Position": {
-                "x": 9.149999618530274,
-                "y": 1.0,
-                "z": 0.0
-            },
-            "IsCollected": false
-        },
-        {
             "ID": "pd00",
             "Position": {
                 "x": 3.359999895095825,
@@ -66,18 +48,36 @@
             "IsCollected": false
         },
         {
-            "ID": "mt22",
+            "ID": "qy66",
             "Position": {
-                "x": -4.440000057220459,
-                "y": 0.8700000047683716,
-                "z": 4.800000190734863
+                "x": -5.150000095367432,
+                "y": 1.5700000524520875,
+                "z": -4.269999980926514
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "dk77",
+            "Position": {
+                "x": 5.409999847412109,
+                "y": 2.180000066757202,
+                "z": -4.039999961853027
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "po93",
+            "Position": {
+                "x": -1.2200000286102296,
+                "y": 0.3799999952316284,
+                "z": -8.859999656677246
             },
             "IsCollected": false
         }
     ],
     "TimePlayed": {
         "Hours": 0,
-        "Minutes": 2,
-        "Seconds": 48
+        "Minutes": 0,
+        "Seconds": 6
     }
 }
