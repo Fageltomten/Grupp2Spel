@@ -7,6 +7,7 @@ using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.InputSystem;
 using System.Drawing;
+using Unity.Cinemachine;
 
 [RequireComponent(typeof(LineRenderer))]
 [RequireComponent(typeof(Rigidbody))]
@@ -21,6 +22,7 @@ public class GrapplingHook : MonoBehaviour
     private Vector3 forceToAdd;
     private Rigidbody playerRigidbody;
     private InputAction dashAction;
+    private Vector3 objectHitVector;
 
     [SerializeField] private int PhysicsIterations = 10;
     [SerializeField] private LayerMask grapplingLayerMask;
@@ -72,25 +74,24 @@ public class GrapplingHook : MonoBehaviour
 
     private void UpdatePhysics()
     {
-        playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint)/Time.fixedDeltaTime;
+        playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint) / Time.fixedDeltaTime;
         Vector3 velocity = grapplePoints[0] - grapplingLastPoint;
         Vector3 gravity = Vector3.zero;
         print(GetComponent<PlayerMovement>().IsGrounded());
-        if (!GetComponent<PlayerMovement>().IsGrounded())
-        {
-            gravity = Vector3.down * 9.8f * Time.fixedDeltaTime;
-        }
-        else
+        gravity = Vector3.down * 9.8f * Time.fixedDeltaTime;
+        /*else
         {
             velocity = Vector3.Scale(playerRigidbody.linearVelocity.normalized, Vector3.one - transform.up) * playerRigidbody.linearVelocity.magnitude * Time.fixedDeltaTime;
             grapplingLastPoint = grapplePoints[0];
-        }
-
-        Vector3 toAdd = velocity  + (forceToAdd + gravity) * Time.fixedDeltaTime;
+        }*/
+        //Vector3 toAdd = velocity + (forceToAdd + gravity) * Time.fixedDeltaTime;
+        Vector3 toAdd = Vector3.Scale(velocity  + (forceToAdd + gravity) * Time.fixedDeltaTime, Vector3.one - objectHitVector.Abs());
+        print($" thing {Vector3.one - objectHitVector.Abs()}");
         Vector3 nextPoint = grapplePoints[0] + toAdd;
         grapplingLastPoint = grapplePoints[0];
         grapplePoints[0] = nextPoint;
         forceToAdd = Vector3.zero;
+        objectHitVector = Vector3.zero;
     }
 
     private void CheckCollisionPoints()
@@ -105,6 +106,8 @@ public class GrapplingHook : MonoBehaviour
                 var tempPoint = lerpedVector - x.ClosestPoint(grapplePoints[0]);
                 grapplePoints[0] = x.ClosestPoint(grapplePoints[0]) + (tempPoint.normalized * (transform.lossyScale.x/2 + 0.05f));
                 grapplingLastPoint = x.ClosestPoint(grapplePoints[0]) + (tempPoint.normalized * (transform.lossyScale.x / 2 + 0.05f));
+                objectHitVector = (x.ClosestPoint(grapplePoints[0]) - grapplePoints[0]).normalized;
+
             });
             if (Physics.SphereCast(grapplePoints[0], ropeWidth, grapplePoints[1] - lerpedVector, out RaycastHit hit4, Vector3.Distance(grapplePoints[1], lerpedVector), grapplingLayerMask,QueryTriggerInteraction.Ignore))
             {
