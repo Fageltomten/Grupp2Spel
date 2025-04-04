@@ -30,18 +30,18 @@ public class TimeBasedPlatform : Platform
         if (useRandomStartPoint)
         {
             int startIndex = Random.Range(0, waypoints.Length);
-            transform.position = waypoints[startIndex].position;
+            transform.parent.position = waypoints[startIndex].position;
         }
         else
         {
-            transform.position = waypoints[startingPoint].position;
+            transform.parent.position = waypoints[startingPoint].position;
         }
     }
     protected override void Move()
     {
         if (shouldMove)
         {
-            if (Vector3.Distance(transform.position, waypoints[i].position) < 0.05f)
+            if (Vector3.Distance(transform.parent.position, waypoints[i].position) < 0.05f)
             {
                 i++;
                 shouldMove = false;
@@ -50,17 +50,17 @@ public class TimeBasedPlatform : Platform
                     i = 0;
                 }
             }
-            transform.position = Vector3.MoveTowards(transform.position, waypoints[i].position, speed * Time.fixedDeltaTime);
+            transform.parent.position = Vector3.MoveTowards(transform.parent.position, waypoints[i].position, speed * Time.fixedDeltaTime);
         }
     }
 
     protected override void OnTriggerEnter(Collider other)
     {
-        other.transform.SetParent(transform);
+        other.transform.SetParent(transform.parent, true);
 
     }
     protected override void OnTriggerExit(Collider other)
     {
-        other.transform.SetParent(null);
+        other.transform.SetParent(null, true);
     }
 }
