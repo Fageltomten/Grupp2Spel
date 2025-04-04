@@ -17437,6 +17437,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6152745467577698699, guid: 4a957d079631c1d488d35ba48e947ee6, type: 3}
+      propertyPath: sceneToLoad
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7319934908992822332, guid: 4a957d079631c1d488d35ba48e947ee6, type: 3}
       propertyPath: m_Name
       value: CablePortal
