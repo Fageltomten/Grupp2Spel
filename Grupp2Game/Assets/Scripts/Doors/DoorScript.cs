@@ -9,6 +9,7 @@ public class DoorScript : MonoBehaviour, IActivatable
     private int startingPoint, i = 1;
     private bool isActivated;
     private bool isMoving = false;
+    private Color channelColor, activatedColor, deactivatedColor;
 
     void IActivatable.Activate()
     {
@@ -19,6 +20,13 @@ public class DoorScript : MonoBehaviour, IActivatable
     {
         isActivated = false;
         Close();
+    }
+    private void Start()
+    {
+        channelColor = new Color(0f / 255f, 255f / 255f, 255f / 255f); ;
+        deactivatedColor = new Color(255f / 255f, 0f / 255f, 0f / 255f);
+        activatedColor = new Color(128f / 255f, 255f / 255f, 0f / 255f);
+
     }
     private void FixedUpdate()
     {
