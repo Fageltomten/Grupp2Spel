@@ -73,11 +73,12 @@ public class PauseMenuController : MonoBehaviour
     public void Respawn()
     {
         // add respawn logic
+        UnPause();
     }
 
     public void ExitGame()
     {
-       // add exit logic
+       Application.Quit();
     }
 
 }

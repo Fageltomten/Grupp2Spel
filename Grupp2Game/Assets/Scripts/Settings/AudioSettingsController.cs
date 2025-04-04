@@ -14,6 +14,7 @@ public class AudioSettingsController : MonoBehaviour
 
     private void Awake()
     {
+        
         LoadSettings();
         ChangeVolume();
     }
@@ -59,7 +60,7 @@ public class AudioSettingsController : MonoBehaviour
 
     void ChangeVolume()
     {
-
+        
     }
 
 }
