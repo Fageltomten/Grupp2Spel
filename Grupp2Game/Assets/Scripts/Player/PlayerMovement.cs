@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         Vector3 forceToAdd = Vector3.zero;
-        if (inputMagnitude == 0 && currentSpeed != 0 && isGrounded)
+        if (inputMagnitude == 0 && currentSpeed != 0 && isGrounded && !GetComponent<GrapplingHook>().IsGrappled())
         {
             forceToAdd -= rigidbody.linearVelocity * stopSpeed;
         }
