@@ -40,7 +40,7 @@ public class PauseMenuController : MonoBehaviour
         pauseMenu.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-
+        DisablePlayerMovement();
     }
 
     public void UnPause()
@@ -51,8 +51,24 @@ public class PauseMenuController : MonoBehaviour
         pauseMenu.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        EnablePlayerMovement();
+       
     }
 
+
+    void DisablePlayerMovement()
+    {
+        InputSystem.actions.FindActionMap("Player").Disable();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<PlayerLook>().enabled = false;
+    }
+
+    void EnablePlayerMovement()
+    {
+        InputSystem.actions.FindActionMap("Player").Enable();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<PlayerLook>().enabled = true;
+    }
 
     public void Respawn()
     {
