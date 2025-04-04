@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4588179680162384480}
   - component: {fileID: 3208043935101840522}
   - component: {fileID: 1949986042131499378}
+  - component: {fileID: 630465159443769166}
   m_Layer: 0
   m_Name: LeftDoor
   m_TagString: Untagged
@@ -147,6 +148,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.72, y: 0.88, z: 7.29}
   m_Center: {x: -0.44, y: -0.06, z: 4.24}
+--- !u!114 &630465159443769166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1911788477865496314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3241a7d7c5281d44a8aee59123fcb5fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listeningChannel: 1
+  startActivated: 0
+  startListening: 1
 --- !u!1 &2074996124555242396
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +225,7 @@ Transform:
   m_GameObject: {fileID: 2459236158015767293}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 4.5, z: -26.64}
+  m_LocalPosition: {x: 0, y: 2, z: 0}
   m_LocalScale: {x: 3.6476, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -365,6 +381,7 @@ GameObject:
   - component: {fileID: 3727433651921378272}
   - component: {fileID: 1649585407766478175}
   - component: {fileID: 2865071820673502183}
+  - component: {fileID: 8750725240956809270}
   m_Layer: 0
   m_Name: RightDoor
   m_TagString: Untagged
@@ -498,6 +515,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.72, y: 0.88, z: 7.29}
   m_Center: {x: 0.52, y: -0.06, z: 4.24}
+--- !u!114 &8750725240956809270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5082231338830527117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3241a7d7c5281d44a8aee59123fcb5fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listeningChannel: 1
+  startActivated: 0
+  startListening: 1
 --- !u!1 &5234203872740533778
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +589,7 @@ Transform:
   m_GameObject: {fileID: 7833257700185039005}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.23, y: 2.5, z: -26.64}
+  m_LocalPosition: {x: -2.63, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -668,7 +700,7 @@ Transform:
   m_GameObject: {fileID: 7879928356828059307}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.03, y: 2.5, z: -26.64}
+  m_LocalPosition: {x: 2.63, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

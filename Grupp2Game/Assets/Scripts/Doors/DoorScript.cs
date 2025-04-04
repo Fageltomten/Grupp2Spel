@@ -1,17 +1,25 @@
 using UnityEngine;
 
 //Author Anton Sundell
-// TO DO:
-// Make the door activatable, scrap trigger system
-// Fix prefab
-public class DoorScript : MonoBehaviour
+
+public class DoorScript : MonoBehaviour, IActivatable
 { 
     [SerializeField] protected float speed;
     [SerializeField] protected Transform[] waypoints;
     private int startingPoint, i = 1;
-
+    private bool isActivated;
     private bool isMoving = false;
 
+    void IActivatable.Activate()
+    {
+        isActivated = true;
+        Open();
+    }
+    void IActivatable.Deactivate()
+    {
+        isActivated = false;
+        Close();
+    }
     private void FixedUpdate()
     {
         if (isMoving)
@@ -32,21 +40,21 @@ public class DoorScript : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            Open();
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        Open();
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player")) 
-        {
-            Close();
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.CompareTag("Player")) 
+    //    {
+    //        Close();
+    //    }
+    //}
 
     private void Open()
     {
