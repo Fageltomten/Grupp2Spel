@@ -2,13 +2,20 @@ using System.Collections;
 using UnityEngine;
 
 // Author Anton Sundell
-public class BreakingPlatform : Platform
+public class BreakingPlatform : Platform, IMovablePlatform
 {
-  
+    [SerializeField] bool isMovable = true;
+    [SerializeField] bool isBreakable;
     [SerializeField] private float breakingDelay = 3f;
     private float timer;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    
+    public bool IsMovable
+    {
+        get => isMovable;
+        set => isMovable = value;
+    }
     protected override void Awake()
     {
         SetInitialStartingPosition();
@@ -18,7 +25,10 @@ public class BreakingPlatform : Platform
 
     protected override void FixedUpdate()
     {
-        Move();
+        if (isMovable)
+        {
+            Move();
+        }
     }
     protected override void SetInitialStartingPosition()
     {
