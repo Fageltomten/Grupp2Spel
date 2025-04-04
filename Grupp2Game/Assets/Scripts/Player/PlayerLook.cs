@@ -45,7 +45,7 @@ public class PlayerLook : MonoBehaviour
         horizontalRotation += mouseVector.x;
         verticalRotation -= mouseVector.y;
 
-        int min = -90;
+        int min = -45;
         int max = 90;
 
         verticalRotation = Mathf.Clamp(verticalRotation, min, max);

@@ -24,7 +24,7 @@ public class Portal : MonoBehaviour
             //Jag provade olika event inom SceneManager klassen som detta: SceneManager.activeSceneChanged
             //Men det ville inte fungera. Så jag lägger bara saven här, orkar inte längre
             GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
-            SceneManager.LoadScene(SceneHandler.LevelToString[sceneToLoad]);
+            //SceneManager.LoadScene(SceneHandler.LevelToString[sceneToLoad]);
             other.transform.position = spawnPosition;
         }
     }
