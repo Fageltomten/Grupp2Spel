@@ -170,7 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activationWeight: 1
-  movingPart: {fileID: 4946131551268021179}
 --- !u!65 &7760619705694031948
 BoxCollider:
   m_ObjectHideFlags: 0
