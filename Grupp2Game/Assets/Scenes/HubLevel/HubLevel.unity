@@ -2457,7 +2457,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1591276111219605865, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: sceneToLoad
-      value: GPULevel
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1591276111219605865, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: spawnPosition.x
@@ -23192,6 +23192,10 @@ PrefabInstance:
     - target: {fileID: 434943833823220697, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: m_VersionIndex
       value: 6112
+      objectReference: {fileID: 0}
+    - target: {fileID: 1591276111219605865, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
+      propertyPath: sceneToLoad
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1591276111219605865, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: spawnPosition.x
