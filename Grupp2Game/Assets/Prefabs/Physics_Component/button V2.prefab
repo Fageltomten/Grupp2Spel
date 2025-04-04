@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 98340d66fb2a987449d4a7cd9a5817eb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.24437
+      value: 15.091507
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 98340d66fb2a987449d4a7cd9a5817eb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.36010495
+      value: 0.36010447
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 98340d66fb2a987449d4a7cd9a5817eb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.839451
+      value: 3.289401
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 98340d66fb2a987449d4a7cd9a5817eb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 98340d66fb2a987449d4a7cd9a5817eb, type: 3}
       propertyPath: m_Name
-      value: button 1
+      value: button V2
       objectReference: {fileID: 0}
     - target: {fileID: 7899099928202489408, guid: 98340d66fb2a987449d4a7cd9a5817eb, type: 3}
       propertyPath: m_LocalPosition.y
@@ -123,8 +123,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 1.2379494, z: 2.3}
-  m_Center: {x: 0, y: 0.3810253, z: 0.016845703}
+  m_Size: {x: 2, y: 1.4097023, z: 2.3}
+  m_Center: {x: 0, y: 0.46690178, z: 0.016845703}
 --- !u!1 &8240612869428827440 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6821887585681450876, guid: 98340d66fb2a987449d4a7cd9a5817eb, type: 3}
