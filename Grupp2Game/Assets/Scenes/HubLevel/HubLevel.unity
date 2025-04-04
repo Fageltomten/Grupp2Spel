@@ -23194,6 +23194,10 @@ PrefabInstance:
       value: 6112
       objectReference: {fileID: 0}
     - target: {fileID: 1591276111219605865, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
+      propertyPath: sceneToLoad
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1591276111219605865, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: spawnPosition.x
       value: 0
       objectReference: {fileID: 0}

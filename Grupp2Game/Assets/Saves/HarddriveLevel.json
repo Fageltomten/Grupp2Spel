@@ -1,0 +1,83 @@
+{
+    "collectedCollectables": 0,
+    "ActiveScene": "HarddriveLevel",
+    "Collectable": [
+        {
+            "ID": "pd00",
+            "Position": {
+                "x": 1.6299999952316285,
+                "y": 31.350000381469728,
+                "z": 14.210000038146973
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "mt22",
+            "Position": {
+                "x": -4.440000057220459,
+                "y": 31.350000381469728,
+                "z": 20.34000015258789
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "po93",
+            "Position": {
+                "x": -1.2200000286102296,
+                "y": 30.85999870300293,
+                "z": 6.680000305175781
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "dk77",
+            "Position": {
+                "x": 5.409999847412109,
+                "y": 32.65999984741211,
+                "z": 11.5
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "dy33",
+            "Position": {
+                "x": 9.149999618530274,
+                "y": 31.479999542236329,
+                "z": 15.539999961853028
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "qy66",
+            "Position": {
+                "x": -5.150000095367432,
+                "y": 32.04999923706055,
+                "z": 11.270000457763672
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "oy02",
+            "Position": {
+                "x": 3.359999895095825,
+                "y": 31.78999900817871,
+                "z": 8.680000305175782
+            },
+            "IsCollected": false
+        },
+        {
+            "ID": "od22",
+            "Position": {
+                "x": 1.090000033378601,
+                "y": 31.979999542236329,
+                "z": 18.75
+            },
+            "IsCollected": false
+        }
+    ],
+    "TimePlayed": {
+        "Hours": 0,
+        "Minutes": 0,
+        "Seconds": 4
+    }
+}
