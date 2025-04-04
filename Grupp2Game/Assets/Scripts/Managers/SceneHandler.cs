@@ -19,6 +19,8 @@ public class SceneHandler : Singleton<SceneHandler>
     [Header("Levels")]
     [SerializeField] Level currentLevel;
     [SerializeField] Level previousLevel;
+    public Level CurrentLevel { get { return currentLevel; } }
+    public Level PreviousLevel { get { return previousLevel; } }
 
     public static Dictionary<Level, string> LevelToString = new Dictionary<Level, string>
     {
@@ -28,19 +30,28 @@ public class SceneHandler : Singleton<SceneHandler>
         { Level.HardDrive, "HarddriveLevel" }
     };
 
-    //ISaver saveSystem;
+    public static Dictionary<Level, Vector3> GetStartingPosition = new Dictionary<Level, Vector3>
+    {
+        { Level.Hub, new Vector3(0, 1, 0)},
+        { Level.HardDrive, new Vector3(0, 2, -15) }
+    };
+
+    ISaver saveSystem;
     public override void Awake()
     {
         base.Awake();
-        //saveSystem = new JsonSaver(false);
+        saveSystem = new JsonSaver(false);
     }
 
+    /* Load without needing save data*/
     public IEnumerator ChangeScene(Level level)
     {
         previousLevel = currentLevel;
         currentLevel = level;
 
         SceneManager.LoadScene(LevelToString[level]);
+
+        GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
 
         return null;
     }
@@ -55,4 +66,10 @@ public class SceneHandler : Singleton<SceneHandler>
         StartCoroutine(ChangeScene(level));
     }
     
+
+    /* Load with needing save data */
+    public void ChangeToLatestScene()
+    {
+        
+    }
 }

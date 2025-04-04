@@ -5,19 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ScenesManager : Singleton<ScenesManager>
 {
-
-    public void LoadScene(string sceneToLoad)
-    {
-        //This scene gives use the gameobjects we need to play the game
-        //Player, PlayerHUD, Music, etc...
-        SceneManager.LoadScene("PersistManagersScene", LoadSceneMode.Additive);
-
-
-        StartCoroutine(LoadingScene(sceneToLoad));
-    }
-
-
-    /* OLD */
     //This should probably be somewhere else
     //Probably load it in from the GameData that we have
     //To save data as json
@@ -39,15 +26,18 @@ public class ScenesManager : Singleton<ScenesManager>
             ["PowerSupplyLevel"] = new Vector3(0, 1, 0)
         };
     }
-    //public void LoadScene(string sceneToLoad)
-    //{
-    //    //This scene gives use the gameobjects we need to play the game
-    //    //Player, PlayerHUD, Music, etc...
-    //    SceneManager.LoadScene("PersistManagersScene", LoadSceneMode.Additive);
+
+    /*
+    public void LoadScene(string sceneToLoad)
+    {
+        //This scene gives use the gameobjects we need to play the game
+        //Player, PlayerHUD, Music, etc...
+        SceneManager.LoadScene("PersistManagersScene", LoadSceneMode.Additive);
 
 
-    //    StartCoroutine(LoadingScene(sceneToLoad));
-    //}
+        StartCoroutine(LoadingScene(sceneToLoad));
+    }
+
     private IEnumerator LoadingScene(string sceneToLoad)
     {
         //Why do I do this? Because I just want to see the middle screen
@@ -63,7 +53,7 @@ public class ScenesManager : Singleton<ScenesManager>
 
         SetPlayerStartPosition(sceneToLoad);
     }
-
+    */
 
     public void LoadLatestSavedScene()
     {
