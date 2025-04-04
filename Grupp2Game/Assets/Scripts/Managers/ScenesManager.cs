@@ -26,6 +26,8 @@ public class ScenesManager : Singleton<ScenesManager>
             ["PowerSupplyLevel"] = new Vector3(0, 1, 0)
         };
     }
+
+    /*
     public void LoadScene(string sceneToLoad)
     {
         //This scene gives use the gameobjects we need to play the game
@@ -35,6 +37,7 @@ public class ScenesManager : Singleton<ScenesManager>
 
         StartCoroutine(LoadingScene(sceneToLoad));
     }
+
     private IEnumerator LoadingScene(string sceneToLoad)
     {
         //Why do I do this? Because I just want to see the middle screen
@@ -50,7 +53,7 @@ public class ScenesManager : Singleton<ScenesManager>
 
         SetPlayerStartPosition(sceneToLoad);
     }
-
+    */
 
     public void LoadLatestSavedScene()
     {
