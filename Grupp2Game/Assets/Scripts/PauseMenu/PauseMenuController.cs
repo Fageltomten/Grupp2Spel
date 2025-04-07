@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -73,7 +74,9 @@ public class PauseMenuController : MonoBehaviour
 
     public void Respawn()
     {
-        
+        Dictionary<Level, Vector3> spawnPos = SceneHandler.GetStartingPosition;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.transform.position = spawnPos[SceneHandler.Instance.CurrentLevel];
         UnPause();
     }
 
