@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,9 @@ public class SceneHandler : Singleton<SceneHandler>
     {
         { Level.MainMenu, "MainMenu" },
         { Level.Persistance, "PersistManagersScene" },
-        { Level.Hub, "HubLevel" },
-        { Level.HardDrive, "HarddriveLevel" },
-        { Level.GPU, "GPULevel" },
+        { Level.Hub, "Hub" },
+        { Level.HardDrive, "HardDrive" },
+        { Level.GPU, "GPU" },
     };
 
     public static Dictionary<Level, Vector3> GetStartingPosition = new Dictionary<Level, Vector3>
@@ -89,15 +90,50 @@ public class SceneHandler : Singleton<SceneHandler>
     /* Load with needing save data */
     public void ChangeToLatestScene()
     {
+        SceneManager.LoadScene(LevelToString[Level.Persistance]);
+
+      StartCoroutine(LoadingSavedScene());
+     }
+    private IEnumerator LoadingSavedScene()
+    {
+        //Why do I do this? Because I just want to see the middle screen
+        float waitTime = 1f;
+        yield return new WaitForSeconds(waitTime);
+
         GameData data = saveSystem.LoadLatest();
         if (data != null)
         {
-            currentLevel = LevelToString.ToDictionary(x => x.Value, x => x.Key)[data.ActiveScene];
+            SceneManager.LoadScene(data.ActiveScene);
 
-            ChangeSceneWithPersistance(currentLevel);
+            yield return null;
+
+            SetPlayerStartPosition(data.ActiveScene);
         }
-     }
+        Level level = Enum.Parse<Level>(data.ActiveScene);
+        currentLevel = level;
+    }
 
+    private void SetPlayerStartPosition(string sceneToLoad)
+    {
+        //Maybe I should do some check to see if the value exists?
+        //Maybe, but it would only crash if we/I wrote the wrong value
+
+        Level level = Enum.Parse<Level>(sceneToLoad);
+        if (GetStartingPosition.TryGetValue(level, out Vector3 startPos))
+        {
+            if (GameObject.FindAnyObjectByType<PlayerMovement>() == null)
+            {
+                Debug.Log("Player not found");
+            }
+            GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = startPos;
+        }
+        else
+        {
+            Debug.LogError($"Could not find the specific scene name(key) in the 'PlayerSceneSpawnPosition' dictionary" +
+                $" when trying to get the start position for the player in the specific scene. Did you mean to load another scene or did you make a typo?");
+            Debug.LogError($"Error occured with the scene: {sceneToLoad}");
+        }
+    }
     private void ChoosePosition()
     {
         Vector3 pos = Vector3.zero;

@@ -352,6 +352,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3964148635511324751, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
+      propertyPath: grouldClearance
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 6223996864951110643, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
       propertyPath: m_Name
       value: Player

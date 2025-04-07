@@ -9,19 +9,19 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu/MainMenu.unity
     guid: 5fe000bf326fd3245a38f957ca75841c
   - enabled: 1
-    path: Assets/Scenes/HubLevel/HubLevel.unity
+    path: Assets/Scenes/HubLevel/Hub.unity
     guid: c24101b515d6d2c40a6a10ab54edb19e
   - enabled: 1
-    path: Assets/Scenes/HarddriveLevel/HarddriveLevel.unity
+    path: Assets/Scenes/HarddriveLevel/HardDrive.unity
     guid: 63727ff4875ea2c459732d873d91303f
   - enabled: 1
-    path: Assets/Scenes/PowerSupplyLevel.unity
+    path: Assets/Scenes/PowerSupply.unity
     guid: 11daae76fa1adaf4ca2ecac7b5984ef8
   - enabled: 1
-    path: Assets/Scenes/GPULevel.unity
+    path: Assets/Scenes/GPU.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/CPULevel.unity
+    path: Assets/Scenes/CPU.unity
     guid: 74c7283f4308ec64b99712612fc49fa5
   - enabled: 1
     path: Assets/Scenes/PersistManagersScene.unity
