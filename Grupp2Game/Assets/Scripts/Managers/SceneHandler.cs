@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -53,6 +54,8 @@ public class SceneHandler : Singleton<SceneHandler>
 
         SceneManager.LoadScene(LevelToString[level]);
 
+        GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = GetStartingPosition[level];
+
         GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
 
         return null;
@@ -72,6 +75,12 @@ public class SceneHandler : Singleton<SceneHandler>
     /* Load with needing save data */
     public void ChangeToLatestScene()
     {
-        
-    }
+        GameData data = saveSystem.LoadLatest();
+        if (data != null)
+        {
+            currentLevel = LevelToString.ToDictionary(x => x.Value, x => x.Key)[data.ActiveScene];
+
+            ChangeSceneWithPersistance(currentLevel);
+        }
+     }
 }
