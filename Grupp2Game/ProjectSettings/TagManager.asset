@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - Platform
-  - SceneManager
+  - Door
+  - Frame
   layers:
   - Default
   - TransparentFX
