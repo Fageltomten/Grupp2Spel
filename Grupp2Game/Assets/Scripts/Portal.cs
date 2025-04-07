@@ -14,13 +14,4 @@ public class Portal : MonoBehaviour
             sceneManager.GetComponent<SceneHandler>().ChangeScene(sceneToLoad);
         }
     }
-
-    private Vector3 ChoosePosition(Level cLevel)
-    {
-        Vector3 pos = Vector3.zero;
-
-        pos = SceneHandler.GetStartingPosition[cLevel];
-
-        return pos;
-    }
 }

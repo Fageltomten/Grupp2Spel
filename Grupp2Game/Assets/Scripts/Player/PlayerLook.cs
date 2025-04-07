@@ -24,6 +24,8 @@ public class PlayerLook : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Debug.Log("Player Initiated");
     }
 
     // Update is called once per frame
