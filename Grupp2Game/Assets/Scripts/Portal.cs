@@ -12,16 +12,6 @@ public class Portal : MonoBehaviour
         {
             GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
             sceneManager.GetComponent<SceneHandler>().ChangeScene(sceneToLoad);
-            other.transform.position = ChoosePosition(sceneManager.GetComponent<SceneHandler>().CurrentLevel);
         }
-    }
-
-    private Vector3 ChoosePosition(Level cLevel)
-    {
-        Vector3 pos = Vector3.zero;
-
-        pos = SceneHandler.GetStartingPosition[cLevel];
-
-        return pos;
     }
 }
