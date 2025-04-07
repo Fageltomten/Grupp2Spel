@@ -47,6 +47,8 @@ public class SceneHandler : Singleton<SceneHandler>
     {
         base.Awake();
         saveSystem = new JsonSaver(false);
+
+        SceneManager.sceneLoaded += (sender, e) => ChoosePosition();
     }
 
     /* Load without needing save data*/
@@ -59,16 +61,32 @@ public class SceneHandler : Singleton<SceneHandler>
         SceneManager.LoadScene(LevelToString[level]);
         Debug.Log("Level Loaded  $");
 
-        
-        /* Spelaren hittas inte*/
-        if (GameObject.FindAnyObjectByType<PlayerMovement>() != null)
-            Debug.Log("Player Found $");
-        else
-            Debug.Log("Player Not Found $");
 
-        /* Slutar funka när man kör med persistance */
-        GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = GetStartingPosition[level];
-        Debug.Log("Position Changed  $");
+
+        ///* Spelaren hittas inte*/
+        //if (GameObject.FindAnyObjectByType<PlayerMovement>() != null)
+        //    Debug.Log("Player Found $");
+        //else
+        //    Debug.Log("Player Not Found $");
+
+        ////bool looking = true;
+        ////while (looking)
+        ////{
+        ////    if (GameObject.FindAnyObjectByType<PlayerMovement>() != null)
+        ////    {
+        ////        Debug.Log("Player Found $");
+        ////        looking = false;
+        ////    }
+        ////    else
+        ////    {
+        ////        Debug.Log("Player Not Found $");
+        ////        Thread.Sleep(1000);
+        ////    }
+        ////}
+
+        ///* Slutar funka när man kör med persistance */
+        //GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = GetStartingPosition[level];
+        //Debug.Log("Position Changed  $");
 
         GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
 
@@ -85,60 +103,41 @@ public class SceneHandler : Singleton<SceneHandler>
         StartCoroutine(ChangeScene(level));
         //ChangeScene(level);
     }
-    
+
 
     /* Load with needing save data */
     public void ChangeToLatestScene()
     {
-        SceneManager.LoadScene(LevelToString[Level.Persistance]);
-
-      StartCoroutine(LoadingSavedScene());
-     }
-    private IEnumerator LoadingSavedScene()
-    {
-        //Why do I do this? Because I just want to see the middle screen
-        float waitTime = 1f;
-        yield return new WaitForSeconds(waitTime);
-
         GameData data = saveSystem.LoadLatest();
         if (data != null)
         {
-            SceneManager.LoadScene(data.ActiveScene);
+            currentLevel = LevelToString.ToDictionary(x => x.Value, x => x.Key)[data.ActiveScene];
 
-            yield return null;
-
-            SetPlayerStartPosition(data.ActiveScene);
-        }
-        Level level = Enum.Parse<Level>(data.ActiveScene);
-        currentLevel = level;
-    }
-
-    private void SetPlayerStartPosition(string sceneToLoad)
-    {
-        //Maybe I should do some check to see if the value exists?
-        //Maybe, but it would only crash if we/I wrote the wrong value
-
-        Level level = Enum.Parse<Level>(sceneToLoad);
-        if (GetStartingPosition.TryGetValue(level, out Vector3 startPos))
-        {
-            if (GameObject.FindAnyObjectByType<PlayerMovement>() == null)
-            {
-                Debug.Log("Player not found");
-            }
-            GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = startPos;
-        }
-        else
-        {
-            Debug.LogError($"Could not find the specific scene name(key) in the 'PlayerSceneSpawnPosition' dictionary" +
-                $" when trying to get the start position for the player in the specific scene. Did you mean to load another scene or did you make a typo?");
-            Debug.LogError($"Error occured with the scene: {sceneToLoad}");
+            ChangeSceneWithPersistance(currentLevel);
         }
     }
+
     private void ChoosePosition()
     {
         Vector3 pos = Vector3.zero;
 
-        pos = SceneHandler.GetStartingPosition[currentLevel];
-        GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = pos;
+
+        pos = GetStartingPosition[currentLevel];
+
+        //GameObject player = GameObject.FindAnyObjectByType<PlayerMovement>().gameObject;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            Debug.Log("Player Found $");
+        else
+            Debug.Log("Player Not Found $");
+
+        Debug.Log($"Before Position - {player.transform.position} $");
+        Debug.Log($"New Position - {pos} $");
+
+        player.SetActive(false);
+        player.transform.position = pos;
+        player.SetActive(true);
+        Debug.Log($"After Position - {player.transform.position} $");
+        Debug.Log("Position Changed  $");
     }
 }
