@@ -216,8 +216,7 @@ public class GrapplingHook : MonoBehaviour
 
     private void ShootRelease()
     {
-        if (EditorApplication.isPaused)
-            return;
+        
         lineRenderer.positionCount = 0;
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
