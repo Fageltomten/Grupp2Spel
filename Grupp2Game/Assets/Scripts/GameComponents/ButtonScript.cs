@@ -7,11 +7,15 @@ public class ButtonScript : MonoBehaviour, IActivator
 {
     [SerializeField] float activationWeight = 0.1f;
 
-    private Transform  movingPart, basePart, middlePart, textPart;
+    private Transform  movingPart, basePart;
+    private Transform[] activationIndicatorParts;
     private float movingPartStartPos;
     private bool atBottom = false;
     private bool isActivated = false;
-    private Color channelColor, activatedColor,deactivatedColor;
+
+    private Color channelColor = new Color(0f / 255f, 255f / 255f, 255f / 255f);
+    private Color deactivatedColor = new Color(255f / 255f, 0f / 255f, 0f / 255f);
+    private Color activatedColor = new Color(128f / 255f, 255f / 255f, 0f / 255f);
 
     private HashSet<Rigidbody> objectsOnTrigger = new HashSet<Rigidbody>();
 
@@ -19,25 +23,26 @@ public class ButtonScript : MonoBehaviour, IActivator
 
     private void Start()
     {
+
         movingPart = transform.Find("Button");
-        textPart = movingPart.Find("Text");
         basePart = transform.Find("Base");
-        middlePart = transform.Find("MiddlePart");
-        channelColor = new Color(0f / 255f, 255f / 255f, 255f / 255f); ;
-        deactivatedColor = new Color(255f / 255f, 0f / 255f, 0f / 255f);
-        activatedColor = new Color(128f / 255f, 255f / 255f, 0f / 255f);
-
-
+        activationIndicatorParts = new Transform[]
+        {
+            transform.Find("MiddlePart"),
+            movingPart.Find("Text")
+        };
+        movingPart = transform.Find("Button");
         if (movingPart != null)
         {
-            textPart.GetComponent<Renderer>().material.color = deactivatedColor;
-            middlePart.GetComponent<Renderer>().material.color = deactivatedColor;
-            movingPart.GetComponent<Renderer>().material.color = Color.black;
             movingPartStartPos = movingPart.localPosition.y;
         }
-        if (basePart != null)
+
+
+        SetColor(basePart, channelColor);
+        SetColor(movingPart, Color.black);
+        foreach (Transform part in activationIndicatorParts)
         {
-            basePart.GetComponent<Renderer>().material.color = channelColor;
+            SetColor(part, deactivatedColor);
         }
     }
 
@@ -45,7 +50,7 @@ public class ButtonScript : MonoBehaviour, IActivator
     {
         Rigidbody rb = other.GetComponent<Rigidbody>();
 
-        if (rb != null && movingPart.localPosition.y > movingPartStartPos - 0.24f)
+        if (rb != null && movingPart.localPosition.y > movingPartStartPos - 0.33f)
         {
             objectsOnTrigger.Add(rb);
             float weightOnTrigger = TotalWeightOnTrigger();
@@ -55,29 +60,31 @@ public class ButtonScript : MonoBehaviour, IActivator
             }
             
         }
-        if(movingPart.localPosition.y <= (movingPartStartPos - 0.21f))
+        if(movingPart.localPosition.y <= (movingPartStartPos - 0.30f))
         {
-            movingPart.localPosition = new Vector3(0, (movingPartStartPos - 0.21f), 0);
+            movingPart.localPosition = new Vector3(0, (movingPartStartPos - 0.30f), 0);
             if(!atBottom)
             {
                 
                 if (isActivated)
                 {
-                    Debug.Log("isnotActivated: ");
+                    //Debug.Log("isnotActivated: ");
                     isActivated = false;
                     ActivationCaller.SendDeactivation();
-                    textPart.GetComponent<Renderer>().material.color = deactivatedColor;
-                    middlePart.GetComponent<Renderer>().material.color = deactivatedColor;
+                    foreach (Transform part in activationIndicatorParts)
+                    {
+                        SetColor(part, deactivatedColor);
+                    }
                 }
                 else
                 {
                     isActivated = true;
                     ActivationCaller.SendActivation();
-                    textPart.GetComponent<Renderer>().material.color = activatedColor;
-                    middlePart.GetComponent<Renderer>().material.color = activatedColor;
-                    Debug.Log("isActivated: ");
+                    foreach (Transform part in activationIndicatorParts)
+                    {
+                        SetColor(part, activatedColor);
+                    }
                 }
-                Debug.Log("isActivated: " + isActivated);
                 atBottom = true;
             }
         }
@@ -104,5 +111,12 @@ public class ButtonScript : MonoBehaviour, IActivator
             totalWeight += rb.mass;
         }
         return totalWeight;
+    }
+    private void SetColor(Transform part, Color color)
+    {
+        if (part != null)
+        {
+            part.GetComponent<Renderer>().material.color = color;
+        }
     }
 }

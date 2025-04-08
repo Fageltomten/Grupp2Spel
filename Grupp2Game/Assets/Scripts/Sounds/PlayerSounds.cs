@@ -25,10 +25,8 @@ public class PlayerSounds : MonoBehaviour
         {
             return;
         }
-        //audioSource.Stop();
         audioSource.clip = jumpSound;
         audioSource.loop = false;
         audioSource.Play();
-
     }
 }
