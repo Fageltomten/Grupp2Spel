@@ -78,6 +78,7 @@ public class GrapplingHook : MonoBehaviour
 
     private void UpdatePhysics()
     {
+        objectHitVector = Vector3.zero;
         playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint) / Time.fixedDeltaTime;
         Vector3 velocity = grapplePoints[0] - grapplingLastPoint;
         Vector3 gravity = Vector3.zero;
@@ -89,38 +90,39 @@ public class GrapplingHook : MonoBehaviour
         }*/
         //Vector3 toAdd = velocity + (forceToAdd + gravity) * Time.fixedDeltaTime;
         velocity = velocity + (forceToAdd + gravity) * Time.fixedDeltaTime;
-        float dot = Vector3.Dot(velocity.normalized, objectHitVector);
-        Vector3 vector = Vector3.Scale(velocity, objectHitVector) * dot;
         //("cool vector" + vector);
-        Vector3 toAdd = (velocity + (forceToAdd + gravity) * Time.fixedDeltaTime) - vector;
+        Vector3 toAdd = (velocity + (forceToAdd + gravity) * Time.fixedDeltaTime);
         //print($" thing {Vector3.Scale(velocity  + (forceToAdd + gravity) * Time.fixedDeltaTime, (Vector3.one - objectHitVector.Abs() * 2))}");
         //print(Vector3.one - objectHitVector.Abs());
-        Vector3 nextPoint = grapplePoints[0] + toAdd;
+        SetObjectHitVector();
+        float dot = Vector3.Dot(velocity.normalized, objectHitVector);
+        Vector3 vector = Vector3.Scale(velocity.Abs(), objectHitVector) * dot;
+        print(vector);
+        Vector3 nextPoint = grapplePoints[0] + toAdd - vector;
         grapplingLastPoint = grapplePoints[0];
         grapplePoints[0] = nextPoint;
         forceToAdd = Vector3.zero;
         objectHitVector = Vector3.zero;
     }
 
+    private void SetObjectHitVector()
+    {
+        var point = Vector3.Lerp(grapplingLastPoint, grapplePoints[0], 1);
+        bool collided = false;
+        Physics.OverlapSphere(point, transform.lossyScale.x / 2, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
+        {
+            if (x.transform.tag == "Player")
+                return;
+            collided = true;
+            var tempPoint = point - x.ClosestPoint(point);
+            grapplePoints[0] = x.ClosestPoint(point) + (tempPoint.normalized * (transform.lossyScale.x / 2 /*+ 0.01f*/));
+            grapplingLastPoint = grapplePoints[0];
+            objectHitVector += (x.ClosestPoint(point) - point).normalized;
+        });
+    }
+
     private void CheckCollisionPoints()
     {
-        for (float i = 0f; i <= 1; i += 0.5f)
-        {
-            var point = Vector3.Lerp(grapplingLastPoint, grapplePoints[0], 1);
-            bool collided = false;
-            Physics.OverlapSphere(point, transform.lossyScale.x / 2, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
-            {
-                if (x.transform.tag == "Player")
-                    return;
-                collided = true;
-                var tempPoint = point - x.ClosestPoint(point);
-                grapplePoints[0] = x.ClosestPoint(point) + (tempPoint.normalized * (transform.lossyScale.x / 2 /*+ 0.01f*/));
-                grapplingLastPoint = grapplePoints[0];
-                objectHitVector = (x.ClosestPoint(point) - point).normalized;
-            });
-            if(collided)
-                break;
-        }
         int runs = 0;
         for (float detail = 0f / lineCollisionDetail; detail <= 1; detail += 1f / lineCollisionDetail)
         {
