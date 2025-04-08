@@ -84,7 +84,7 @@ public class MainMenu : MonoBehaviour
     public void Continue()
     {
         //Middle scene to load neccessary GameObjects
-        ScenesManager.Instance.LoadLatestSavedScene();
+        SceneHandler.Instance.ChangeToLatestScene();
     }
     public void Options()
     {

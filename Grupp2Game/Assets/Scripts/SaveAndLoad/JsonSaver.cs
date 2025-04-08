@@ -5,7 +5,7 @@ using UnityEngine;
 //Author Vidar Edlund
 public class JsonSaver : ISaver
 {
-    private readonly string dirPath = Application.dataPath + "/Saves";
+    private readonly string dirPath = Application.persistentDataPath + "/Saves";
     private string fileName = null;
 
     private bool useEncryption = false;

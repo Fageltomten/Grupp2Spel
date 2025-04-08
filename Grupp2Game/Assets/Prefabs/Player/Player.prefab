@@ -729,7 +729,7 @@ MonoBehaviour:
   stopSpeed: 5
   sidewaysStopSpeed: 5
   jumpForce: 10
-  grouldClearance: 0.75
+  grouldClearance: 0.35
   groundCheckDistance: 1
   groundStickiness: 5
   groundLayer:
