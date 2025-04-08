@@ -3,13 +3,12 @@ using System.Linq;
 using UnityEngine;
 
 // Class by Carl Åslund
-public class ActivationCaller : MonoBehaviour
+public class ActivationCaller : ActivationAgent
 {
-    [Header("Activation Caller Settings")]
-    [SerializeField] int callingChannel;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         List<IActivator> activators = GetComponents<IActivator>().ToList();
 
         foreach (IActivator activator in activators)
@@ -20,10 +19,12 @@ public class ActivationCaller : MonoBehaviour
 
     public void SendActivation()
     {
-        ActivationManager.Instance.Activate(callingChannel);
+        ActivationManager.Instance.Activate(channel);
     }
     public void SendDeactivation()
     {
-        ActivationManager.Instance.Deactivate(callingChannel);
+        ActivationManager.Instance.Deactivate(channel);
     }
+
+    
 }
