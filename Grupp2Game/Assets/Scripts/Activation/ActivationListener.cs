@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 // Class by Carl Åslund
-public class ActivationListener : MonoBehaviour
+public class ActivationListener : ActivationAgent
 {
 
     event Action OnActivation;
@@ -14,14 +14,19 @@ public class ActivationListener : MonoBehaviour
     public bool IsListening { get; set; }
 
     [Header("Activation Listener Settings")]
-    [SerializeField] int listeningChannel;
     [SerializeField] bool startActivated = false;
     [SerializeField] bool startListening = true;
-
-    void Start()
+    [SerializeField] bool autoListenOnCaller = false;
+    protected override void Start()
     {
+        base.Start();
         IsActivated = false;
         IsListening = startListening;
+
+        if (autoListenOnCaller)
+        {
+            ChangeChannelToCaller();
+        }
 
         List<IActivatable> activatables = GetComponents<IActivatable>().ToList();
 
@@ -41,9 +46,18 @@ public class ActivationListener : MonoBehaviour
 
     }
 
-    void ReceiveActivationRequest(int channel)
+    void ChangeChannelToCaller() 
+    { 
+        ActivationCaller caller = GetComponent<ActivationCaller>();
+        if (caller != null)
+        {
+            channel = caller.channel;
+        }
+    }
+
+    void ReceiveActivationRequest(int recievedChannel)
     {
-        if (IsListening && channel == listeningChannel)
+        if (IsListening && recievedChannel == channel)
         {
             ActivateObject();
         }
@@ -58,9 +72,9 @@ public class ActivationListener : MonoBehaviour
         }
     }
 
-    void ReceiveDeactivationRequest(int channel)
+    void ReceiveDeactivationRequest(int recievedChannel)
     {
-        if (IsListening && channel == listeningChannel)
+        if (IsListening && recievedChannel == channel)
         {
             DeactivateObject();
         }

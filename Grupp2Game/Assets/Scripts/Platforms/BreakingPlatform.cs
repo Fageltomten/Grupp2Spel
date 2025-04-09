@@ -1,18 +1,34 @@
+using System.Collections;
 using UnityEngine;
 
-public class BreakingPlatform : Platform
+// Author Anton Sundell
+public class BreakingPlatform : Platform, IMovablePlatform
 {
-    //TODO
-    //Platform that breaks after you jump on it
-    //And then despawn again
+    [SerializeField] bool isMovable = true;
+    [SerializeField] bool isBreakable;
+    [SerializeField] private float breakingDelay = 3f;
+    private float timer;
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+    
+    public bool IsMovable
+    {
+        get => isMovable;
+        set => isMovable = value;
+    }
     protected override void Awake()
     {
         SetInitialStartingPosition();
+        initialPosition = transform.position;
+        initialRotation = transform.rotation;
     }
 
     protected override void FixedUpdate()
     {
-        Move();
+        if (isMovable)
+        {
+            Move();
+        }
     }
     protected override void SetInitialStartingPosition()
     {
@@ -43,10 +59,36 @@ public class BreakingPlatform : Platform
     protected override void OnTriggerEnter(Collider other)
     {
         other.transform.SetParent(transform);
+        StartCoroutine(BreakPlatform());
 
     }
     protected override void OnTriggerExit(Collider other)
     {
         other.transform.SetParent(null);
+    }
+    private IEnumerator BreakPlatform()
+    {
+        
+        float elapsedTime = 0f;
+        Renderer renderer = GetComponent<Renderer>();
+        Color startColor = renderer.material.color;
+        Color endColor = Color.red; 
+
+        while (elapsedTime < breakingDelay)
+        {
+            float t = elapsedTime / breakingDelay; 
+            renderer.material.color = Color.Lerp(startColor, endColor, t);
+            yield return null; 
+            elapsedTime += Time.deltaTime;
+        }
+
+        renderer.material.color = startColor;
+
+        foreach (Transform child in transform)
+        {
+            child.SetParent(null);
+        }
+
+        gameObject.SetActive(false);
     }
 }

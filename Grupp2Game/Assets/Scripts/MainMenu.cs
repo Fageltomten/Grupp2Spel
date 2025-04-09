@@ -78,12 +78,13 @@ public class MainMenu : MonoBehaviour
     }
     private void LoadStartScene()
     {
-        ScenesManager.Instance.LoadScene("HubLevel");
+        //ScenesManager.Instance.LoadScene("HubLevel");
+        SceneHandler.Instance.ChangeSceneWithPersistance(Level.Hub);
     }
     public void Continue()
     {
         //Middle scene to load neccessary GameObjects
-        ScenesManager.Instance.LoadLatestSavedScene();
+        SceneHandler.Instance.ChangeToLatestScene();
     }
     public void Options()
     {

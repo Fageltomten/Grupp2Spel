@@ -1,21 +1,52 @@
 using UnityEngine;
 
 //Author Clara Lönnkrans
-public class Launchpad : MonoBehaviour
+public class Launchpad : MonoBehaviour, IActivatable
 {
-    [SerializeField] private float launchForce = 200f; //Added a variable for force
+    [SerializeField] private float force = 30;
+
+    private Transform jumpPart;
+    private Transform basePart;
+    private bool isActivated = false;
+    private Color channelColor;
+    private Color activatedColor;
+    private Color deactivatedColor;
+    void IActivatable.Activate()
+    {
+        isActivated = true;
+        jumpPart.GetComponent<Renderer>().material.color = activatedColor;
+    }
+    void IActivatable.Deactivate()
+    {
+        isActivated = false;
+        jumpPart.GetComponent<Renderer>().material.color = deactivatedColor;
+    }
+    private void Start()
+    {
+        basePart = transform.Find("Bottom");
+        jumpPart = transform.Find("Top");
+        channelColor = new Color(0f / 255f, 255f / 255f, 255f / 255f); ;
+        deactivatedColor = new Color(255f / 255f, 0f / 255f, 0f / 255f);
+        activatedColor = new Color(128f / 255f, 255f / 255f, 0f / 255f);
+
+        if (basePart != null)
+        {
+            basePart.GetComponent<Renderer>().material.color = channelColor;
+        }
+        if (jumpPart != null)
+        {
+            jumpPart.GetComponent<Renderer>().material.color = deactivatedColor;
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Triggered");
-        Rigidbody rb = other.GetComponent<Rigidbody>();
-        if (rb != null)
+       if(isActivated)
         {
-            //New Code
-            rb.linearVelocity = Vector3.zero;
-            rb.AddForce(transform.up * launchForce, ForceMode.Impulse); //Make it launch in the up direction of the launchpad
-
-            //Old code 
-           // rb.AddForce(0, launchForce, 0);
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if(rb != null )
+            {
+                rb.AddForce(transform.up * force, ForceMode.Impulse);
+            }
         }
     }
 }

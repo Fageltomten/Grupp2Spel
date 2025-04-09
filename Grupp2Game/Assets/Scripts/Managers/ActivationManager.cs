@@ -5,6 +5,8 @@ using UnityEngine;
 public class ActivationManager : MonoBehaviour
 {
 
+    [SerializeField] Color[] chanelColors;
+
     public static ActivationManager Instance { get; private set; }
 
     public event Action<int> OnActivation;
@@ -37,5 +39,10 @@ public class ActivationManager : MonoBehaviour
         {
             OnDeactivate.Invoke(channel);
         }
+    }
+
+    public Color GetChannelColor(int channel)
+    {
+        return chanelColors[channel%chanelColors.Length];
     }
 }

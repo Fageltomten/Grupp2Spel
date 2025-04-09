@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 //Author Clara Lönnkrans
-public class PlayerSounds: MonoBehaviour
+public class PlayerSounds : MonoBehaviour
 {
     private AudioSource audioSource;
     private InputAction jumpInput;
@@ -15,14 +15,18 @@ public class PlayerSounds: MonoBehaviour
     }
     private void OnJump()
     {
-        if (audioSource.clip != SoundBank.Instance.jumpSound)
+        AudioClip jumpSound = SoundBank.Instance.GetPlayerSound("Jump");
+        if(jumpSound == null )
         {
-            audioSource.clip = SoundBank.Instance.jumpSound;
-            audioSource.loop = false;
+            Debug.Log("jumpsound not found");
+            return;
         }
-        if (!audioSource.isPlaying)
+        if (audioSource.isPlaying && audioSource.clip == jumpSound)
         {
-            audioSource.Play();
+            return;
         }
+        audioSource.clip = jumpSound;
+        audioSource.loop = false;
+        audioSource.Play();
     }
 }

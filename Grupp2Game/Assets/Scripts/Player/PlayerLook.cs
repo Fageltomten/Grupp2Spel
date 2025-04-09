@@ -24,6 +24,8 @@ public class PlayerLook : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        Debug.Log("Player Initiated");
     }
 
     // Update is called once per frame
@@ -45,7 +47,7 @@ public class PlayerLook : MonoBehaviour
         horizontalRotation += mouseVector.x;
         verticalRotation -= mouseVector.y;
 
-        int min = -90;
+        int min = -45;
         int max = 90;
 
         verticalRotation = Mathf.Clamp(verticalRotation, min, max);
