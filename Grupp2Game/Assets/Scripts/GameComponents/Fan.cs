@@ -6,7 +6,6 @@ public class Fan : MonoBehaviour, IActivatable
     [SerializeField] private float force = 30;
     [SerializeField] private float windRange = 10;
 
-    private GameObject player;
     private PlayerMovement playerMovement;
     private Transform basePoint;
     private Transform[] fanParts;
@@ -33,10 +32,10 @@ public class Fan : MonoBehaviour, IActivatable
         channelColor = new Color(0f / 255f, 255f / 255f, 255f / 255f);
         currentGravity = Physics.gravity;
 
-        player = GameObject.Find("Player ");//need space after, should fix but not doing that right now
-        if (player != null)
+        playerMovement = GameObject.FindAnyObjectByType<PlayerMovement>();//need space after, should fix but not doing that right now
+        if (playerMovement == null)
         {
-            playerMovement = player.GetComponent<PlayerMovement>();
+            Debug.Log("OH ´no player is null");
         }
 
         capsuleCollider = GetComponent<CapsuleCollider>();
