@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     private bool isGrounded;
     private bool hasAirJumped;
+    private GrapplingHook grapplingHook;
 
     [SerializeField] private float acceleration = 5f;
     [SerializeField] private float maxSpeed = 5f;
@@ -32,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        grapplingHook = GetComponent<GrapplingHook>();
         movementInput = InputSystem.actions.FindAction("Move");
         jumpInput = InputSystem.actions.FindAction("Jump");
         jumpInput.performed += _ => OnJump();
@@ -53,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         Vector3 forceToAdd = Vector3.zero;
-        if (inputMagnitude == 0 && currentSpeed != 0 && isGrounded && !GetComponent<GrapplingHook>().IsGrappled())
+        if (inputMagnitude == 0 && currentSpeed != 0 && isGrounded && !grapplingHook.IsGrappled())
         {
             forceToAdd -= rigidbody.linearVelocity * stopSpeed;
         }
@@ -70,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             var moveVector = Vector3.Scale(rigidbody.linearVelocity, Vector3.one - transform.up);
             var moveSpeed = moveVector.magnitude;
             forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
-            if(!GetComponent<GrapplingHook>().IsGrappled() && isGrounded)
+            if(!grapplingHook.IsGrappled() && isGrounded)
                 forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
             
             Debug.DrawLine(transform.position, transform.position + forceToAdd, Color.red);
@@ -108,9 +110,7 @@ public class PlayerMovement : MonoBehaviour
         else if(!hasAirJumped)
         {
             hasAirJumped = true;
-            rigidbody.linearVelocity = new Vector3(rigidbody.linearVelocity.x, 0, rigidbody.linearVelocity.z);
             AddForce(transform.up * jumpForce, ForceMode.Impulse);
-
         }
     }
 
@@ -134,13 +134,37 @@ public class PlayerMovement : MonoBehaviour
 
     public void AddForce(Vector3 force, ForceMode forceMode)
     {
-        if (GetComponent<GrapplingHook>().IsGrappled())
+        if (grapplingHook.IsGrappled())
         {
-            GetComponent<GrapplingHook>().AddForce(force, forceMode);
+            grapplingHook.AddForce(force, forceMode);
         }
         else
         {
             rigidbody.AddForce(force, forceMode);
+        }
+    }
+
+    public void SetSpeed(Vector3 speed)
+    {
+        if (grapplingHook.IsGrappled())
+        {
+            grapplingHook.SetSpeed(speed);
+        }
+        else
+        {
+            rigidbody.linearVelocity = speed;
+        }
+    }
+
+    public void ResetVerticalVelocity()
+    {
+        if (grapplingHook.IsGrappled())
+        {
+            grapplingHook.ResetVerticalVelocity();
+        }
+        else
+        {
+            rigidbody.linearVelocity = Vector3.Scale(movementSpeed, Vector3.one - transform.up);
         }
     }
 }

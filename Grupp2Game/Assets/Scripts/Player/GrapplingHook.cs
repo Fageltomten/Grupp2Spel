@@ -101,7 +101,6 @@ public class GrapplingHook : MonoBehaviour
         SetObjectHitVector();
         float dot = Vector3.Dot(velocity.normalized, objectHitVector);
         Vector3 vector = Vector3.Scale(velocity.Abs(), objectHitVector) * dot;
-        print(vector);
         Vector3 nextPoint = grapplePoints[0] + toAdd - vector;
         grapplingLastPoint = grapplePoints[0];
         grapplePoints[0] = nextPoint;
@@ -133,7 +132,6 @@ public class GrapplingHook : MonoBehaviour
             if (collided)
             {
                 objectHitVector = objectHitVector.normalized;
-                print($"Object hit vector: {objectHitVector}");
                 break;
             }
         }
@@ -210,14 +208,16 @@ public class GrapplingHook : MonoBehaviour
             Vector3 diffrence = grapplePoints[1] - grapplePoints[0];
             Vector3 moveAmount = diffrence * (totalDiffrence - ropeLength) / totalDiffrence;
             grapplePoints[0] += moveAmount;
-            /*Physics.OverlapSphere(grapplePoints[1] + moveAmount, ropeWidth + ropeOffset, grapplingLayerMask).ToList().ForEach(x =>
+            bool collided = false;
+            Physics.OverlapSphere(grapplePoints[1] + moveAmount, ropeWidth + ropeOffset, grapplingLayerMask).ToList().ForEach(x =>
             {
                 grapplePoints[1] -= Vector3.Scale(moveAmount, Vector3.one - (x.ClosestPoint(grapplePoints[1] - moveAmount)-(grapplePoints[1] - moveAmount)));
+                collided = true;
             });
-            /*else
+            if(!collided)
             {
                 grapplePoints[1] -= moveAmount;
-            }*/
+            }
         }
     }
 
@@ -298,6 +298,16 @@ public class GrapplingHook : MonoBehaviour
     public bool IsGrappled()
     {
         return !(grapplePoints == null || grapplePoints.Count == 0);
+    }
+
+    public void SetSpeed(Vector3 speed)
+    {
+        grapplingLastPoint = grapplePoints[0]-speed;
+    }
+
+    public void ResetVerticalVelocity()
+    {
+        grapplingLastPoint = grapplePoints[0] + Vector3.Scale(grapplingLastPoint - grapplePoints[0], Vector3.one - transform.up);
     }
 
     private void OnDrawGizmos()
