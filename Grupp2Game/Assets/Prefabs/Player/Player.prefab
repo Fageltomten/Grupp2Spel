@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7503122380544913076}
   - component: {fileID: 2701220288849669939}
   - component: {fileID: 7723063384869575397}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 215237273180545000}
   - component: {fileID: 6280546661572912455}
   - component: {fileID: 5882769051714037835}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 6527811360295538663}
   - component: {fileID: 1967598200732781182}
   - component: {fileID: 7392855582304508472}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 1636829790401608964}
   - component: {fileID: 5812696723346177365}
   - component: {fileID: 6428919858620876978}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tube.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 5089032785441843426}
   - component: {fileID: 1326577123936549643}
   - component: {fileID: 2792528105532044614}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tube.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 7401724057654404581}
   - component: {fileID: 4311030578325444256}
   - component: {fileID: 8923591676120870603}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -525,7 +525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1217509057758864440}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -567,7 +567,7 @@ GameObject:
   - component: {fileID: 6817568103311299082}
   - component: {fileID: 4402277471596807957}
   - component: {fileID: 8786440913850720064}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tube.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1048,7 +1048,7 @@ GameObject:
   - component: {fileID: 2558721348382343753}
   - component: {fileID: 696636167492514229}
   - component: {fileID: 8474209765926793106}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Leg.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1134,7 +1134,7 @@ GameObject:
   - component: {fileID: 8403601175368717425}
   - component: {fileID: 3020999080592455086}
   - component: {fileID: 7051779779787128783}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1220,7 +1220,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8227829060512200694}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CameraPivotPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
