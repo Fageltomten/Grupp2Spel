@@ -70,7 +70,8 @@ public class PlayerMovement : MonoBehaviour
             var moveVector = Vector3.Scale(rigidbody.linearVelocity, Vector3.one - transform.up);
             var moveSpeed = moveVector.magnitude;
             forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
-            forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
+            if(!GetComponent<GrapplingHook>().IsGrappled() && isGrounded)
+                forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
             
             Debug.DrawLine(transform.position, transform.position + forceToAdd, Color.red);
             Debug.DrawLine(transform.position, transform.position + targetVelocity, Color.green);
