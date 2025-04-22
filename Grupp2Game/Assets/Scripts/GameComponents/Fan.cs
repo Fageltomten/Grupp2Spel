@@ -6,54 +6,43 @@ public class Fan : MonoBehaviour, IActivatable
     [SerializeField] private float force = 30;
     [SerializeField] private float windRange = 10;
 
-    private GameObject player;
     private PlayerMovement playerMovement;
     private Transform basePoint;
-    private Transform[] fanParts;
     private Vector3 currentGravity;
     private bool isActivated = false;
     private CapsuleCollider capsuleCollider;
+    Animator animator;
+    ParticleSystem windParticles;
 
-    private Color channelColor = new Color(0f / 255f, 255f / 255f, 255f / 255f);
-    private Color deactivatedColor = new Color(255f / 255f, 0f / 255f, 0f / 255f);
-    private Color activatedColor = new Color(128f / 255f, 255f / 255f, 0f / 255f);
+
 
     void IActivatable.Activate()
     {
         isActivated = true;
-        SetColor(basePoint, activatedColor);
+        animator.SetBool("isActive", true);
+        windParticles.Play();
     }
     void IActivatable.Deactivate()
     {
         isActivated = false;
-        SetColor(basePoint, deactivatedColor);
+        animator.SetBool("isActive", false);
+        windParticles.Stop();
     }
     private void Start()
     {
-        channelColor = new Color(0f / 255f, 255f / 255f, 255f / 255f);
         currentGravity = Physics.gravity;
+        animator = GetComponent<Animator>();
+        basePoint = transform.Find("Blades");
+        windParticles = transform.Find("WindParticle").GetComponent<ParticleSystem>();
 
-        player = GameObject.Find("Player ");//need space after, should fix but not doing that right now
-        if (player != null)
+        playerMovement = GameObject.FindAnyObjectByType<PlayerMovement>();
+        if (playerMovement == null)
         {
-            playerMovement = player.GetComponent<PlayerMovement>();
+            Debug.Log("OH ´no player is null");
         }
 
         capsuleCollider = GetComponent<CapsuleCollider>();
         SetWindTunnel();
-
-        basePoint = transform.Find("Blades");
-        SetColor(basePoint, deactivatedColor);
-
-        fanParts = new Transform[]
-        {
-            transform.Find("Center"),
-            transform.Find("Base")
-        };
-        foreach (Transform part in fanParts)
-        {
-            SetColor(part, channelColor);
-        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -79,13 +68,6 @@ public class Fan : MonoBehaviour, IActivatable
         {
             rb.linearDamping = 0f;
         }
-    }
-    private void SetColor(Transform part, Color color)
-    {
-        if (part != null)
-        {
-            part.GetComponent<Renderer>().material.color = color;
-        } 
     }
     private void SetWindTunnel()
     {

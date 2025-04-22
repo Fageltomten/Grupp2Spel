@@ -7,15 +7,11 @@ public class ButtonScript : MonoBehaviour, IActivator
 {
     [SerializeField] float activationWeight = 0.1f;
 
-    private Transform  movingPart, basePart;
-    private Transform[] activationIndicatorParts;
+    private Transform  movingPart;
     private float movingPartStartPos;
     private bool atBottom = false;
     private bool isActivated = false;
 
-    private Color channelColor = new Color(0f / 255f, 255f / 255f, 255f / 255f);
-    private Color deactivatedColor = new Color(255f / 255f, 0f / 255f, 0f / 255f);
-    private Color activatedColor = new Color(128f / 255f, 255f / 255f, 0f / 255f);
 
     private HashSet<Rigidbody> objectsOnTrigger = new HashSet<Rigidbody>();
 
@@ -23,26 +19,10 @@ public class ButtonScript : MonoBehaviour, IActivator
 
     private void Start()
     {
-
-        movingPart = transform.Find("Button");
-        basePart = transform.Find("Base");
-        activationIndicatorParts = new Transform[]
-        {
-            transform.Find("MiddlePart"),
-            movingPart.Find("Text")
-        };
         movingPart = transform.Find("Button");
         if (movingPart != null)
         {
             movingPartStartPos = movingPart.localPosition.y;
-        }
-
-
-        SetColor(basePart, channelColor);
-        SetColor(movingPart, Color.black);
-        foreach (Transform part in activationIndicatorParts)
-        {
-            SetColor(part, deactivatedColor);
         }
     }
 
@@ -68,22 +48,13 @@ public class ButtonScript : MonoBehaviour, IActivator
                 
                 if (isActivated)
                 {
-                    //Debug.Log("isnotActivated: ");
                     isActivated = false;
                     ActivationCaller.SendDeactivation();
-                    foreach (Transform part in activationIndicatorParts)
-                    {
-                        SetColor(part, deactivatedColor);
-                    }
                 }
                 else
                 {
                     isActivated = true;
                     ActivationCaller.SendActivation();
-                    foreach (Transform part in activationIndicatorParts)
-                    {
-                        SetColor(part, activatedColor);
-                    }
                 }
                 atBottom = true;
             }
@@ -111,12 +82,5 @@ public class ButtonScript : MonoBehaviour, IActivator
             totalWeight += rb.mass;
         }
         return totalWeight;
-    }
-    private void SetColor(Transform part, Color color)
-    {
-        if (part != null)
-        {
-            part.GetComponent<Renderer>().material.color = color;
-        }
     }
 }
