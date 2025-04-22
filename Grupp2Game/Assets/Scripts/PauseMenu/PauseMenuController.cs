@@ -76,7 +76,9 @@ public class PauseMenuController : MonoBehaviour
     {
         Dictionary<Level, Vector3> spawnPos = SceneHandler.GetStartingPosition;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.SetActive(false);
         player.transform.position = spawnPos[SceneHandler.Instance.CurrentLevel];
+        player.SetActive(true);
         UnPause();
     }
 
