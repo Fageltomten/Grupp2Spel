@@ -25,6 +25,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundStickiness = 0.1f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Dash")]
+    [SerializeField] float dashForce = 25f;
+    [SerializeField] float delayBetweenPresses = 0.25f;
+    [SerializeField] bool pressedFirstW = false;
+    [SerializeField] bool pressedFirstA = false;
+    [SerializeField] bool pressedFirstS = false;
+    [SerializeField] bool pressedFirstD = false;
+    [SerializeField] float lastPressedW = 0f;
+    [SerializeField] float lastPressedA = 0f;
+    [SerializeField] float lastPressedS = 0f;
+    [SerializeField] float lastPressedD= 0f;
+
     private InputAction movementInput;
     private InputAction jumpInput;
 
@@ -40,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Dash();
     }
 
     private void FixedUpdate()
@@ -143,4 +155,50 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.AddForce(force, forceMode);
         }
     }
+
+    public void Dash()
+    {
+       if(DoublePressedW())
+            AddForce(transform.forward * dashForce, ForceMode.Impulse);
+    }
+    
+    bool DoublePressedW()
+    {
+        if (KeyPressed(KeyCode.W))
+        {
+            if (pressedFirstW)
+            {
+                bool isDoublePressed = Time.time - lastPressedW <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - W");
+                    pressedFirstW = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - W");
+                pressedFirstW = true;
+            }
+
+            lastPressedW = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstW && Time.time - lastPressedW > delayBetweenPresses)
+        {
+            pressedFirstW = false;
+        }
+
+        return false;
+    }
+
+    bool KeyPressed(KeyCode key)
+    {
+        return Input.GetKeyDown(key);
+    }
+
+
 }
