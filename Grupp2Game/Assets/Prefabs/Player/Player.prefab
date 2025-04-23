@@ -762,7 +762,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6223996864951110643}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: d76b758d71d47de4cbfae74cd0b2a397, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -809,6 +809,7 @@ MonoBehaviour:
   ropeOffset: 0.03
   checkDistance: 0.3
   dashForce: 5
+  maxRopeLength: 72.42
 --- !u!120 &-7006905382350516766
 LineRenderer:
   serializedVersion: 2
