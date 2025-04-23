@@ -155,14 +155,14 @@ public class GrapplingHook : MonoBehaviour
             var lerpedVector = Vector3.Lerp(grapplingLastPoint, grapplePoints[0], detail);
             if (Physics.SphereCast(grapplePoints[1], ropeWidth, lerpedVector - grapplePoints[1], out RaycastHit hit4, Vector3.Distance(grapplePoints[1], lerpedVector), grapplingLayerMask, QueryTriggerInteraction.Ignore))
             {
-                if (hit4.transform.tag == "Player" || hit4.transform.CompareTag("Untagged"))
+                if (hit4.transform.tag == "Player" || hit4.transform.CompareTag("UnGrappable"))
                     continue;
                 Vector3 point = hit4.point;
                 var direction = (GetClosestPoint(point, lerpedVector, grapplePoints[1]) - hit4.point).normalized;
                 point += direction * (ropeWidth + ropeOffset);
                 Physics.OverlapSphere(point, ropeWidth, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
                 {
-                    if (x.transform.tag == "Player" || x.transform.CompareTag("Untagged"))
+                    if (x.transform.tag == "Player" || x.transform.CompareTag("UnGrappable"))
                         return;
                     var tempPoint = point - x.ClosestPoint(point);
                     point = x.ClosestPoint(point) + (tempPoint.normalized * (ropeWidth + ropeOffset));
@@ -174,7 +174,7 @@ public class GrapplingHook : MonoBehaviour
 
             Physics.OverlapSphere(grapplePoints[1], ropeWidth, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
             {
-                if(x.transform.tag == "Player" || x.transform.CompareTag("Untagged"))
+                if(x.transform.tag == "Player" || x.transform.CompareTag("UnGrappable"))
                     return;
                 var tempPoint = lerpedVector - x.ClosestPoint(grapplePoints[1]);
                 grapplePoints[1] = x.ClosestPoint(grapplePoints[1]) + (tempPoint.normalized * (ropeWidth + ropeOffset));
