@@ -1605,6 +1605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfddea1e5876d740a5ec14508dc7256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chanelColors:
+  - {r: 1, g: 0.71289074, b: 0, a: 0}
+  - {r: 0, g: 1, b: 0.13161898, a: 0}
+  - {r: 0, g: 0.81396484, b: 1, a: 0}
 --- !u!114 &1651667381
 MonoBehaviour:
   m_ObjectHideFlags: 0
