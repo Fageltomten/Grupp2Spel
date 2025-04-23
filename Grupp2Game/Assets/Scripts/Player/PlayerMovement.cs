@@ -28,14 +28,16 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dash")]
     [SerializeField] float dashForce = 25f;
     [SerializeField] float delayBetweenPresses = 0.25f;
-    [SerializeField] bool pressedFirstW = false;
-    [SerializeField] bool pressedFirstA = false;
-    [SerializeField] bool pressedFirstS = false;
-    [SerializeField] bool pressedFirstD = false;
-    [SerializeField] float lastPressedW = 0f;
-    [SerializeField] float lastPressedA = 0f;
-    [SerializeField] float lastPressedS = 0f;
-    [SerializeField] float lastPressedD= 0f;
+    [SerializeField] float dashCooldown = 2f;
+    [SerializeField] bool canDash = true;
+    bool pressedFirstW = false;
+    bool pressedFirstA = false;
+    bool pressedFirstS = false;
+    bool pressedFirstD = false;
+    float lastPressedW = 0f;
+    float lastPressedA = 0f;
+    float lastPressedS = 0f;
+    float lastPressedD= 0f;
 
     private InputAction movementInput;
     private InputAction jumpInput;
@@ -158,10 +160,40 @@ public class PlayerMovement : MonoBehaviour
 
     public void Dash()
     {
-       if(DoublePressedW())
-            AddForce(transform.forward * dashForce, ForceMode.Impulse);
+        if (!canDash)
+            return;
+ 
+        if(GetComponent<GrapplingHook>().IsGrappled())
+            return;
+
+        if (DoublePressedW())
+            StartCoroutine(PerformDash(transform.forward));
+        else if (DoublePressedA())
+            StartCoroutine(PerformDash(-transform.right));
+        else if (DoublePressedS())
+            StartCoroutine(PerformDash(-transform.forward));
+        else if (DoublePressedD())
+            StartCoroutine(PerformDash(transform.right));
+        else
+            return;
+
+        canDash = false;
+        StartCoroutine(StartDashCooldown());
     }
-    
+   
+    IEnumerator PerformDash(Vector3 v)
+    {
+        AddForce(v *  dashForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.4f);
+        Vector3 lV = rigidbody.linearVelocity;
+        rigidbody.linearVelocity -= v * dashForce;//new Vector3(lV.x - v.x*10, lV.y - v.x*10, lV.z - v.z*10);
+    }
+    IEnumerator StartDashCooldown()
+    {
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
     bool DoublePressedW()
     {
         if (KeyPressed(KeyCode.W))
@@ -194,11 +226,108 @@ public class PlayerMovement : MonoBehaviour
 
         return false;
     }
+    bool DoublePressedA()
+    {
+        if (KeyPressed(KeyCode.A))
+        {
+            if (pressedFirstA)
+            {
+                bool isDoublePressed = Time.time - lastPressedA <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - A");
+                    pressedFirstA = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - A");
+                pressedFirstA = true;
+            }
+
+            lastPressedA = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstA && Time.time - lastPressedA > delayBetweenPresses)
+        {
+            pressedFirstA = false;
+        }
+
+        return false;
+    }
+    bool DoublePressedS()
+    {
+        if (KeyPressed(KeyCode.S))
+        {
+            if (pressedFirstS)
+            {
+                bool isDoublePressed = Time.time - lastPressedS <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - S");
+                    pressedFirstS = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - S");
+                pressedFirstS = true;
+            }
+
+            lastPressedS = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstS && Time.time - lastPressedS > delayBetweenPresses)
+        {
+            pressedFirstS = false;
+        }
+
+        return false;
+    }
+    bool DoublePressedD()
+    {
+        if (KeyPressed(KeyCode.D))
+        {
+            if (pressedFirstD)
+            {
+                bool isDoublePressed = Time.time - lastPressedD <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - D");
+                    pressedFirstD = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - D");
+                pressedFirstD = true;
+            }
+
+            lastPressedD = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstD && Time.time - lastPressedD > delayBetweenPresses)
+        {
+            pressedFirstD = false;
+        }
+
+        return false;
+    }
 
     bool KeyPressed(KeyCode key)
     {
         return Input.GetKeyDown(key);
     }
+
 
 
 }
