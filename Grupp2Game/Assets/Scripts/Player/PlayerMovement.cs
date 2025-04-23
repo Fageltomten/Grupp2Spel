@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float stopSpeed = 5f;
     [SerializeField] private float sidewaysStopSpeed = 5f;
+    [SerializeField] private float grappleMovementMultiplier = 0.2f;
 
     [SerializeField] private float jumpForce = 5f;
 
@@ -71,7 +72,12 @@ public class PlayerMovement : MonoBehaviour
             sidewaysVelocity = Vector3.Scale(sidewaysVelocity, Vector3.one - transform.up);
             var moveVector = Vector3.Scale(rigidbody.linearVelocity, Vector3.one - transform.up);
             var moveSpeed = moveVector.magnitude;
-            forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * acceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
+            float tempAcceleration = acceleration;
+            if (grapplingHook.IsGrappled())
+            {
+                tempAcceleration = acceleration * grappleMovementMultiplier;
+            }
+            forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * tempAcceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
             if(!grapplingHook.IsGrappled() && isGrounded)
                 forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
             
