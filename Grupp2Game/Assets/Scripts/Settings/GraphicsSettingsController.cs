@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Author: Carl Åslund
+/// <summary>
+/// Component that handles the changes in values in the Graphics part of the settings menu.
+/// </summary>
 public class GraphicsSettingsController : MonoBehaviour
 {
     [SerializeField] Toggle fullscreenToggle;

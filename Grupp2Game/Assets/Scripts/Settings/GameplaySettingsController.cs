@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Author: Carl Åslund
+/// <summary>
+/// Component that handles the changes in values in the Gameplay part of the settings menu.
+/// </summary>
 public class GameplaySettingsController : MonoBehaviour
 {
     [SerializeField] Toggle timerToggle;

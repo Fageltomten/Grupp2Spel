@@ -3,6 +3,9 @@ using UnityEngine;
 
 
 // author: Carl Åslund
+/// <summary>
+/// static class that handles the loading and saving of the user settings
+/// </summary>
 public static class SettingsManager
 {
 
