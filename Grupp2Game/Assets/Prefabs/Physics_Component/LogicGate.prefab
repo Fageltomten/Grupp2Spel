@@ -1060,7 +1060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff88cb5a411ac4c4e8a6c89f6d315e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  logicType: 1
+  logicType: 0
   not: 0
   leftListener: {fileID: 9068690355626767999}
   rightListener: {fileID: 8600365036226935234}

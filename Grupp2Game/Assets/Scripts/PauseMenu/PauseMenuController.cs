@@ -80,6 +80,7 @@ public class PauseMenuController : MonoBehaviour
     {
         Dictionary<Level, Vector3> spawnPos = SceneHandler.GetStartingPosition;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         player.transform.position = spawnPos[SceneHandler.Instance.CurrentLevel];
         UnPause();
     }

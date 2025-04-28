@@ -19,4 +19,6 @@ public class ActivationGateReciever : MonoBehaviour, IActivatable
     {
         gate.UpdateValues();   
     }
+
+    
 }
