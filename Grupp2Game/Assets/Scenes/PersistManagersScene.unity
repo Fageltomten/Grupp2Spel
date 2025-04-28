@@ -1605,6 +1605,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfddea1e5876d740a5ec14508dc7256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chanelColors:
+  - {r: 1, g: 0, b: 0.7461128, a: 0}
+  - {r: 0.74456644, g: 0, b: 1, a: 0}
+  - {r: 0.37342262, g: 0, b: 1, a: 0}
+  - {r: 0, g: 0.08752346, b: 1, a: 0}
+  - {r: 0, g: 0.48488235, b: 1, a: 0}
+  - {r: 0, g: 0.8351836, b: 1, a: 0}
+  - {r: 0, g: 1, b: 0.8698616, a: 0}
+  - {r: 0, g: 1, b: 0.6102004, a: 0}
+  - {r: 0.78074694, g: 1, b: 0, a: 0}
+  - {r: 1, g: 0.6332121, b: 0, a: 0}
 --- !u!114 &1651667381
 MonoBehaviour:
   m_ObjectHideFlags: 0

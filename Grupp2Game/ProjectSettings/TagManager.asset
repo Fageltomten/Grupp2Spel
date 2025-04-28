@@ -7,6 +7,8 @@ TagManager:
   - Platform
   - Door
   - Frame
+  - SceneManager
+  - UnGrappable
   layers:
   - Default
   - TransparentFX
