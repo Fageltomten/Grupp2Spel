@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 /// <summary>
 /// component that takes two inputs and makes an output depending on gate type
@@ -15,10 +16,16 @@ public class ActivationGate : MonoBehaviour, IActivator
     [SerializeField] ActivationListener leftListener;
     [SerializeField] ActivationListener rightListener;
 
-    public void Awake()
+    void Start()
     {
+        StartCoroutine(StartInTime());
+    }
+
+    // waits so all children can be loaded
+    IEnumerator StartInTime()
+    {
+        yield return new WaitForSeconds(0.1f);
         UpdateValues();
-        Debug.Log("update");
     }
 
     public void UpdateValues()

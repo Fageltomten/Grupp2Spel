@@ -793,6 +793,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9037984358450883331, guid: b5f8a16e3d8a03540a186894a0f0310b, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9037984358450883331, guid: b5f8a16e3d8a03540a186894a0f0310b, type: 3}
       propertyPath: m_Name
       value: LogicGate
       objectReference: {fileID: 0}

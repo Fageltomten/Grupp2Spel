@@ -10,6 +10,8 @@ public class ActivationGateReciever : MonoBehaviour, IActivatable
     [Tooltip("Gate to send to")]
     [SerializeField] ActivationGate gate;
 
+    
+
     public void Activate()
     {
         gate.UpdateValues();
