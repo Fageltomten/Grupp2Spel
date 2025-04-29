@@ -125,11 +125,13 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded)
         {
             hasAirJumped = false;
+            ResetVerticalVelocity();
             AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
         else if(!hasAirJumped)
         {
             hasAirJumped = true;
+            ResetVerticalVelocity();
             AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
     }
