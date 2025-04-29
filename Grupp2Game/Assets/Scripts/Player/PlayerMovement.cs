@@ -185,7 +185,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rigidbody.linearVelocity = Vector3.Scale(movementSpeed, Vector3.one - transform.up);
+            //rigidbody.linearVelocity = Vector3.Scale(movementSpeed, Vector3.one - transform.up);
+            Vector3 v = rigidbody.linearVelocity;
+            rigidbody.linearVelocity = new Vector3(v.x, 0, v.z);
         }
     }
 
