@@ -155,15 +155,13 @@ public class GrapplingHook : MonoBehaviour
             var lerpedVector = Vector3.Lerp(grapplingLastPoint, grapplePoints[0], detail);
             if (Physics.SphereCast(grapplePoints[1], ropeWidth, lerpedVector - grapplePoints[1], out RaycastHit hit4, Vector3.Distance(grapplePoints[1], lerpedVector), grapplingLayerMask, QueryTriggerInteraction.Ignore))
             {
-                if (hit4.transform.tag == "Player" || hit4.transform.CompareTag("Untagged"))
+                if (hit4.transform.tag == "Player")
                     continue;
                 Vector3 point = hit4.point;
                 var direction = (GetClosestPoint(point, lerpedVector, grapplePoints[1]) - hit4.point).normalized;
                 point += direction * (ropeWidth + ropeOffset);
                 Physics.OverlapSphere(point, ropeWidth, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
                 {
-                    if (x.transform.tag == "Player" || x.transform.CompareTag("Untagged"))
-                        return;
                     var tempPoint = point - x.ClosestPoint(point);
                     point = x.ClosestPoint(point) + (tempPoint.normalized * (ropeWidth + ropeOffset));
                 });
@@ -174,8 +172,6 @@ public class GrapplingHook : MonoBehaviour
 
             Physics.OverlapSphere(grapplePoints[1], ropeWidth, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
             {
-                if(x.transform.tag == "Player" || x.transform.CompareTag("Untagged"))
-                    return;
                 var tempPoint = lerpedVector - x.ClosestPoint(grapplePoints[1]);
                 grapplePoints[1] = x.ClosestPoint(grapplePoints[1]) + (tempPoint.normalized * (ropeWidth + ropeOffset));
             });
@@ -212,58 +208,9 @@ public class GrapplingHook : MonoBehaviour
             Vector3 diffrence = grapplePoints[1] - grapplePoints[0];
             Vector3 moveAmount = diffrence * (totalDiffrence - ropeLength) / totalDiffrence;
             grapplePoints[0] += moveAmount;
-            if (grapplePoints.Count <= 2)
-            {
-                return;
-            }
-            moveAmount = ((grapplePoints[1] + grapplePoints[0] + grapplePoints[2]) / 3) - grapplePoints[1];
-            bool collided = false;
-<<<<<<< Updated upstream
-            /*Physics.OverlapSphere(grapplePoints[1] + moveAmount, ropeWidth + ropeOffset, grapplingLayerMask).ToList().ForEach(x =>
-=======
-            for (float detail = 0f / lineCollisionDetail; detail <= 1; detail += 1f / lineCollisionDetail)
->>>>>>> Stashed changes
-            {
-                Physics.OverlapSphere(grapplePoints[1] + moveAmount, ropeWidth + ropeOffset, grapplingLayerMask).ToList().ForEach(x =>
-            {
-                var lastPoint = grapplePoints[1];
-                grapplePoints[1] += Vector3.Scale(moveAmount, Vector3.one - (x.ClosestPoint(grapplePoints[1] + moveAmount) - (grapplePoints[1] + moveAmount)).normalized);
-                collided = true;
-                print("collided " + (Vector3.one - (x.ClosestPoint(grapplePoints[1] + moveAmount) - (grapplePoints[1] + moveAmount))));
-                var lerpedVector = Vector3.Lerp(lastPoint, grapplePoints[1], 1);
-                if (Physics.SphereCast(grapplePoints[2], ropeWidth, lerpedVector - grapplePoints[2], out RaycastHit hit4, Vector3.Distance(grapplePoints[2], lerpedVector), grapplingLayerMask, QueryTriggerInteraction.Ignore))
-                {
-                    if (hit4.transform.tag == "Player")
-                        return;
-                    Vector3 point = hit4.point;
-                    var direction = (GetClosestPoint(point, lerpedVector, grapplePoints[2]) - hit4.point).normalized;
-                    point += direction * (ropeWidth + ropeOffset);
-                    Physics.OverlapSphere(point, ropeWidth, grapplingLayerMask, QueryTriggerInteraction.Ignore).ToList().ForEach(x =>
-                    {
-                        var tempPoint = point - x.ClosestPoint(point);
-                        point = x.ClosestPoint(point) + (tempPoint.normalized * (ropeWidth + ropeOffset));
-                    });
-                    /*if (grapplePoints.Exists(x => Vector3.Distance(x, point) < 0.05f))
-                        continue;*/
-                    grapplePoints.Insert(2, point);
-                }
-            });
-<<<<<<< Updated upstream
-            if(!collided)
-            {
-                grapplePoints[1] -= moveAmount;
-            }*/
-=======
-                /*if (!collided)
-                {
-                    grapplePoints[1] += moveAmount;
-                    print("not collided");
-                }*/
-            }
->>>>>>> Stashed changes
         }
     }
-
+    
     private Vector3 GetClosestPoint(Vector3 point, Vector3 lineStart, Vector3 lineEnd)
     {
         Vector3 lineDirection = lineEnd - lineStart;
@@ -277,10 +224,8 @@ public class GrapplingHook : MonoBehaviour
 
     private void Shoot()
     {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, maxRopeLength, grapplingLayerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, maxRopeLength, grapplingLayerMask, QueryTriggerInteraction.Ignore) && !CameraHitPoint.transform.CompareTag("UnGrappable"))
         {
-            if(CameraHitPoint.transform.CompareTag("UnGrappable"))
-                return;
             print("Shooting");
             grapplePoints = new List<Vector3>();
             grapplePoints.Add(transform.position);
@@ -297,7 +242,6 @@ public class GrapplingHook : MonoBehaviour
 
     private void ShootRelease()
     {
-
         lineRenderer.positionCount = 0;
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
@@ -322,7 +266,7 @@ public class GrapplingHook : MonoBehaviour
 
     public bool CanGrapple()
     {
-        return grapplePoints.Count == 0 || grapplePoints == null;
+        return Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, maxRopeLength, grapplingLayerMask, QueryTriggerInteraction.Ignore);
     }
 
     public void AddForce(Vector3 force, ForceMode forceMode)
