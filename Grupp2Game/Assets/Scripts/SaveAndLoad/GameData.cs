@@ -52,4 +52,9 @@ public class TimePlayed
         Minutes = minutes;
         Seconds = seconds;
     }
+
+    public TimePlayed Clone()
+    {
+        return new TimePlayed(Hours, Minutes, Seconds);
+    }
 }

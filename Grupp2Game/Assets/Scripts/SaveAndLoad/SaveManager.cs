@@ -13,6 +13,7 @@ public class SaveManager : MonoBehaviour
     private List<ISaveable> _saveables = new List<ISaveable>();
     private ISaver _fileSaverSystem;
     private GameData _gameData;
+    GameData lastGameData;
 
 
     public void Awake()
@@ -79,6 +80,7 @@ public class SaveManager : MonoBehaviour
 
         _gameData.ActiveScene = SceneManager.GetActiveScene().name;
         //Now that we have the data that should be saved we give it to the file system
+        lastGameData = _gameData;
         _fileSaverSystem.Save(_gameData);
     }
     public void LoadGame()
@@ -87,6 +89,12 @@ public class SaveManager : MonoBehaviour
         //Its only used to load our gameobjects that we need
         if (SceneManager.GetActiveScene().name == "PersistManagersScene") return;
 
+        //To pass time from the latest save
+        //We need to do it here before Load gets called which will change
+        //the variable "fileName" in JsonSaver which causes this to not work
+        //If we where to add it after the load
+        //GameData latestGameData = _fileSaverSystem.LoadLatest();
+
         _gameData = _fileSaverSystem.Load(SceneManager.GetActiveScene().name);
         //If no data is found then we want to create a new data
         if (_gameData == null)
@@ -94,6 +102,11 @@ public class SaveManager : MonoBehaviour
             Debug.Log("No game data could be found, initializing data to default values");
             NewGame();
         }
+
+        if (lastGameData != null && lastGameData.TimePlayed != null)
+            _gameData.TimePlayed = lastGameData.TimePlayed.Clone();
+        //_gameData.TimePlayed = latestGameData.TimePlayed;
+
         //Give each saveable object the saved data
         foreach (var s in _saveables)
         {
