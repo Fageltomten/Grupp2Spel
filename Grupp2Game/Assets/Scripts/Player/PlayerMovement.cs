@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float grappleMovementMultiplier = 0.2f;
 
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float airJumpForce = 5f;
 
     [SerializeField] private float grouldClearance = 0.1f;
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -116,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         else if(!hasAirJumped)
         {
             hasAirJumped = true;
-            AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            AddForce(transform.up * airJumpForce, ForceMode.Impulse);
         }
     }
 
