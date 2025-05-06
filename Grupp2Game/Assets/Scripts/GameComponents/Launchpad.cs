@@ -23,7 +23,7 @@ public class Launchpad : MonoBehaviour, IActivatable
     {
        if(isActivated)
         {
-            //linearVelocity.y = 0;
+            playerMovement.ResetVerticalVelocity();
             Vector3 appliedForce = transform.up *  force;
             playerMovement.AddForce(appliedForce, ForceMode.Impulse);
         }

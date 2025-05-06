@@ -60,20 +60,7 @@ public class JsonSaver : ISaver
 
 
     }
-    public bool FileExists(string file)
-    {
-        string filePath = string.Join('/', dirPath, file);
-        Debug.Log(file);
-        if (File.Exists(filePath))
-        {
-            return true;
-        }
-        else
-        {
-            Debug.Log($"File system found no data to load - {file}");
-            return false;
-        }
-    }
+   
     public GameData LoadLatest()
     {
         GetLatestSaveFile();
@@ -162,6 +149,20 @@ public class JsonSaver : ISaver
 
 
         return gameData;
+    }
+    public bool FileExists(string file)
+    {
+        string filePath = string.Join('/', dirPath, file);
+        Debug.Log(file);
+        if (File.Exists(filePath))
+        {
+            return true;
+        }
+        else
+        {
+            Debug.Log($"File system found no data to load - {file}");
+            return false;
+        }
     }
     public bool FilesExists()
     {

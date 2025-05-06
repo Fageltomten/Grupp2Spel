@@ -19,7 +19,11 @@ public class PlayerHUD : MonoBehaviour, ISaveable
 
 
     [SerializeField] private Image crosshair; //Change color and stuff when interacting?
+    [SerializeField] private Color canGrappleColor;
+    [SerializeField] private Color canNotGrappleColor;
+
     [SerializeField] private SaveManager saveManager;
+    private GrapplingHook grapplingHook;
 
     public void Awake()
     {
@@ -29,6 +33,15 @@ public class PlayerHUD : MonoBehaviour, ISaveable
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
        // SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
         FindAnyObjectByType<PlayerInteract>().OnPickedUpCollectable += PlayerInteract_OnPickedUpCollectable;
+    }
+
+    private void Start()
+    {
+        grapplingHook = GameObject.FindAnyObjectByType<GrapplingHook>();
+        if(grapplingHook == null )
+        {
+            Debug.Log("Playermovement is null in playerhud");
+        }
     }
 
     //private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
@@ -57,7 +70,21 @@ public class PlayerHUD : MonoBehaviour, ISaveable
     private void Update()
     {
         UpdateTimer();
+        UpdateCrosshairColor();
     }
+
+    private void UpdateCrosshairColor()
+    {
+       if(grapplingHook.CanGrapple())
+        {
+            crosshair.color = canGrappleColor;
+        }
+       else
+        {
+            crosshair.color = canNotGrappleColor;
+        }
+    }
+
     private void UpdateTimer()
     {
         time = Time.timeSinceLevelLoad;

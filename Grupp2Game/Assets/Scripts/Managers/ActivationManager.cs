@@ -2,9 +2,13 @@ using System;
 using UnityEngine;
 
 // Class by Carl Åslund
+
+/// <summary>
+/// Singleton manager that handles the requests for objects to be activated and deactivated 
+/// </summary>
 public class ActivationManager : MonoBehaviour
 {
-
+    [Tooltip("Colors of Channels")]
     [SerializeField] Color[] chanelColors;
 
     public static ActivationManager Instance { get; private set; }
