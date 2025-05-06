@@ -4,6 +4,11 @@ using UnityEngine;
 //Author Vidar Edlund
 public class GameData
 {
+    //This number should be equal to the total amount of collectables that exists in all scenes
+    //So if that number changes than you need to update this value here
+    public const int totalCollectables = 20;
+
+
     public int collectedCollectables;
     public string ActiveScene;
     public List<CollectableData> Collectable;

@@ -12,8 +12,9 @@ public class SaveManager : MonoBehaviour
 
     private List<ISaveable> _saveables = new List<ISaveable>();
     private ISaver _fileSaverSystem;
-    private GameData _gameData;
+    public GameData _gameData;
     GameData lastGameData;
+    public ISaver GetCurrentFileSaverSystem => _fileSaverSystem;
 
 
     public void Awake()
