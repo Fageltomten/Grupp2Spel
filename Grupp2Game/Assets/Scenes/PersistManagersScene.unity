@@ -1407,6 +1407,8 @@ MonoBehaviour:
   collectedCollectablesText: {fileID: 355804891}
   timerScoreText: {fileID: 1360626521}
   crosshair: {fileID: 1206359340}
+  canGrappleColor: {r: 1, g: 0, b: 0, a: 1}
+  canNotGrappleColor: {r: 1, g: 1, b: 1, a: 1}
   saveManager: {fileID: 1969039852}
 --- !u!114 &1593869782
 MonoBehaviour:
