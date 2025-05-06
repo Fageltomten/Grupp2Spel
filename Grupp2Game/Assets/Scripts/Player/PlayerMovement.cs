@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float delayBetweenPresses = 0.25f;
     [SerializeField] float dashCooldown = 2f;
     [SerializeField] bool canDash = true;
+    [SerializeField] bool isDashing = false;
     bool pressedFirstW = false;
     bool pressedFirstA = false;
     bool pressedFirstS = false;
@@ -72,7 +73,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forceToAdd = Vector3.zero;
         if (inputMagnitude == 0 && currentSpeed != 0 && isGrounded && !grapplingHook.IsGrappled())
         {
-            forceToAdd -= rigidbody.linearVelocity * stopSpeed;
+            if(!isDashing)
+                forceToAdd -= rigidbody.linearVelocity * stopSpeed;
         }
         else if (inputMagnitude == 0)
         {
@@ -91,8 +93,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 tempAcceleration = acceleration * grappleMovementMultiplier;
             }
-            forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * tempAcceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
-            if(!grapplingHook.IsGrappled() && isGrounded)
+
+            if(!isDashing)
+                forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * tempAcceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
+            
+            if(!grapplingHook.IsGrappled() && isGrounded && !isDashing)
                 forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
             
             Debug.DrawLine(transform.position, transform.position + forceToAdd, Color.red);
@@ -216,10 +221,12 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator PerformDash(Vector3 v)
     {
+        isDashing = true;
         AddForce(v * dashForce, ForceMode.Impulse);
         yield return new WaitForSeconds(0.4f);
         Vector3 lV = rigidbody.linearVelocity;
         rigidbody.linearVelocity -= v * dashForce;//new Vector3(lV.x - v.x*10, lV.y - v.x*10, lV.z - v.z*10);
+        isDashing = false;
     }
     IEnumerator StartDashCooldown()
     {
