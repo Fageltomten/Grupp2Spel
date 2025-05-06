@@ -4,6 +4,10 @@ using System.Linq;
 using UnityEngine;
 
 // Class by Carl Åslund
+/// <summary>
+/// A component that recieves requests from the activationmanager 
+/// and notifies all components on gameobject of type IActivatable
+/// </summary>
 public class ActivationListener : ActivationAgent
 {
 
@@ -14,8 +18,13 @@ public class ActivationListener : ActivationAgent
     public bool IsListening { get; set; }
 
     [Header("Activation Listener Settings")]
+    [Tooltip("If listener should activate when started.")]
     [SerializeField] bool startActivated = false;
+
+    [Tooltip("If listener should be able to recieve requests.")]
     [SerializeField] bool startListening = true;
+
+    [Tooltip("If listener should listen on Caller on the same Gameobject.")]
     [SerializeField] bool autoListenOnCaller = false;
     protected override void Start()
     {
