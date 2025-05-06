@@ -6,7 +6,7 @@ public class GameData
 {
     //This number should be equal to the total amount of collectables that exists in all scenes
     //So if that number changes than you need to update this value here
-    public const int totalCollectables = 20;
+    public const int totalCollectables = 2;
 
 
     public int collectedCollectables;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -232,6 +233,69 @@ if (fileInfo.Length > 0)
     public bool DeleteAllFilesConfirmation(bool shouldDelete)
     {
         return shouldDelete;
+    }
+    public FileInfo[] GetAllCurrentlySavedFiles()
+    {
+        DirectoryInfo directoryInfo = new DirectoryInfo(dirPath);
+        FileInfo[] fileInfo = directoryInfo.GetFiles("*.json");
+        return fileInfo;
+    }
+    public List<GameData> GetAllCurrentlySavedGameData()
+    {
+        //string filePath = string.Join('/', dirPath, fileName);
+
+        FileInfo[] savedFiles = GetAllCurrentlySavedFiles();
+        //string filePath = "";
+        List<GameData> savedGameData = new List<GameData>();
+        //string filePath = string.Join('/', dirPath, file);
+
+        //fileName = currentScene + ".json";
+
+        string fullFilePath = string.Join('/', dirPath, fileName);
+        //if (!FileExists(fileName))
+        //{
+        //    return gameData;
+        //}
+        try
+        {
+            foreach (FileInfo file in savedFiles)
+            {
+                //Load serialized data from a file
+                //filePath = file.FullName;
+                fullFilePath = string.Join('/', dirPath, file.Name);
+                string dataString = File.ReadAllText(fullFilePath);
+
+                Debug.Log("1");
+
+                //Encrypt data if that option is ticked
+                if (useEncryption)
+                {
+                    dataString = EncryptDecrypt(dataString);
+                }
+                Debug.Log("2");
+
+                //Deserialize the data from Json back to a C# object
+                savedGameData.Add(JsonUtility.FromJson<GameData>(dataString));
+
+                Debug.Log("3");
+            }
+
+            //using (FileStream filestream = new FileStream(filePath, FileMode.Open))
+            //{
+            //    using (StreamReader reader = new StreamReader(filestream))
+            //    {
+            //        dataString = reader.ReadToEnd();
+            //    }
+            //}
+        }
+        catch (Exception e)
+        {
+            Debug.Log($"An error occurred when trying to load from a file at {fullFilePath}");
+            Debug.Log(e.Message);
+        }
+
+
+        return savedGameData;
     }
     private void GetLatestSaveFile()
     {
