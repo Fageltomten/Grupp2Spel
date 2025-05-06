@@ -53,7 +53,6 @@ public class GrapplingHook : MonoBehaviour
 
     private void Update()
     {
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, 100f, grapplingLayerMask);
     }
 
     // Update is called once per frame
@@ -61,11 +60,30 @@ public class GrapplingHook : MonoBehaviour
     {
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
-        for (int i = 0; i < PhysicsIterations; i++)
+        /*for (int i = 0; i < PhysicsIterations; i++)
         {
             CheckCollisionPoints();
-        }
+        }*/
+        FixGrappleLength();
         UpdatePhysics();
+    }
+    
+    private void FixGrappleLength() 
+    {
+        float totalDiffrence = 0;
+        float firstDiffrence = Vector3.Distance(grapplePoints[0], grapplePoints[1]);
+        for (int i = 0; i + 1 < grapplePoints.Count; i++)
+        {
+            totalDiffrence += Vector3.Distance(grapplePoints[i], grapplePoints[i + 1]);
+        }
+
+
+        if (totalDiffrence > ropeLength)
+        {
+            Vector3 diffrence = grapplePoints[1] - grapplePoints[0];
+            Vector3 moveAmount = diffrence * (totalDiffrence - ropeLength) / totalDiffrence;
+            grapplePoints[0] += moveAmount;
+        }
     }
 
     private void LateUpdate()
