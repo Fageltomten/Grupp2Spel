@@ -6,6 +6,7 @@ using UnityEngine;
 public class ButtonScript : MonoBehaviour, IActivator
 {
     [SerializeField] float activationWeight = 0.1f;
+    [SerializeField] float moveSpeed = 1f;
 
     private Transform  movingPart;
     private float movingPartStartPos;
@@ -34,13 +35,13 @@ public class ButtonScript : MonoBehaviour, IActivator
         {
             objectsOnTrigger.Add(rb);
             float weightOnTrigger = TotalWeightOnTrigger();
-            if(weightOnTrigger>= activationWeight)
+            if (weightOnTrigger >= activationWeight)
             {
-                movingPart.localPosition -= new Vector3(0, 0.5f * Time.deltaTime, 0);
+                movingPart.localPosition -= new Vector3(0, moveSpeed * Time.deltaTime, 0);
             }
-            
+
         }
-        if(movingPart.localPosition.y <= (movingPartStartPos - 0.30f))
+        if (movingPart.localPosition.y <= (movingPartStartPos - 0.30f))
         {
             movingPart.localPosition = new Vector3(0, (movingPartStartPos - 0.30f), 0);
             if(!atBottom)
@@ -70,7 +71,15 @@ public class ButtonScript : MonoBehaviour, IActivator
     {
         while (!atBottom && movingPart.localPosition.y < movingPartStartPos)
         {
-            movingPart.localPosition += new Vector3(0, 0.5f * Time.deltaTime, 0);
+            movingPart.localPosition += new Vector3(0, moveSpeed * Time.deltaTime, 0);
+            yield return null;
+        }
+    }
+    private IEnumerator MoveDown()
+    {
+        while (!atBottom && movingPart.localPosition.y > movingPartStartPos - 0.33f)
+        {
+            movingPart.localPosition -= new Vector3(0, 0.5f * Time.deltaTime, 0);
             yield return null;
         }
     }
