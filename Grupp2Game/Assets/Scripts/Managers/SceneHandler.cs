@@ -139,5 +139,7 @@ public class SceneHandler : Singleton<SceneHandler>
         player.SetActive(true);
         Debug.Log($"After Position - {player.transform.position} $");
         Debug.Log("Position Changed  $");
+
+        player.GetComponent<PlayerMovement>().SetSpeed(Vector3.zero);
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 //Author Vidar Edlund
 public interface ISaver
@@ -9,4 +11,6 @@ public interface ISaver
     bool FilesExists();
     void DeleteAllFiles();
     bool DeleteAllFilesConfirmation(bool shouldDelete);
+    public FileInfo[] GetAllCurrentlySavedFiles();
+    public List<GameData> GetAllCurrentlySavedGameData();
 }
