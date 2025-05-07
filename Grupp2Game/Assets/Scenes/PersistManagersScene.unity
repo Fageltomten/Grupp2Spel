@@ -524,11 +524,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerSounds:
-  - soundName: 
-    sound: {fileID: 0}
   - soundName: Jump
-    sound: {fileID: 8300000, guid: ffae0c3fdee026647ace5974e3a9d236, type: 3}
-  enviromentSounds: []
+    sound:
+    - {fileID: 8300000, guid: aa69775c9463ef7479803c5fd5feb9df, type: 3}
+    - {fileID: 8300000, guid: 4bdeeca35372a25468b17ea945532e97, type: 3}
+    - {fileID: 8300000, guid: 5aa7f70143550d14f9697532932fa54f, type: 3}
+    - {fileID: 8300000, guid: 23f973e6d4e205640aeff180374eb2f5, type: 3}
+  - soundName: GrapplingHook
+    sound:
+    - {fileID: 8300000, guid: c312a0101f20c0d4abe29ffba8b9d768, type: 3}
+  - soundName: Dash
+    sound:
+    - {fileID: 8300000, guid: 97284137e02c220469bc9d383e5533a9, type: 3}
+    - {fileID: 8300000, guid: e6bf3b34b25c9904e8bd57b723e4027d, type: 3}
+    - {fileID: 8300000, guid: 649276247ec49ad4d97da6b209f55de6, type: 3}
+    - {fileID: 8300000, guid: 24c3f6c68e122e142b3e56b70160f763, type: 3}
+    - {fileID: 8300000, guid: 6deb8cceefe1dbf4b86c12dfb279c8f2, type: 3}
+  - soundName: PickUp
+    sound:
+    - {fileID: 8300000, guid: 72069f928ac6e614593a97a056619c6f, type: 3}
+    - {fileID: 8300000, guid: 26595a86089cdc64cad7a99ce74e50b8, type: 3}
+    - {fileID: 8300000, guid: e272a443e3730ce4eb8c228b6725b806, type: 3}
+  - soundName: PickUp
+    sound:
+    - {fileID: 8300000, guid: 72069f928ac6e614593a97a056619c6f, type: 3}
+    - {fileID: 8300000, guid: 26595a86089cdc64cad7a99ce74e50b8, type: 3}
+    - {fileID: 8300000, guid: e272a443e3730ce4eb8c228b6725b806, type: 3}
+  enviromentSounds:
+  - soundName: Button
+    sound: []
+  - soundName: Fan
+    sound: []
+  - soundName: LaunchPad
+    sound: []
+  - soundName: Portal
+    sound: []
+  - soundName: DoorMoving
+    sound: []
+  - soundName: DoorActivated
+    sound: []
 --- !u!82 &322428077
 AudioSource:
   m_ObjectHideFlags: 0

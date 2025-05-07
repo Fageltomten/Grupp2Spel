@@ -3,6 +3,10 @@ using UnityEngine;
 //Author Clara Lönnkrans
 public class Fan : MonoBehaviour, IActivatable
 {
+    /// <summary>
+    /// A class for fan beahavior
+    /// </summary>
+    /// 
     [SerializeField] private float force = 30;
     [SerializeField] private float windRange = 10;
 
@@ -34,6 +38,9 @@ public class Fan : MonoBehaviour, IActivatable
         animator = GetComponent<Animator>();
         basePoint = transform.Find("Blades");
         windParticles = transform.Find("WindParticle").GetComponent<ParticleSystem>();
+
+        var main = windParticles.main;
+        main.startLifetime = windRange / 10;
 
         playerMovement = GameObject.FindAnyObjectByType<PlayerMovement>();
         if (playerMovement == null)
