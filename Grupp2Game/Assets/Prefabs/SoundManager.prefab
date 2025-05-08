@@ -1,0 +1,192 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3163268072813357650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5339784339580072065}
+  - component: {fileID: 6619716892269381923}
+  - component: {fileID: 5338872366097634522}
+  - component: {fileID: 6243145305770067957}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5339784339580072065
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163268072813357650}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &6619716892269381923
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163268072813357650}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -3228565883280880732, guid: e1482c22f69096445be6af1089b50acc, type: 2}
+  m_audioClip: {fileID: 8300000, guid: a154ed1ad01351e4dba7a43addd2c751, type: 3}
+  m_Resource: {fileID: 8300000, guid: a154ed1ad01351e4dba7a43addd2c751, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.043
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5338872366097634522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163268072813357650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b69c02b4788414faa2ca3a15bb1dd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSounds:
+  - soundName: Jump
+    sound:
+    - {fileID: 8300000, guid: 8587c6fa0f20db340a4e6c13c324b678, type: 3}
+    - {fileID: 8300000, guid: a8012e49f64a51c4d8bc9b86afa2ef1a, type: 3}
+    - {fileID: 8300000, guid: fb3af61f79253294d882a6dfbc58025c, type: 3}
+    - {fileID: 8300000, guid: dd6ac33e31293264794075f7f5a6c2ba, type: 3}
+    - {fileID: 8300000, guid: 1a3bb34a5701ec14092b7e54c6e8ca5d, type: 3}
+    - {fileID: 8300000, guid: 2ccff4513519d5645a48e199a6d4b7a9, type: 3}
+    - {fileID: 8300000, guid: 72fd552102a4f27478d3c630199d0733, type: 3}
+    - {fileID: 8300000, guid: be9ee2c2198f6ea4584ffc1e5b5853fb, type: 3}
+    - {fileID: 8300000, guid: d7dbc599231c5774f82e901674f83f38, type: 3}
+  - soundName: GrapplingHook
+    sound:
+    - {fileID: 8300000, guid: 450580ad2ab30a84280cc7af9af2ad01, type: 3}
+  - soundName: Dash
+    sound:
+    - {fileID: 8300000, guid: 97284137e02c220469bc9d383e5533a9, type: 3}
+    - {fileID: 8300000, guid: e6bf3b34b25c9904e8bd57b723e4027d, type: 3}
+    - {fileID: 8300000, guid: 649276247ec49ad4d97da6b209f55de6, type: 3}
+    - {fileID: 8300000, guid: 24c3f6c68e122e142b3e56b70160f763, type: 3}
+    - {fileID: 8300000, guid: 6deb8cceefe1dbf4b86c12dfb279c8f2, type: 3}
+  enviromentSounds:
+  - soundName: Button
+    sound: []
+  - soundName: Fan
+    sound: []
+  - soundName: LaunchPad
+    sound: []
+  - soundName: Portal
+    sound: []
+  - soundName: DoorMoving
+    sound: []
+  - soundName: DoorActivated
+    sound: []
+--- !u!114 &6243145305770067957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3163268072813357650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4edadd25c12a52a499e391a7263aad09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
