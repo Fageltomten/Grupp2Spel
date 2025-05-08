@@ -10,13 +10,12 @@ public class PlayerSounds : MonoBehaviour
     
     //Note! Check if we want to do like this(calling these methods from other scripts, easier bc wont have to do all the checks here too
     private AudioSource audioSource;
-    //private InputAction jumpInput;
+
+    [SerializeField] int randomForDashSound = 5;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        //jumpInput = InputSystem.actions.FindAction("Jump");
-        //jumpInput.performed += _ => OnJump();
     }
     public void JumpSound()
     {
@@ -34,7 +33,7 @@ public class PlayerSounds : MonoBehaviour
         audioSource.loop = false;
         audioSource.Play();
     }
-    public void ShootSound()
+    public void GrapplinghookSound()
     {
         AudioClip shootSound = SoundBank.Instance.GetPlayerSound("GrapplingHook");
         if (shootSound == null)
@@ -42,13 +41,14 @@ public class PlayerSounds : MonoBehaviour
             Debug.Log("jumpsound not found");
             return;
         }
-        audioSource.clip = shootSound;
+        //audioSource.clip = shootSound;
         audioSource.loop = false;
-        audioSource.Play();
+        audioSource.PlayOneShot(shootSound, 0.3f);
     }
     public void DashSound()
     {
         AudioClip dashSound = SoundBank.Instance.GetPlayerSound("Dash");
+        int random = Random.Range(0, randomForDashSound);
         if (dashSound == null)
         {
             Debug.Log("jumpsound not found");
@@ -58,8 +58,12 @@ public class PlayerSounds : MonoBehaviour
         {
             return;
         }
-        audioSource.clip = dashSound;
-        audioSource.loop = false;
-        audioSource.Play();
+        if (random == 1)
+        {
+            audioSource.clip = dashSound;
+            audioSource.loop = false;
+            audioSource.Play();
+        }
+       
     }
 }

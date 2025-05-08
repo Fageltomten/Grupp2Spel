@@ -38,6 +38,8 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] private float dashForce = 0.5f;
     [SerializeField] private float maxRopeLength = 10f;
 
+    private PlayerSounds playerSounds;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -49,6 +51,8 @@ public class GrapplingHook : MonoBehaviour
         dashAction.performed += _ => Dash();
         playerRigidbody = GetComponent<Rigidbody>();
         drag = playerRigidbody.linearDamping;
+
+        playerSounds = GetComponent<PlayerSounds>();
     }
 
     private void Update()
@@ -244,6 +248,8 @@ public class GrapplingHook : MonoBehaviour
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, maxRopeLength, grapplingLayerMask, QueryTriggerInteraction.Ignore) && !CameraHitPoint.transform.CompareTag("UnGrappable"))
         {
+            playerSounds.GrapplinghookSound();
+
             print("Shooting");
             grapplePoints = new List<Vector3>();
             grapplePoints.Add(transform.position);
@@ -273,6 +279,7 @@ public class GrapplingHook : MonoBehaviour
     {
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
+        playerSounds.DashSound();
         Vector3 dashDirection = grapplePoints[0] - grapplingLastPoint;
         AddForce(dashDirection.normalized * dashForce, ForceMode.Impulse);
     }

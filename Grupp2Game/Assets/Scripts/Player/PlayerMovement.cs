@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
     private InputAction movementInput;
     private InputAction jumpInput;
 
+    private PlayerSounds playerSounds;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -53,6 +55,8 @@ public class PlayerMovement : MonoBehaviour
         movementInput = InputSystem.actions.FindAction("Move");
         jumpInput = InputSystem.actions.FindAction("Jump");
         jumpInput.performed += _ => OnJump();
+
+        playerSounds = GetComponent<PlayerSounds>();
     }
 
     // Update is called once per frame
@@ -132,12 +136,14 @@ public class PlayerMovement : MonoBehaviour
             hasAirJumped = false;
             ResetVerticalVelocity();
             AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            playerSounds.JumpSound();
         }
         else if(!hasAirJumped)
         {
             hasAirJumped = true;
             ResetVerticalVelocity();
             AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            playerSounds.JumpSound();
         }
     }
 

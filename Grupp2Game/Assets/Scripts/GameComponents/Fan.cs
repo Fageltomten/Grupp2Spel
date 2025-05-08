@@ -12,6 +12,7 @@ public class Fan : MonoBehaviour, IActivatable
 
     private PlayerMovement playerMovement;
     private Transform basePoint;
+    private float colliderLenght;
     private Vector3 currentGravity;
     private bool isActivated = false;
     private CapsuleCollider capsuleCollider;
@@ -34,13 +35,14 @@ public class Fan : MonoBehaviour, IActivatable
     }
     private void Start()
     {
+        colliderLenght = windRange / transform.localScale.z;
         currentGravity = Physics.gravity;
         animator = GetComponent<Animator>();
         basePoint = transform.Find("Blades");
         windParticles = transform.Find("WindParticle").GetComponent<ParticleSystem>();
 
         var main = windParticles.main;
-        main.startLifetime = windRange / 10;
+        main.startLifetime = colliderLenght / 10;
 
         playerMovement = GameObject.FindAnyObjectByType<PlayerMovement>();
         if (playerMovement == null)
@@ -80,8 +82,8 @@ public class Fan : MonoBehaviour, IActivatable
     {
         if (capsuleCollider != null)
         {
-            capsuleCollider.height = windRange;
-            capsuleCollider.center = new Vector3(0, windRange / 2, 0);
+            capsuleCollider.height = colliderLenght;
+            capsuleCollider.center = new Vector3(0, colliderLenght / 2, 0);
         }
     }
 }

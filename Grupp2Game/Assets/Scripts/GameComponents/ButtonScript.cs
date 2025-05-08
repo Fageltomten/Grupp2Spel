@@ -60,12 +60,10 @@ public class ButtonScript : MonoBehaviour, IActivator, IActivatable
                 
                 if (isActivated)
                 {
-                    //isActivated = false;
                     ActivationCaller.SendDeactivation();
                 }
                 else
                 {
-                    //isActivated = true;
                     ActivationCaller.SendActivation();
                 }
                 atBottom = true;
@@ -80,7 +78,7 @@ public class ButtonScript : MonoBehaviour, IActivator, IActivatable
     }
     private IEnumerator MoveUp()
     {
-        while (!atBottom && movingPart.localPosition.y < movingPartStartPos)
+        while (movingPart.localPosition.y < movingPartStartPos)
         {
             movingPart.localPosition += new Vector3(0, moveSpeed * Time.deltaTime, 0);
             yield return null;
