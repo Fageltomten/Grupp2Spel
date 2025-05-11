@@ -9,59 +9,109 @@ public class PlayerFootTarget : MonoBehaviour
 {
 
     [SerializeField] float stepDistance;
-    [SerializeField] float extraStepPercentage;
     [SerializeField] float stepHeight;
     [SerializeField] float stepSpeed;
     [SerializeField] Transform middlePoint;
     [SerializeField] float groundCheckDistance;
     [SerializeField] LayerMask groundLayer;
+    [SerializeField] float waitTimeBeforeIdle;
 
     Vector3 currentPosition;
     Vector3 newPosition;
     Vector3 oldPosition;
 
 
-    float lerp;
+    float lerp = 1;
+    float idleTimer = 0;
+    bool idle = false;
+    bool fast = false;
+
+    public bool IsActive { get; set; } = true;
     
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     void Start()
     {
         currentPosition = transform.position;
         oldPosition = transform.position;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    
+    void Update()
     {
-        transform.position = currentPosition;
+        //early return
+        if (!IsActive)
+        {
+            return;
+        }
 
+        transform.position = currentPosition;
+        Vector3 hitPos = new Vector3();
+        
+        
+        // gets position to move to
         if (Physics.Raycast(middlePoint.position, Vector3.down, out RaycastHit hit, groundCheckDistance, groundLayer))
         {
-            
+            hitPos = hit.point;
+
             if (Vector3.Distance(newPosition, hit.point) > stepDistance)
             {
-                oldPosition = hit.point;
-                newPosition = hit.point + (Vector3.Normalize(hit.point - newPosition) * stepDistance * extraStepPercentage);
-                lerp = 0;
-                
+                //interupt previous
+                if(lerp < 1)
+                {
+                    fast = true;
+                   
+                } else
+                {
+                    lerp = 0;
+                    fast = false;
+                }
+                newPosition = hit.point + (Vector3.Normalize(hit.point - newPosition) * stepDistance * (Random.Range(0.5f, 0.9f)));
+                idleTimer = 0;
+                idle = false;
+
             }
-            
+
         }
+        
+        // moves point
         if (lerp < 1)
         {
             Vector3 footPos = Vector3.Slerp(oldPosition, newPosition, lerp);
             footPos.y += Mathf.Sin(lerp * Mathf.PI) * stepHeight;
 
-            currentPosition = footPos;
+            if (fast)
+            {
+                currentPosition = newPosition;
+            }
+            else
+            {
+                currentPosition = footPos;
+            }
+           
             lerp += Time.deltaTime * stepSpeed;
-            
+            if (!(lerp < 1))
+            {
+                //finished moving
+                
+            }
         }
         else
         {
-            
             oldPosition = newPosition;
         }
+
+        // idle timer
+        if (idleTimer > waitTimeBeforeIdle && !idle)
+        {
+            newPosition = hitPos;
+            lerp = 0;
+            idle = true;
+        } else
+        {
+            idleTimer += Time.deltaTime;
+        }
+        
     }
 
     private void OnDrawGizmos()

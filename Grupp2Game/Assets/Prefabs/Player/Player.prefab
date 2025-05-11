@@ -199,7 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepDistance: 0.4
-  extraStepPercentage: 0.7
   stepHeight: 0.2
   stepSpeed: 6
   middlePoint: {fileID: 4601334278802092100}
@@ -268,7 +267,7 @@ Transform:
   m_GameObject: {fileID: 1681538084350791818}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.62573427, y: 0.91199994, z: -0.570672}
+  m_LocalPosition: {x: 0.6257348, y: 0.91199994, z: -0.5706725}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -642,7 +641,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepDistance: 0.4
-  extraStepPercentage: 0.7
   stepHeight: 0.2
   stepSpeed: 6
   middlePoint: {fileID: 5877322864187333219}
@@ -824,7 +822,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepDistance: 0.4
-  extraStepPercentage: 0.7
   stepHeight: 0.2
   stepSpeed: 6
   middlePoint: {fileID: 6645914455125009227}
@@ -1129,7 +1126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stepDistance: 0.4
-  extraStepPercentage: 0.7
   stepHeight: 0.2
   stepSpeed: 6
   middlePoint: {fileID: 6128153254320255978}
