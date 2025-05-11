@@ -2,6 +2,9 @@ using UnityEngine;
 
 
 // Author: Carl Åslund
+/// <summary>
+/// Component that handles the navigation in the settingsmenu 
+/// </summary>
 public class SettingsMenuController : MonoBehaviour
 {
 
@@ -9,6 +12,7 @@ public class SettingsMenuController : MonoBehaviour
     [SerializeField] GameObject graphicsScreen;
     [SerializeField] GameObject audioScreen;
     [SerializeField] GameObject gameplayScreen;
+    [Tooltip("Menu to return to when exiting settings menu.")]
     [SerializeField] GameObject mainMenu;
 
     public void EnterSettingsMenu()

@@ -724,11 +724,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cb3afdccacebc418b478dfdcaa8078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 50
+  acceleration: 60
   maxSpeed: 5
   stopSpeed: 5
   sidewaysStopSpeed: 5
-  jumpForce: 10
+  grappleMovementMultiplier: 0.2
+  jumpForce: 13
+  airJumpForce: 10
   grouldClearance: 0.35
   groundCheckDistance: 1
   groundStickiness: 5
@@ -809,7 +811,7 @@ MonoBehaviour:
   ropeOffset: 0.03
   checkDistance: 0.3
   dashForce: 5
-  maxRopeLength: 72.42
+  maxRopeLength: 40
 --- !u!120 &-7006905382350516766
 LineRenderer:
   serializedVersion: 2

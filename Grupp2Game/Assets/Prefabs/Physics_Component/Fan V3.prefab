@@ -29,7 +29,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 9177915323691345835}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
@@ -108,7 +108,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 9177915323691345835}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4843,7 +4843,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 899bc81dc46f0984cb45d2632aa0fb1e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 15.858183
+      value: -25.8
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 899bc81dc46f0984cb45d2632aa0fb1e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4851,7 +4851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 899bc81dc46f0984cb45d2632aa0fb1e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.6569293
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 899bc81dc46f0984cb45d2632aa0fb1e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4880,6 +4880,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 899bc81dc46f0984cb45d2632aa0fb1e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 899bc81dc46f0984cb45d2632aa0fb1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -2859109400176981367, guid: 899bc81dc46f0984cb45d2632aa0fb1e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -4992,7 +4996,7 @@ MonoBehaviour:
   channel: 1
   objectsToHaveChannelColor:
   - {fileID: 9201540578674754117}
-  startActivated: 0
+  startActivated: 1
   startListening: 1
   autoListenOnCaller: 0
 --- !u!114 &4336474453780215699
@@ -5008,7 +5012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   force: 30
-  windRange: 15
+  windRange: 40
 --- !u!136 &4434952095833324188
 CapsuleCollider:
   m_ObjectHideFlags: 0

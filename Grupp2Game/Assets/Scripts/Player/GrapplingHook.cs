@@ -38,6 +38,8 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] private float dashForce = 0.5f;
     [SerializeField] private float maxRopeLength = 10f;
 
+    private PlayerSounds playerSounds;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -49,11 +51,12 @@ public class GrapplingHook : MonoBehaviour
         dashAction.performed += _ => Dash();
         playerRigidbody = GetComponent<Rigidbody>();
         drag = playerRigidbody.linearDamping;
+
+        playerSounds = GetComponent<PlayerSounds>();
     }
 
     private void Update()
     {
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, 100f, grapplingLayerMask);
     }
 
     // Update is called once per frame
@@ -61,11 +64,30 @@ public class GrapplingHook : MonoBehaviour
     {
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
-        for (int i = 0; i < PhysicsIterations; i++)
+        /*for (int i = 0; i < PhysicsIterations; i++)
         {
             CheckCollisionPoints();
-        }
+        }*/
+        FixGrappleLength();
         UpdatePhysics();
+    }
+    
+    private void FixGrappleLength() 
+    {
+        float totalDiffrence = 0;
+        float firstDiffrence = Vector3.Distance(grapplePoints[0], grapplePoints[1]);
+        for (int i = 0; i + 1 < grapplePoints.Count; i++)
+        {
+            totalDiffrence += Vector3.Distance(grapplePoints[i], grapplePoints[i + 1]);
+        }
+
+
+        if (totalDiffrence > ropeLength)
+        {
+            Vector3 diffrence = grapplePoints[1] - grapplePoints[0];
+            Vector3 moveAmount = diffrence * (totalDiffrence - ropeLength) / totalDiffrence;
+            grapplePoints[0] += moveAmount;
+        }
     }
 
     private void LateUpdate()
@@ -226,6 +248,8 @@ public class GrapplingHook : MonoBehaviour
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, maxRopeLength, grapplingLayerMask, QueryTriggerInteraction.Ignore) && !CameraHitPoint.transform.CompareTag("UnGrappable"))
         {
+            playerSounds.GrapplinghookSound();
+
             print("Shooting");
             grapplePoints = new List<Vector3>();
             grapplePoints.Add(transform.position);
@@ -255,6 +279,7 @@ public class GrapplingHook : MonoBehaviour
     {
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
+        playerSounds.DashSound();
         Vector3 dashDirection = grapplePoints[0] - grapplingLastPoint;
         AddForce(dashDirection.normalized * dashForce, ForceMode.Impulse);
     }

@@ -3,6 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 //Author: Carl Åslund
+/// <summary>
+/// Component that handles the changes in values in the Audio part of the settings menu.
+/// </summary>
 public class AudioSettingsController : MonoBehaviour
 {
     [SerializeField] Slider masterSlider;

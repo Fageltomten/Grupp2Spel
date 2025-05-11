@@ -27,8 +27,25 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float groundStickiness = 0.1f;
     [SerializeField] private LayerMask groundLayer;
 
+    [Header("Dash")]
+    [SerializeField] float dashForce = 25f;
+    [SerializeField] float delayBetweenPresses = 0.25f;
+    [SerializeField] float dashCooldown = 2f;
+    [SerializeField] bool canDash = true;
+    [SerializeField] bool isDashing = false;
+    bool pressedFirstW = false;
+    bool pressedFirstA = false;
+    bool pressedFirstS = false;
+    bool pressedFirstD = false;
+    float lastPressedW = 0f;
+    float lastPressedA = 0f;
+    float lastPressedS = 0f;
+    float lastPressedD= 0f;
+
     private InputAction movementInput;
     private InputAction jumpInput;
+
+    private PlayerSounds playerSounds;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,12 +55,14 @@ public class PlayerMovement : MonoBehaviour
         movementInput = InputSystem.actions.FindAction("Move");
         jumpInput = InputSystem.actions.FindAction("Jump");
         jumpInput.performed += _ => OnJump();
+
+        playerSounds = GetComponent<PlayerSounds>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        Dash();
     }
 
     private void FixedUpdate()
@@ -58,7 +77,8 @@ public class PlayerMovement : MonoBehaviour
         Vector3 forceToAdd = Vector3.zero;
         if (inputMagnitude == 0 && currentSpeed != 0 && isGrounded && !grapplingHook.IsGrappled())
         {
-            forceToAdd -= rigidbody.linearVelocity * stopSpeed;
+            if(!isDashing)
+                forceToAdd -= rigidbody.linearVelocity * stopSpeed;
         }
         else if (inputMagnitude == 0)
         {
@@ -77,8 +97,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 tempAcceleration = acceleration * grappleMovementMultiplier;
             }
-            forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * tempAcceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
-            if(!grapplingHook.IsGrappled() && isGrounded)
+
+            if(!isDashing)
+                forceToAdd += (1 - Mathf.Clamp01(moveSpeed / maxSpeed) * dottedValue) * tempAcceleration * (movementDirection.z * transform.forward + movementDirection.x * transform.right);
+            
+            if(!grapplingHook.IsGrappled() && isGrounded && !isDashing)
                 forceToAdd -= sidewaysVelocity * sidewaysStopSpeed;
             
             Debug.DrawLine(transform.position, transform.position + forceToAdd, Color.red);
@@ -111,12 +134,16 @@ public class PlayerMovement : MonoBehaviour
         if(isGrounded)
         {
             hasAirJumped = false;
+            ResetVerticalVelocity();
             AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            playerSounds.JumpSound();
         }
         else if(!hasAirJumped)
         {
             hasAirJumped = true;
+            ResetVerticalVelocity();
             AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            playerSounds.JumpSound();
         }
     }
 
@@ -149,7 +176,6 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.AddForce(force, forceMode);
         }
     }
-
     public void SetSpeed(Vector3 speed)
     {
         if (grapplingHook.IsGrappled())
@@ -170,7 +196,181 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rigidbody.linearVelocity = Vector3.Scale(movementSpeed, Vector3.one - transform.up);
+            //rigidbody.linearVelocity = Vector3.Scale(movementSpeed, Vector3.one - transform.up);
+            Vector3 v = rigidbody.linearVelocity;
+            rigidbody.linearVelocity = new Vector3(v.x, 0, v.z);
         }
+    }
+
+    public void Dash()
+    {
+        if (!canDash)
+            return;
+
+        if (GetComponent<GrapplingHook>().IsGrappled())
+            return;
+
+        if (DoublePressedW())
+            StartCoroutine(PerformDash(transform.forward));
+        else if (DoublePressedA())
+            StartCoroutine(PerformDash(-transform.right));
+        else if (DoublePressedS())
+            StartCoroutine(PerformDash(-transform.forward));
+        else if (DoublePressedD())
+            StartCoroutine(PerformDash(transform.right));
+        else
+            return;
+
+        canDash = false;
+        StartCoroutine(StartDashCooldown());
+    }
+
+    IEnumerator PerformDash(Vector3 v)
+    {
+        isDashing = true;
+        AddForce(v * dashForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(0.4f);
+        Vector3 lV = rigidbody.linearVelocity;
+        rigidbody.linearVelocity -= v * dashForce;//new Vector3(lV.x - v.x*10, lV.y - v.x*10, lV.z - v.z*10);
+        isDashing = false;
+    }
+    IEnumerator StartDashCooldown()
+    {
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
+    bool DoublePressedW()
+    {
+        if (KeyPressed(KeyCode.W))
+        {
+            if (pressedFirstW)
+            {
+                bool isDoublePressed = Time.time - lastPressedW <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - W");
+                    pressedFirstW = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - W");
+                pressedFirstW = true;
+            }
+
+            lastPressedW = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstW && Time.time - lastPressedW > delayBetweenPresses)
+        {
+            pressedFirstW = false;
+        }
+
+        return false;
+    }
+    bool DoublePressedA()
+    {
+        if (KeyPressed(KeyCode.A))
+        {
+            if (pressedFirstA)
+            {
+                bool isDoublePressed = Time.time - lastPressedA <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - A");
+                    pressedFirstA = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - A");
+                pressedFirstA = true;
+            }
+
+            lastPressedA = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstA && Time.time - lastPressedA > delayBetweenPresses)
+        {
+            pressedFirstA = false;
+        }
+
+        return false;
+    }
+    bool DoublePressedS()
+    {
+        if (KeyPressed(KeyCode.S))
+        {
+            if (pressedFirstS)
+            {
+                bool isDoublePressed = Time.time - lastPressedS <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - S");
+                    pressedFirstS = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - S");
+                pressedFirstS = true;
+            }
+
+            lastPressedS = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstS && Time.time - lastPressedS > delayBetweenPresses)
+        {
+            pressedFirstS = false;
+        }
+
+        return false;
+    }
+    bool DoublePressedD()
+    {
+        if (KeyPressed(KeyCode.D))
+        {
+            if (pressedFirstD)
+            {
+                bool isDoublePressed = Time.time - lastPressedD <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - D");
+                    pressedFirstD = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - D");
+                pressedFirstD = true;
+            }
+
+            lastPressedD = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstD && Time.time - lastPressedD > delayBetweenPresses)
+        {
+            pressedFirstD = false;
+        }
+
+        return false;
+    }
+
+    bool KeyPressed(KeyCode key)
+    {
+        return Input.GetKeyDown(key);
     }
 }
