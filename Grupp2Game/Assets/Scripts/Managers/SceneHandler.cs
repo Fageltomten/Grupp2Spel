@@ -15,7 +15,8 @@ public enum Level
     HardDrive,
     CPU,
     GPU,
-    Powersupply
+    Powersupply,
+    RAM
 }
 
 public class SceneHandler : Singleton<SceneHandler>
@@ -33,13 +34,15 @@ public class SceneHandler : Singleton<SceneHandler>
         { Level.Hub, "Hub" },
         { Level.HardDrive, "HardDrive" },
         { Level.GPU, "GPU" },
+        { Level.RAM, "RAM" }
     };
 
     public static Dictionary<Level, Vector3> GetStartingPosition = new Dictionary<Level, Vector3>
     {
         { Level.Hub, new Vector3(0, 1, 0)},
         { Level.HardDrive, new Vector3(0, 21, -36) },
-        { Level.GPU, new Vector3(14, 4, 0) }
+        { Level.GPU, new Vector3(14, 4, 0) },
+        { Level.RAM, new Vector3(0, 1, 0) }
     };
 
     ISaver saveSystem;
