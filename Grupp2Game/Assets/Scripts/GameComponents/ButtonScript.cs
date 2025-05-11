@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Author Clara Lönnkrans
-public class ButtonScript : MonoBehaviour, IActivator
+public class ButtonScript : MonoBehaviour, IActivator, IActivatable
 {
+    /// <summary>
+    /// A class for button beahavior
+    /// </summary>
     [SerializeField] float activationWeight = 0.1f;
     [SerializeField] float moveSpeed = 1f;
 
@@ -18,6 +21,14 @@ public class ButtonScript : MonoBehaviour, IActivator
 
     public ActivationCaller ActivationCaller { get; set; }
 
+    void IActivatable.Activate()
+    {
+        isActivated = true;
+    }
+    void IActivatable.Deactivate()
+    {
+        isActivated = false;
+    }
     private void Start()
     {
         movingPart = transform.Find("Button");
@@ -49,12 +60,10 @@ public class ButtonScript : MonoBehaviour, IActivator
                 
                 if (isActivated)
                 {
-                    isActivated = false;
                     ActivationCaller.SendDeactivation();
                 }
                 else
                 {
-                    isActivated = true;
                     ActivationCaller.SendActivation();
                 }
                 atBottom = true;
@@ -69,7 +78,7 @@ public class ButtonScript : MonoBehaviour, IActivator
     }
     private IEnumerator MoveUp()
     {
-        while (!atBottom && movingPart.localPosition.y < movingPartStartPos)
+        while (movingPart.localPosition.y < movingPartStartPos)
         {
             movingPart.localPosition += new Vector3(0, moveSpeed * Time.deltaTime, 0);
             yield return null;

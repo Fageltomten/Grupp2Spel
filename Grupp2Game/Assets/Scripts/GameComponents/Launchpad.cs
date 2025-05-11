@@ -3,6 +3,9 @@ using UnityEngine;
 //Author Clara Lönnkrans
 public class Launchpad : MonoBehaviour, IActivatable
 {
+    /// <summary>
+    /// A class for launchpad beahavior
+    /// </summary>
     [SerializeField] private float force = 30;
 
     private PlayerMovement playerMovement;

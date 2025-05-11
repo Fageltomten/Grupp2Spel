@@ -15,10 +15,11 @@ public static class SettingsManager
     static SettingsSave settings;
 
     public static SettingsSave GetSettings()
-    {
-        
+    { 
+
         if (settings == null)
         {
+            Debug.Log("load settings");
             LoadSettings();
         }
         return settings;
@@ -37,6 +38,10 @@ public static class SettingsManager
         {
             string jsonString = File.ReadAllText(filePath);
             settings = JsonUtility.FromJson<SettingsSave>(jsonString);
+            if (settings == null )
+            {
+                CreateNewSettings();
+            }
         } else
         {
             CreateNewSettings();

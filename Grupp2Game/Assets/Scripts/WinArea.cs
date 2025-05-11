@@ -1,20 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WinArea : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    
     public void CheckForWin()
     {
         SaveManager saveManager = GameObject.FindAnyObjectByType<SaveManager>();
@@ -29,18 +18,33 @@ public class WinArea : MonoBehaviour
         }
         int collectedCollectables = 0;
 
-        //foreach (var item in fileSaver.)
-        //{
-        //    //Loop through each save file
-        //    //Somehow
-        //}
+        List<GameData> savedGameData = fileSaver.GetAllCurrentlySavedGameData();
+        if (savedGameData == null)
+        {
+            Debug.Log("Why the fuck is this null?");
+            return;
+        }
+        foreach (var gamedata in savedGameData)
+        {
+            //Loop through each save file
+            //Somehow
+            collectedCollectables += gamedata.collectedCollectables;
+        }
 
-        if(GameData.totalCollectables <= collectedCollectables)
+        if (GameData.totalCollectables <= collectedCollectables)
         {
             Debug.Log("You win");
+            SceneManager.LoadScene("EndScreen");
         }
         //else
         //{
         //}
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<PlayerMovement>() != null)
+        {
+            CheckForWin();
+        }
     }
 }
