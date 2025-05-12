@@ -60,7 +60,7 @@ public class PlayerFootTarget : MonoBehaviour
                 if(lerp < 1)
                 {
                     fast = true;
-                   
+                    
                 } else
                 {
                     lerp = 0;
@@ -87,9 +87,10 @@ public class PlayerFootTarget : MonoBehaviour
             else
             {
                 currentPosition = footPos;
+                lerp += Time.deltaTime * stepSpeed;
             }
            
-            lerp += Time.deltaTime * stepSpeed;
+            
             if (!(lerp < 1))
             {
                 //finished moving
@@ -99,6 +100,11 @@ public class PlayerFootTarget : MonoBehaviour
         else
         {
             oldPosition = newPosition;
+        }
+
+        if (idleTimer > 0.2f)
+        {
+            fast = false;
         }
 
         // idle timer

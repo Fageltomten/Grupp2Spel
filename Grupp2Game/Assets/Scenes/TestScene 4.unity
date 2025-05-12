@@ -622,33 +622,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
---- !u!1 &1131542540 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 881322189995451037, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-  m_PrefabInstance: {fileID: 1861175823}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1131542542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1131542540}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902dc1ab3f9fcef4bb87f6fd7667be69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1227427654}
-  rotationAmountX: 4
-  rotationAmountY: 7
-  extraY: 90
-  smoothTime: 0
---- !u!4 &1227427654 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6627361237553950359, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-  m_PrefabInstance: {fileID: 1861175823}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1317041014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -775,58 +748,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 196565815847591626, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepSpeed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 196565815847591626, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepDistance
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 196565815847591626, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepFastSpeed
-      value: 271.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 196565815847591626, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: waitTimeBeforeIdle
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2298411741301796969, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepSpeed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2298411741301796969, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepDistance
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2298411741301796969, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepFastSpeed
-      value: 271.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2298411741301796969, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: waitTimeBeforeIdle
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522851934078422530, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepSpeed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522851934078422530, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepDistance
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522851934078422530, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepFastSpeed
-      value: 271.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4522851934078422530, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: waitTimeBeforeIdle
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4635471756424789054, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6223996864951110643, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
       propertyPath: m_Name
       value: Player
@@ -871,33 +792,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7657542514388414786, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepSpeed
-      value: 4.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7657542514388414786, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepDistance
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7657542514388414786, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: stepFastSpeed
-      value: 271.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7657542514388414786, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: waitTimeBeforeIdle
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7997726854856172915, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 881322189995451037, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1131542542}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bca636bc535bef742ba3f3f68199548d, type: 3}
 --- !u!1001 &4317687517936655041
 PrefabInstance:

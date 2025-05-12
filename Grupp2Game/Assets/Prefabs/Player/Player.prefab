@@ -198,14 +198,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d576aca0b1f5404683045f03953ea5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 0.4
+  stepDistance: 0.3
   stepHeight: 0.2
-  stepSpeed: 6
+  stepSpeed: 7
   middlePoint: {fileID: 4601334278802092100}
   groundCheckDistance: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
+  waitTimeBeforeIdle: 2
 --- !u!1 &881322189995451037
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,6 +216,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7754230559173149436}
+  - component: {fileID: 5362118630510993130}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -242,6 +244,23 @@ Transform:
   - {fileID: 4087355326322242300}
   m_Father: {fileID: 6534731116636002891}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5362118630510993130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881322189995451037}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 902dc1ab3f9fcef4bb87f6fd7667be69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 6627361237553950359}
+  rotationAmountX: 4
+  rotationAmountY: 7
+  extraY: 90
+  smoothTime: 0
 --- !u!1 &1681538084350791818
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,14 +659,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d576aca0b1f5404683045f03953ea5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 0.4
+  stepDistance: 0.3
   stepHeight: 0.2
-  stepSpeed: 6
+  stepSpeed: 7
   middlePoint: {fileID: 5877322864187333219}
   groundCheckDistance: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
+  waitTimeBeforeIdle: 2
 --- !u!1 &2242732782436868073
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,14 +841,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d576aca0b1f5404683045f03953ea5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 0.4
+  stepDistance: 0.3
   stepHeight: 0.2
-  stepSpeed: 6
+  stepSpeed: 7
   middlePoint: {fileID: 6645914455125009227}
   groundCheckDistance: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
+  waitTimeBeforeIdle: 2
 --- !u!1 &2316598375171384431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1125,14 +1146,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d576aca0b1f5404683045f03953ea5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stepDistance: 0.4
+  stepDistance: 0.3
   stepHeight: 0.2
-  stepSpeed: 6
+  stepSpeed: 7
   middlePoint: {fileID: 6128153254320255978}
   groundCheckDistance: 2
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
+  waitTimeBeforeIdle: 2
 --- !u!1 &3489518730526663016
 GameObject:
   m_ObjectHideFlags: 0
