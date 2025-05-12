@@ -7,6 +7,8 @@ using UnityEngine;
 public class PlayerBodyTarget : MonoBehaviour
 {
     [SerializeField] Transform player;
+    [Header("Rotation")]
+    [SerializeField] bool doRotation;
     [SerializeField] float rotationAmountX;
     [SerializeField] float rotationAmountY;
     [SerializeField] float extraY;
@@ -20,6 +22,15 @@ public class PlayerBodyTarget : MonoBehaviour
 
     float lerp = 1;
 
+    [Header("Bobbing")]
+    [SerializeField] bool doBob;
+    [SerializeField] float bobAmount;
+    [SerializeField] float bobTime;
+    [SerializeField] float extraBob;
+
+
+    
+
     void Start()
     {
         targetRotation = new Vector3(0, extraY, 0);
@@ -29,6 +40,21 @@ public class PlayerBodyTarget : MonoBehaviour
     
     void Update()
     {
+        if (doRotation)
+        {
+            Rotate();
+        }
+        if (doBob)
+        {
+            Bob();
+        }
+       
+        
+    }
+
+
+    void Rotate()
+    {
         Vector3 difference = player.rotation.eulerAngles - previusRotation;
         Vector3 playerRot = player.rotation.eulerAngles;
 
@@ -36,7 +62,7 @@ public class PlayerBodyTarget : MonoBehaviour
         float targetY = extraY + playerRot.y + (difference.y * rotationAmountY);
         float newY = Mathf.SmoothDamp(transform.eulerAngles.y, targetY, ref rotVelY, smoothTime);
 
-        targetRotation = new Vector3 (newX, newY, playerRot.z);
+        targetRotation = new Vector3(newX, newY, playerRot.z);
 
         Vector3 currentRotation = targetRotation;
 
@@ -44,6 +70,15 @@ public class PlayerBodyTarget : MonoBehaviour
 
 
         previusRotation = playerRot;
-        
+    }
+
+    void Bob()
+    {
+        float newX = player.position.x;
+        float newY = player.position.y + extraBob + bobAmount * Mathf.Abs(Mathf.Sin(Mathf.PI * Time.time / bobTime));
+        float newZ = player.position.z;
+
+        Vector3 newPos = new Vector3(newX, newY, newZ);
+        transform.position = newPos;
     }
 }

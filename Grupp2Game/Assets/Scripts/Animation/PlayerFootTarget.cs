@@ -60,12 +60,13 @@ public class PlayerFootTarget : MonoBehaviour
                 if(lerp < 1)
                 {
                     fast = true;
-                    
+                   
                 } else
                 {
                     lerp = 0;
                     fast = false;
                 }
+                
                 newPosition = hit.point + (Vector3.Normalize(hit.point - newPosition) * stepDistance * (Random.Range(0.5f, 0.9f)));
                 idleTimer = 0;
                 idle = false;
@@ -105,14 +106,19 @@ public class PlayerFootTarget : MonoBehaviour
         if (idleTimer > 0.2f)
         {
             fast = false;
+            oldPosition = newPosition;
         }
 
         // idle timer
         if (idleTimer > waitTimeBeforeIdle && !idle)
         {
-            newPosition = hitPos;
-            lerp = 0;
-            idle = true;
+            if (hitPos != Vector3.zero)
+            {
+                newPosition = hitPos;
+                lerp = 0;
+                idle = true;
+            }
+            
         } else
         {
             idleTimer += Time.deltaTime;
