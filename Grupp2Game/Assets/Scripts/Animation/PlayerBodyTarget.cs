@@ -12,15 +12,17 @@ public class PlayerBodyTarget : MonoBehaviour
     [SerializeField] float rotationAmountX;
     [SerializeField] float rotationAmountY;
     [SerializeField] float extraY;
-    [SerializeField] float smoothTime;
+    [SerializeField] float rotationSpeed;
+
+    [SerializeField] float fallTiltAmount;
+    [SerializeField] float fallTiltMax;
 
     Vector3 previusRotation;
-    float rotVelY = 0;
-    float rotVelX = 0;
 
-    Vector3 targetRotation;
+    
+    int rotateDirection = 0;
 
-    float lerp = 1;
+    Rigidbody playerRigidBody;
 
     [Header("Bobbing")]
     [SerializeField] bool doBob;
@@ -29,12 +31,14 @@ public class PlayerBodyTarget : MonoBehaviour
     [SerializeField] float extraBob;
 
 
-    
+    float rotX;
+    float rotY;
 
     void Start()
     {
-        targetRotation = new Vector3(0, extraY, 0);
+        
         previusRotation = player.rotation.eulerAngles;
+        playerRigidBody = player.GetComponent<Rigidbody>();
     }
 
     
@@ -48,26 +52,32 @@ public class PlayerBodyTarget : MonoBehaviour
         {
             Bob();
         }
-       
-        
-    }
 
+    }
 
     void Rotate()
     {
-        Vector3 difference = player.rotation.eulerAngles - previusRotation;
+
         Vector3 playerRot = player.rotation.eulerAngles;
+        Vector3 difference = playerRot - previusRotation;
+        
+        // selects direction to rotate towards
+        rotateDirection = (difference.y < 0) ? -1 : 1;
+        if (difference.y == 0)
+        {
+            rotateDirection = 0;
+        }
 
-        float newX = playerRot.x + Mathf.SmoothDamp(transform.eulerAngles.x, (difference.y * rotationAmountX), ref rotVelX, smoothTime);
-        float targetY = extraY + playerRot.y + (difference.y * rotationAmountY);
-        float newY = Mathf.SmoothDamp(transform.eulerAngles.y, targetY, ref rotVelY, smoothTime);
+        // selects falltilt
+        float fallTilt = Mathf.Clamp((playerRigidBody.linearVelocity.y * -fallTiltAmount), -fallTiltMax, fallTiltMax);
+        
 
-        targetRotation = new Vector3(newX, newY, playerRot.z);
-
-        Vector3 currentRotation = targetRotation;
-
-        transform.rotation = Quaternion.Euler(currentRotation);
-
+        // selects rotation
+        float xRot = Mathf.SmoothDampAngle(transform.eulerAngles.x, (playerRot.x + rotationAmountX * rotateDirection), ref rotX, 1/rotationSpeed);
+        float yRot = Mathf.SmoothDampAngle(transform.eulerAngles.y, (playerRot.y + extraY + rotationAmountY * rotateDirection), ref rotY, 1/rotationSpeed);
+        Debug.Log(yRot);
+        Vector3 newRotation = new Vector3(xRot, yRot, playerRot.z + fallTilt);
+        transform.rotation = Quaternion.Euler(newRotation);
 
         previusRotation = playerRot;
     }

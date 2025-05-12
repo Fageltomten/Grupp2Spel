@@ -17,7 +17,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     [SerializeField] GameObject[] legs;
     
     
-    Animator animator;
+    
     PlayerMovement movement;
     [SerializeField] PlayerFootTarget[] playerFootTargets;
     [SerializeField] ParticleSystem disapearParticles;
@@ -25,7 +25,7 @@ public class PlayerAnimationHandler : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        animator = GetComponent<Animator>();   
+          
         movement = GetComponent<PlayerMovement>();
     }
 
