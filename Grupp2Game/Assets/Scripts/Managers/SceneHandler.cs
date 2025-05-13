@@ -44,7 +44,6 @@ public class SceneHandler : Singleton<SceneHandler>
         { Level.HardDrive, new Vector3(0, 21, -36) },
         { Level.GPU, new Vector3(14, 4, 0) },
         { Level.CPU, new Vector3(90, 36, -129) },
-        { Level.GPU, new Vector3(14, 4, 0) },
         { Level.RAM, new Vector3(0, 1, 0) }
     };
 
