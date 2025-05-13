@@ -10,6 +10,9 @@ public class Portal : MonoBehaviour
         if(other.tag == "Player")
         {
             GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+
+            other.GetComponent<PlayerMovement>().ForceResetDash();
+
             sceneManager.GetComponent<SceneHandler>().ChangeScene(sceneToLoad);
         }
     }

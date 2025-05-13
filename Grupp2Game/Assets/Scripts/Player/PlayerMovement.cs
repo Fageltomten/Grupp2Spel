@@ -246,6 +246,13 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
+    public void ForceResetDash()
+    {
+        rigidbody.useGravity = true;
+        isDashing = false;
+        canDash = true;
+    }
+
     bool DoublePressedButton(KeyCode key)
     {
         if (KeyPressed(KeyCode.W))
