@@ -31,7 +31,7 @@ public class SceneHandler : Singleton<SceneHandler>
         { Level.MainMenu, "MainMenu" },
         { Level.Persistance, "PersistManagersScene" },
         { Level.Hub, "Hub" },
-        { Level.HardDrive, "HardDrive" },
+        { Level.HardDrive, "HDD" },
         { Level.GPU, "GPU" },
         { Level.CPU, "CPULevel" },
     };
@@ -39,7 +39,7 @@ public class SceneHandler : Singleton<SceneHandler>
     public static Dictionary<Level, Vector3> GetStartingPosition = new Dictionary<Level, Vector3>
     {
         { Level.Hub, new Vector3(0, 1, 0)},
-        { Level.HardDrive, new Vector3(0, 21, -36) },
+        { Level.HardDrive, new Vector3(-15, 2, -14) },
         { Level.GPU, new Vector3(14, 4, 0) },
         { Level.CPU, new Vector3(90, 36, -129) }
     };
