@@ -15,7 +15,8 @@ public enum Level
     HardDrive,
     CPU,
     GPU,
-    Powersupply
+    Powersupply,
+    RAM
 }
 
 public class SceneHandler : Singleton<SceneHandler>
@@ -33,6 +34,7 @@ public class SceneHandler : Singleton<SceneHandler>
         { Level.Hub, "Hub" },
         { Level.HardDrive, "HardDrive" },
         { Level.GPU, "GPU" },
+        { Level.RAM, "RAM" }
         { Level.CPU, "CPULevel" },
     };
 
@@ -42,6 +44,8 @@ public class SceneHandler : Singleton<SceneHandler>
         { Level.HardDrive, new Vector3(0, 21, -36) },
         { Level.GPU, new Vector3(14, 4, 0) },
         { Level.CPU, new Vector3(90, 36, -129) }
+        { Level.GPU, new Vector3(14, 4, 0) },
+        { Level.RAM, new Vector3(0, 1, 0) }
     };
 
     ISaver saveSystem;
@@ -86,7 +90,7 @@ public class SceneHandler : Singleton<SceneHandler>
         ////    }
         ////}
 
-        ///* Slutar funka när man kör med persistance */
+        ///* Slutar funka nï¿½r man kï¿½r med persistance */
         //GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = GetStartingPosition[level];
         //Debug.Log("Position Changed  $");
 
@@ -119,7 +123,7 @@ public class SceneHandler : Singleton<SceneHandler>
         }
     }
 
-    private void ChoosePosition()
+    public void ChoosePosition()
     {
         Vector3 pos = Vector3.zero;
 

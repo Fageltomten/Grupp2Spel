@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-// Author: Carl Åslund
+// Author: Carl ï¿½slund
 /// <summary>
 /// Component that handles logic and navigation for the pause menu.
 /// Pauses and unpauses the game
@@ -78,10 +78,13 @@ public class PauseMenuController : MonoBehaviour
 
     public void Respawn()
     {
+        /*
         Dictionary<Level, Vector3> spawnPos = SceneHandler.GetStartingPosition;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
         player.transform.position = spawnPos[SceneHandler.Instance.CurrentLevel];
+        */
+        GameObject.FindGameObjectWithTag("SceneManager").GetComponent<SceneHandler>().ChoosePosition();
         UnPause();
     }
 
