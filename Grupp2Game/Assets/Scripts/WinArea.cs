@@ -2,31 +2,54 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+//Author Vidar Edlund
 
 public class WinArea : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private TMP_Text winAreaText;
+    [Header("Data")]
+    [SerializeField] private int collectedCollectables;
+    private SaveManager saveManager;
     private GameData gameData;
-
     private void Start()
     {
-        
-    }
-    private List<GameData> GetGameData()
-    {
-        SaveManager saveManager = GameObject.FindAnyObjectByType<SaveManager>();
-        if (saveManager == null)
-        {
-            Debug.Log("saveManaeger returned null for some reason in WinArea");
-        }
-        ISaver fileSaver = saveManager.GetCurrentFileSaverSystem;
-        if (fileSaver == null)
-        {
-            Debug.Log("fileSaver returned null for some reason in WinArea");
-        }
+        UpdateCollectedAmount();
+        UpdatedCollectedText();
 
-        List<GameData> savedGameData = fileSaver.GetAllCurrentlySavedGameData();
-        return savedGameData;
+
+        saveManager = GameObject.FindAnyObjectByType<SaveManager>();
+        saveManager.OnSaveHandler += SaveManager_OnSaveHandler;
+    }
+
+    private void SaveManager_OnSaveHandler(object sender, System.EventArgs e)
+    {
+        UpdateCollectedAmount();
+        UpdatedCollectedText();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.GetComponent<PlayerMovement>() != null)
+        {
+            CheckForWin();
+        }
+    }
+    public void CheckForWin()
+    {
+        if (GameData.totalCollectables <= collectedCollectables)
+        {
+            Debug.Log("You win");
+            SceneManager.LoadScene("EndScreen");
+        }
+    }
+    private void UpdatedCollectedText()
+    {
+        winAreaText.text = $"{collectedCollectables}/{GameData.totalCollectables}";
+    }
+    private void UpdateCollectedAmount()
+    {
+        collectedCollectables = CalculateCollectedNutsAndScrews();
     }
     private int CalculateCollectedNutsAndScrews()
     {
@@ -44,24 +67,20 @@ public class WinArea : MonoBehaviour
         }
         return collectedCollectables;
     }
-    public void CheckForWin()
+    private List<GameData> GetGameData()
     {
-        int collectedCollectables = CalculateCollectedNutsAndScrews();
-        if (GameData.totalCollectables <= collectedCollectables)
+        SaveManager saveManager = GameObject.FindAnyObjectByType<SaveManager>();
+        if (saveManager == null)
         {
-            Debug.Log("You win");
-            SceneManager.LoadScene("EndScreen");
+            Debug.Log("saveManaeger returned null for some reason in WinArea");
         }
-    }
-    private void Update()
-    {
-        
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.GetComponent<PlayerMovement>() != null)
+        ISaver fileSaver = saveManager.GetCurrentFileSaverSystem;
+        if (fileSaver == null)
         {
-            CheckForWin();
+            Debug.Log("fileSaver returned null for some reason in WinArea");
         }
+
+        List<GameData> savedGameData = fileSaver.GetAllCurrentlySavedGameData();
+        return savedGameData;
     }
 }
