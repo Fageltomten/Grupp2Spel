@@ -30,8 +30,14 @@ EditorBuildSettings:
     path: Assets/Scenes/EndScreen.unity
     guid: 2ae0575cf53788a41b119da68949e27c
   - enabled: 1
+    path: Assets/Scenes/RAM.unity
+    guid: 2b8a6abcc43c36e4b96ce1905e81aaea
+  - enabled: 1
     path: Assets/Scenes/CPULevel/CPULevel.unity
     guid: 1c749d428d55c654ebc28c851fd66829
+  - enabled: 1
+    path: Assets/Scenes/HDD.unity
+    guid: fda345df28f564f4ba2e71b3b80efa0f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
