@@ -87,7 +87,7 @@ public class SceneHandler : Singleton<SceneHandler>
         ////    }
         ////}
 
-        ///* Slutar funka när man kör med persistance */
+        ///* Slutar funka nï¿½r man kï¿½r med persistance */
         //GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = GetStartingPosition[level];
         //Debug.Log("Position Changed  $");
 
@@ -120,7 +120,7 @@ public class SceneHandler : Singleton<SceneHandler>
         }
     }
 
-    private void ChoosePosition()
+    public void ChoosePosition()
     {
         Vector3 pos = Vector3.zero;
 
