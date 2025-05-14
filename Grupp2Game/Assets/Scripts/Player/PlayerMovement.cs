@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     private void CheckGrounded()
     {
         isGrounded = false;
-        if (Physics.BoxCast(transform.position - transform.up * (grouldClearance/2), new(0.5f,grouldClearance/2,0.5f), -transform.up, out RaycastHit hit,quaternion.identity, 1 ,groundLayer, QueryTriggerInteraction.Ignore))
+        if (Physics.BoxCast(transform.position - transform.up * (grouldClearance/2), new(0.45f,grouldClearance/2,0.45f), -transform.up, out RaycastHit hit,quaternion.identity, 1 ,groundLayer, QueryTriggerInteraction.Ignore))
         {
             transform.position += (hit.normal * grouldClearance - hit.normal * hit.distance) * groundStickiness * Time.fixedDeltaTime;
             if(grouldClearance>= hit.distance)
@@ -243,6 +243,13 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator StartDashCooldown()
     {
         yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
+    public void ForceResetDash()
+    {
+        rigidbody.useGravity = true;
+        isDashing = false;
         canDash = true;
     }
 

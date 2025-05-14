@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class SaveManager : MonoBehaviour
     public GameData _gameData;
     GameData lastGameData;
     public ISaver GetCurrentFileSaverSystem => _fileSaverSystem;
+    public event EventHandler OnSaveHandler;
 
 
     public void Awake()
@@ -83,6 +85,9 @@ public class SaveManager : MonoBehaviour
         //Now that we have the data that should be saved we give it to the file system
         lastGameData = _gameData;
         _fileSaverSystem.Save(_gameData);
+
+        //Tell WinArea and other UI/Objects that we saved so that they go do things
+        OnSaveHandler?.Invoke(this, EventArgs.Empty);
     }
     public void LoadGame()
     {
