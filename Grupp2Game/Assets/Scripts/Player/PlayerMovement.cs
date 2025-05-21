@@ -237,7 +237,8 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         //rigidbody.linearVelocity -= v * dashForce;//new Vector3(lV.x - v.x*10, lV.y - v.x*10, lV.z - v.z*10);
         rigidbody.useGravity = true;
-        rigidbody.linearVelocity = new Vector3(lV.x, rigidbody.linearVelocity.y, lV.z);
+        //rigidbody.linearVelocity = new Vector3(lV.x, rigidbody.linearVelocity.y, lV.z);
+        rigidbody.linearVelocity = rigidbody.linearVelocity.normalized;
         isDashing = false;
     }
     IEnumerator StartDashCooldown()
