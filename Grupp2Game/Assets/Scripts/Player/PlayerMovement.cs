@@ -116,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
     private void CheckGrounded()
     {
         isGrounded = false;
-        if (Physics.BoxCast(transform.position - transform.up * (grouldClearance/2), new(0.5f,grouldClearance/2,0.5f), -transform.up, out RaycastHit hit,quaternion.identity, 1 ,groundLayer, QueryTriggerInteraction.Ignore))
+        if (Physics.BoxCast(transform.position - transform.up * (grouldClearance/2), new(0.45f,grouldClearance/2,0.45f), -transform.up, out RaycastHit hit,quaternion.identity, 1 ,groundLayer, QueryTriggerInteraction.Ignore))
         {
             transform.position += (hit.normal * grouldClearance - hit.normal * hit.distance) * groundStickiness * Time.fixedDeltaTime;
             if(grouldClearance>= hit.distance)
@@ -202,6 +202,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    /* Dash */
     public void Dash()
     {
         if (!canDash)
@@ -227,17 +229,62 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator PerformDash(Vector3 v)
     {
+        Vector3 lV = rigidbody.linearVelocity;
         isDashing = true;
+        rigidbody.useGravity = false;
+        ResetVerticalVelocity();
         AddForce(v * dashForce, ForceMode.Impulse);
         yield return new WaitForSeconds(0.4f);
-        Vector3 lV = rigidbody.linearVelocity;
-        rigidbody.linearVelocity -= v * dashForce;//new Vector3(lV.x - v.x*10, lV.y - v.x*10, lV.z - v.z*10);
+        //rigidbody.linearVelocity -= v * dashForce;//new Vector3(lV.x - v.x*10, lV.y - v.x*10, lV.z - v.z*10);
+        rigidbody.useGravity = true;
+        //rigidbody.linearVelocity = new Vector3(lV.x, rigidbody.linearVelocity.y, lV.z);
+        rigidbody.linearVelocity = rigidbody.linearVelocity.normalized;
         isDashing = false;
     }
     IEnumerator StartDashCooldown()
     {
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
+    }
+
+    public void ForceResetDash()
+    {
+        rigidbody.useGravity = true;
+        isDashing = false;
+        canDash = true;
+    }
+
+    bool DoublePressedButton(KeyCode key)
+    {
+        if (KeyPressed(KeyCode.W))
+        {
+            if (pressedFirstW)
+            {
+                bool isDoublePressed = Time.time - lastPressedW <= delayBetweenPresses;
+
+                if (isDoublePressed)
+                {
+                    Debug.Log("Double Pressed - W");
+                    pressedFirstW = false;
+                    return true;
+                }
+            }
+            else
+            {
+                Debug.Log("Pressed First - W");
+                pressedFirstW = true;
+            }
+
+            lastPressedW = Time.time;
+        }
+
+        /* Time Ran out*/
+        if (pressedFirstW && Time.time - lastPressedW > delayBetweenPresses)
+        {
+            pressedFirstW = false;
+        }
+
+        return false;
     }
 
     bool DoublePressedW()

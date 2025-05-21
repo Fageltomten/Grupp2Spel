@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 
 //Author Clara Lönnkrans
 public class Fan : MonoBehaviour, IActivatable
@@ -18,6 +20,8 @@ public class Fan : MonoBehaviour, IActivatable
     private CapsuleCollider capsuleCollider;
     Animator animator;
     ParticleSystem windParticles;
+    [SerializeField] private AudioSource audioSource;
+    private AudioClip wind, activation;
 
 
 
@@ -26,15 +30,31 @@ public class Fan : MonoBehaviour, IActivatable
         isActivated = true;
         animator.SetBool("isActive", true);
         windParticles.Play();
+
+        activation = SoundBank.Instance.GetSFXSound("FanActivation");
+        audioSource.clip = activation;
+        audioSource.loop = false;
+        audioSource.Play();
+        StartCoroutine(PlayWindSound(activation.length));
     }
     void IActivatable.Deactivate()
     {
         isActivated = false;
         animator.SetBool("isActive", false);
         windParticles.Stop();
+
+        activation = SoundBank.Instance.GetSFXSound("FanActivation");
+        audioSource.clip = activation;
+        audioSource.loop = false;
+        audioSource.Play();
+
+
     }
     private void Start()
     {
+        
+        
+
         colliderLenght = windRange / transform.localScale.z;
         currentGravity = Physics.gravity;
         animator = GetComponent<Animator>();
@@ -85,5 +105,14 @@ public class Fan : MonoBehaviour, IActivatable
             capsuleCollider.height = colliderLenght;
             capsuleCollider.center = new Vector3(0, colliderLenght / 2, 0);
         }
+    }
+    private IEnumerator PlayWindSound(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        wind = SoundBank.Instance.GetSFXSound("FanWind");
+
+        audioSource.clip = wind;
+        audioSource.loop = true;
+        audioSource.Play();
     }
 }
