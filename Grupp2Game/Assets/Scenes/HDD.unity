@@ -6025,6 +6025,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4850190964714349393, guid: f68b79adc0ddfd94b9c5f882594a86af, type: 3}
+      propertyPath: m_TagString
+      value: UnGrappable
+      objectReference: {fileID: 0}
     - target: {fileID: 5057665175744304655, guid: f68b79adc0ddfd94b9c5f882594a86af, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.26
@@ -14359,6 +14363,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6546588828960734398, guid: 3703f1fdb7b0f7740985c13221874c58, type: 3}
+      propertyPath: m_Center.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8343215161826861084, guid: 3703f1fdb7b0f7740985c13221874c58, type: 3}
       propertyPath: m_Name
       value: TimeBasedMovingPlatformY
@@ -15648,6 +15656,10 @@ PrefabInstance:
     - target: {fileID: 8378276978482154734, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
       propertyPath: m_Name
       value: MovingPlatformX (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9029436288401581769, guid: b5e1280afecfc8b4b9894fb0eafe048d, type: 3}
+      propertyPath: m_Center.y
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23080,6 +23092,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: UnGrappable
       objectReference: {fileID: 0}
+    - target: {fileID: 5613199115112289073, guid: c76bcea7d217b7e47842e4b62f1621d0, type: 3}
+      propertyPath: m_Center.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5745676102764320852, guid: c76bcea7d217b7e47842e4b62f1621d0, type: 3}
       propertyPath: m_LocalPosition.y
       value: 11
@@ -26757,7 +26773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4850190964714349393, guid: f68b79adc0ddfd94b9c5f882594a86af, type: 3}
       propertyPath: m_TagString
-      value: Platform
+      value: UnGrappable
       objectReference: {fileID: 0}
     - target: {fileID: 5057665175744304655, guid: f68b79adc0ddfd94b9c5f882594a86af, type: 3}
       propertyPath: m_LocalPosition.x
