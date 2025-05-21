@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PowerSupply.unity
     guid: 11daae76fa1adaf4ca2ecac7b5984ef8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GPU.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
@@ -30,7 +30,7 @@ EditorBuildSettings:
     path: Assets/Scenes/EndScreen.unity
     guid: 2ae0575cf53788a41b119da68949e27c
   - enabled: 1
-    path: Assets/Scenes/RAM.unity
+    path: Assets/Scenes/RamLevel/RAM.unity
     guid: 2b8a6abcc43c36e4b96ce1905e81aaea
   - enabled: 1
     path: Assets/Scenes/CPULevel/CPULevel.unity
