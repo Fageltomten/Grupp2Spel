@@ -5013,6 +5013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 30
   windRange: 40
+  audioSource: {fileID: 4783035585549761270}
 --- !u!136 &4434952095833324188
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5057,8 +5058,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 2
+  MaxDistance: 21.788506
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -5093,7 +5094,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

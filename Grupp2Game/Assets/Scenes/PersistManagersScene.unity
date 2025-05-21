@@ -1541,6 +1541,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: enviromentSounds.Array.data[0].soundName
+      value: ButtonActivation
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: enviromentSounds.Array.data[1].soundName
+      value: FanWind
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: enviromentSounds.Array.data[2].soundName
+      value: FanActivation
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: enviromentSounds.Array.data[0].sound.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: enviromentSounds.Array.data[1].sound.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: enviromentSounds.Array.data[2].sound.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: 'enviromentSounds.Array.data[0].sound.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: acb992fc4bac9144590065761c456357, type: 3}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: 'enviromentSounds.Array.data[1].sound.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 8d0532cc048cb9b4d99e572d01388bec, type: 3}
+    - target: {fileID: 5338872366097634522, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
+      propertyPath: 'enviromentSounds.Array.data[2].sound.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 3ef60d9cc191e4f459363a5f03e35796, type: 3}
     - target: {fileID: 5339784339580072065, guid: b48503fa9b86da7469bb9ded32223a31, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

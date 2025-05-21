@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,10 +12,13 @@ public class ButtonScript : MonoBehaviour, IActivator, IActivatable
     [SerializeField] float activationWeight = 0.1f;
     [SerializeField] float moveSpeed = 1f;
 
+    private AudioSource audioSource;
+
     private Transform  movingPart;
     private float movingPartStartPos;
     private bool atBottom = false;
     private bool isActivated = false;
+    private AudioClip click;
 
 
     private HashSet<Rigidbody> objectsOnTrigger = new HashSet<Rigidbody>();
@@ -24,13 +28,29 @@ public class ButtonScript : MonoBehaviour, IActivator, IActivatable
     void IActivatable.Activate()
     {
         isActivated = true;
+        audioSource.clip = click;
+        audioSource.loop = false;
+        audioSource.Play();
     }
     void IActivatable.Deactivate()
     {
         isActivated = false;
+        audioSource.clip = click;
+        audioSource.loop = false;
+        audioSource.Play();
+    }
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if(audioSource == null )
+        {
+            Console.WriteLine("no audiosource")
+;        }
+        
     }
     private void Start()
     {
+        click = SoundBank.Instance.GetSFXSound("ButtonActivation");
         movingPart = transform.Find("Button");
         if (movingPart != null)
         {
