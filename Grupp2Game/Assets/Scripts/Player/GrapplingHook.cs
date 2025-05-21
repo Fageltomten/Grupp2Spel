@@ -27,7 +27,8 @@ public class GrapplingHook : MonoBehaviour
     private Vector3 objectHitVector;
     private float drag;
     private bool canDash = true;
-    
+    private bool isGrappling = false;
+
     private Vector3 checkPoint1;
     private Vector3 checkPoint2;
 
@@ -40,6 +41,13 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] private float dashForce = 0.5f;
     [SerializeField] private float dashDelay;
     [SerializeField] private float maxRopeLength = 10f;
+
+    [Header("Visual")]
+    [SerializeField] private float ShootTime;
+    [SerializeField] private float releaseTime;
+    private float ropeT = 0f;
+    private bool isShooting = false;
+    private bool isReleasing = false;
 
     private PlayerSounds playerSounds;
 
@@ -60,12 +68,16 @@ public class GrapplingHook : MonoBehaviour
 
     private void Update()
     {
+        if (isShooting)
+            ShootAnimation();
+        if (isReleasing)
+            ShootReleaseAnimation();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (grapplePoints.Count == 0 || grapplePoints == null)
+        if (grapplePoints.Count == 0 || grapplePoints == null || !isGrappling)
             return;
         /*for (int i = 0; i < PhysicsIterations; i++)
         {
@@ -74,8 +86,8 @@ public class GrapplingHook : MonoBehaviour
         FixGrappleLength();
         UpdatePhysics();
     }
-    
-    private void FixGrappleLength() 
+
+    private void FixGrappleLength()
     {
         float totalDiffrence = 0;
         float firstDiffrence = Vector3.Distance(grapplePoints[0], grapplePoints[1]);
@@ -95,10 +107,14 @@ public class GrapplingHook : MonoBehaviour
 
     private void LateUpdate()
     {
-        lineRenderer.positionCount = grapplePoints.Count;
-        lineRenderer.SetPositions(grapplePoints.ToArray());
-        if (grapplePoints.Count == 0 || grapplePoints == null)
+        if (grapplePoints.Count == 0 || grapplePoints == null || !isGrappling)
             return;
+        lineRenderer.positionCount = grapplePoints.Count;
+        if (!isShooting)
+            lineRenderer.SetPosition(1, grapplePoints[1]);
+        if (!isReleasing)
+            lineRenderer.SetPosition(0, grapplePoints[0]);
+        
         //print($"Position set\nGrapplepoint 0: {grapplePoints[0]}\nlastPoint: {grapplingLastPoint}");
         transform.position = grapplePoints[0];
         //playerRigidbody.linearVelocity = (grapplePoints[0] - grapplingLastPoint);
@@ -235,7 +251,7 @@ public class GrapplingHook : MonoBehaviour
             grapplePoints[0] += moveAmount;
         }
     }
-    
+
     private Vector3 GetClosestPoint(Vector3 point, Vector3 lineStart, Vector3 lineEnd)
     {
         Vector3 lineDirection = lineEnd - lineStart;
@@ -249,8 +265,16 @@ public class GrapplingHook : MonoBehaviour
 
     private void Shoot()
     {
+        if (isReleasing)
+        {
+            isReleasing = false;
+            lineRenderer.positionCount = 0;
+            grapplePoints = new List<Vector3>();
+            forceToAdd = Vector3.zero;
+        }
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, maxRopeLength, grapplingLayerMask, QueryTriggerInteraction.Ignore) && !CameraHitPoint.transform.CompareTag("UnGrappable"))
         {
+            isGrappling = true;
             playerSounds.GrapplinghookSound();
 
             print("Shooting");
@@ -262,20 +286,53 @@ public class GrapplingHook : MonoBehaviour
             lineRenderer.endWidth = ropeWidth;
             grapplingLastPoint = transform.position - playerRigidbody.linearVelocity * Time.fixedDeltaTime;
             lineRenderer.SetPosition(0, grapplePoints[0]);
-            lineRenderer.SetPosition(1, grapplePoints[1]);
             ropeLength = (grapplePoints[0] - grapplePoints[1]).magnitude + 0.005f;
+            ropeT = 0;
+            isReleasing = false;
+            ShootAnimation();
         }
+    }
+
+    private void ShootAnimation()
+    {
+        if (!isShooting)
+            isShooting = true;
+        if (ropeT >= 1)
+        {
+            isShooting = false;
+            ropeT = 0;
+            return;
+        }
+        ropeT += Time.deltaTime / ShootTime;
+        lineRenderer.SetPosition(1, Vector3.Lerp(grapplePoints[0], grapplePoints[1], ropeT));
+    }
+
+    private void ShootReleaseAnimation()
+    {
+        if (!isReleasing)
+            isReleasing = true;
+        if (ropeT >= 1)
+        {
+            isReleasing = false;
+            ropeT = 0;
+            lineRenderer.positionCount = 0;
+            grapplePoints = new List<Vector3>();
+            return;
+        }
+        ropeT += Time.deltaTime / releaseTime;
+        lineRenderer.SetPosition(0, Vector3.Lerp(grapplePoints[0], grapplePoints[1], ropeT));
     }
 
     private void ShootRelease()
     {
-        lineRenderer.positionCount = 0;
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;
-        transform.position = grapplePoints[0];
+        isGrappling = false;
         print($"GrappleReleased\nGrapplepoint 0: {grapplePoints[0]}\nlastPoint: {grapplingLastPoint}");
         //playerRigidbody.AddForce((grapplePoints[0] - grapplingLastPoint) * Time.fixedDeltaTime, ForceMode.VelocityChange);
-        grapplePoints = new List<Vector3>();
+        ropeT = 0;
+        isShooting = false;
+        ShootReleaseAnimation();
     }
 
     private void Dash()
@@ -327,7 +384,7 @@ public class GrapplingHook : MonoBehaviour
 
     public bool IsGrappled()
     {
-        return !(grapplePoints == null || grapplePoints.Count == 0);
+        return !(grapplePoints == null || grapplePoints.Count == 0 || !isGrappling);
     }
 
     public void SetSpeed(Vector3 speed)
