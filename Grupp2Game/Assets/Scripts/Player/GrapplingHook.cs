@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ public class GrapplingHook : MonoBehaviour
     private InputAction dashAction;
     private Vector3 objectHitVector;
     private float drag;
-
+    private bool canDash = true;
+    
     private Vector3 checkPoint1;
     private Vector3 checkPoint2;
 
@@ -36,6 +38,7 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] private float ropeOffset = 0.03f;
     [SerializeField] private float checkDistance = 0.1f;
     [SerializeField] private float dashForce = 0.5f;
+    [SerializeField] private float dashDelay;
     [SerializeField] private float maxRopeLength = 10f;
 
     private PlayerSounds playerSounds;
@@ -277,11 +280,19 @@ public class GrapplingHook : MonoBehaviour
 
     private void Dash()
     {
-        if (grapplePoints.Count == 0 || grapplePoints == null)
+        if (grapplePoints.Count == 0 || grapplePoints == null || !canDash)
             return;
         playerSounds.DashSound();
         Vector3 dashDirection = grapplePoints[0] - grapplingLastPoint;
         AddForce(dashDirection.normalized * dashForce, ForceMode.Impulse);
+        StartCoroutine(DashTimer());
+    }
+
+    private IEnumerator DashTimer()
+    {
+        canDash = false;
+        yield return new WaitForSeconds(dashDelay);
+        canDash = true;
     }
 
     public void AddForce(Vector3 force)
@@ -291,7 +302,7 @@ public class GrapplingHook : MonoBehaviour
 
     public bool CanGrapple()
     {
-        return Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, maxRopeLength, grapplingLayerMask, QueryTriggerInteraction.Ignore);
+        return (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out CameraHitPoint, maxRopeLength, grapplingLayerMask, QueryTriggerInteraction.Ignore) && !CameraHitPoint.transform.CompareTag("UnGrappable"));
     }
 
     public void AddForce(Vector3 force, ForceMode forceMode)
