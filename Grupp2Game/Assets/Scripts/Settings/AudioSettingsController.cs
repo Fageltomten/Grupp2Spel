@@ -14,56 +14,63 @@ public class AudioSettingsController : MonoBehaviour
     [SerializeField] Slider musicSlider;
     [SerializeField] Slider ambientSlider;
 
+    AudioMenu audioMenu;
+    SettingsSave settings;
 
     private void Awake()
     {
-        
+        audioMenu = GetComponent<AudioMenu>();
+        settings = SettingsManager.GetSettings();
         LoadSettings();
         ChangeVolume();
     }
 
     private void LoadSettings()
     {
-        masterSlider.value = SettingsManager.GetSettings().masterVolume;
-        playerSlider.value = SettingsManager.GetSettings().playerVolume;
-        effectsSlider.value = SettingsManager.GetSettings().effectsVolume;
-        musicSlider.value = SettingsManager.GetSettings().musicVolume;
-        ambientSlider.value = SettingsManager.GetSettings().ambientVolume;
+        masterSlider.value = settings.masterVolume;
+        playerSlider.value = settings.playerVolume;
+        effectsSlider.value = settings.effectsVolume;
+        musicSlider.value = settings.musicVolume;
+        ambientSlider.value = settings.ambientVolume;
     }
 
     public void SetMasterVolume(float volume)
     {
-        SettingsManager.GetSettings().masterVolume = volume;
+        settings.masterVolume = volume;
         ChangeVolume();
     }
 
     public void SetPlayerVolume(float volume)
     {
-        SettingsManager.GetSettings().playerVolume = volume;
+        settings.playerVolume = volume;
         ChangeVolume();
     }
 
     public void SetEffectsVolume(float volume)
     {
-        SettingsManager.GetSettings().effectsVolume = volume;
+        settings.effectsVolume = volume;
         ChangeVolume();
     }
 
     public void SetMusicVolume(float volume)
     {
-        SettingsManager.GetSettings().musicVolume = volume;
+        settings.musicVolume = volume;
         ChangeVolume();
     }
 
     public void SetAmbientVolume(float volume)
     {
-        SettingsManager.GetSettings().ambientVolume = volume;
+        settings.ambientVolume = volume;
         ChangeVolume();
     }
 
     void ChangeVolume()
     {
-        
+        audioMenu.SetMasterVolume(settings.masterVolume + 0.01f);
+        audioMenu.SetMusicVolume(settings.musicVolume + 0.01f);
+        audioMenu.SetplayerVolume(settings.playerVolume + 0.01f);
+        audioMenu.SetSFXVolume(settings.effectsVolume + 0.01f);
+        audioMenu.SetAmbienceVolume(settings.ambientVolume + 0.01f);
     }
 
 }

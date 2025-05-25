@@ -75,7 +75,7 @@ public class PlayerBodyTarget : MonoBehaviour
         // selects rotation
         float xRot = Mathf.SmoothDampAngle(transform.eulerAngles.x, (playerRot.x + rotationAmountX * rotateDirection), ref rotX, 1/rotationSpeed);
         float yRot = Mathf.SmoothDampAngle(transform.eulerAngles.y, (playerRot.y + extraY + rotationAmountY * rotateDirection), ref rotY, 1/rotationSpeed);
-        Debug.Log(yRot);
+        
         Vector3 newRotation = new Vector3(xRot, yRot, playerRot.z + fallTilt);
         transform.rotation = Quaternion.Euler(newRotation);
 
