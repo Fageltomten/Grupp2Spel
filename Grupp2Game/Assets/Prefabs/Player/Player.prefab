@@ -2272,7 +2272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd434bade224c045a42a641436eefeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmissionMaterial: {fileID: 2100000, guid: b565c565be74d2f4eb7aa0e98537fa33, type: 2}
   body: {fileID: 6191135657783581128}
   Colors:
   - {r: 1, g: 0, b: 0, a: 1.8727993e+31}

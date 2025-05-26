@@ -3703,6 +3703,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7940721490179305223}
     m_Modifications:
+    - target: {fileID: 1885782589304139016, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
+      propertyPath: m_text
+      value: 'Graphics
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 2429848434482173892, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
       propertyPath: m_Name
       value: GraphicsBtn
@@ -3791,6 +3797,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3907796440748996463}
+    - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToGraphics
+      objectReference: {fileID: 0}
+    - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SettingsMenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4478,10 +4492,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7940721490179305223}
     m_Modifications:
-    - target: {fileID: 1885782589304139016, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
-      propertyPath: m_text
-      value: Back
-      objectReference: {fileID: 0}
     - target: {fileID: 2429848434482173892, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
       propertyPath: m_Name
       value: ReturnBtn
@@ -4567,33 +4577,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3907796440748996463}
-    - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ExitSettingsMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SettingsController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5772095808145800324, guid: 0fa02abd94e0ce844bd8d6fa2b220e8a, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
