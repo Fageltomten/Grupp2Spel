@@ -1,6 +1,10 @@
 using System;
 using UnityEngine;
 
+// Author: Hugo Clarke
+/// <summary>
+/// The changing of the emission material for the player
+/// </summary>
 public class PlayerMaterialManager : MonoBehaviour
 {
     [SerializeField] private GameObject body;
@@ -12,14 +16,7 @@ public class PlayerMaterialManager : MonoBehaviour
     [SerializeField] private float colorChangeTime = 1f;
     [SerializeField] private float EmissionStrength = 10f;
     private float t = 0f;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
         ChangeColor();

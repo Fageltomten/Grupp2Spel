@@ -3,6 +3,10 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Author: Hugo Clarke
+/// <summary>
+/// Handles the movement of the player
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rigidbody;
