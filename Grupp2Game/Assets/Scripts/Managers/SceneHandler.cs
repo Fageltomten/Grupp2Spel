@@ -148,7 +148,7 @@ public class SceneHandler : Singleton<SceneHandler>
 
         player.transform.position = pos;
         if (GetStartingRotation.TryGetValue(currentLevel, out Vector3 rotation))
-            player.GetComponent<PlayerLook>().SetRotation(rotation.z, rotation.y);
+            player.GetComponent<PlayerLook>().SetRotation(0, rotation.y);
 
         player.SetActive(true);
         Debug.Log($"After Position - {player.transform.position} $");
