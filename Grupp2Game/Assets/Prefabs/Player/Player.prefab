@@ -1925,6 +1925,23 @@ MonoBehaviour:
   dashCooldown: 2
   canDash: 1
   isDashing: 0
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: bc7445c9-4470-443e-ad48-cf755edb2627
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9ed6fe11-ea91-49e2-8b1d-a33682550622
+      m_Path: <Keyboard>/shift
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dash
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &6665219890857959908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2272,7 +2289,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcd434bade224c045a42a641436eefeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EmissionMaterial: {fileID: 2100000, guid: b565c565be74d2f4eb7aa0e98537fa33, type: 2}
   body: {fileID: 6191135657783581128}
   Colors:
   - {r: 1, g: 0, b: 0, a: 1.8727993e+31}

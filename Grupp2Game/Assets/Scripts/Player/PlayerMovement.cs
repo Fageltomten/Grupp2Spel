@@ -3,6 +3,11 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+enum DashMode
+{
+    DoubleTap,
+    Shift
+}
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rigidbody;
@@ -204,7 +209,10 @@ public class PlayerMovement : MonoBehaviour
 
 
     /* Dash */
-    public void Dash()
+
+    public void 
+
+    public void Dash() //Should go in current direction, not look at a keypress
     {
         if (!canDash)
             return;
@@ -212,6 +220,7 @@ public class PlayerMovement : MonoBehaviour
         if (GetComponent<GrapplingHook>().IsGrappled())
             return;
 
+        /*
         if (DoublePressedW())
             StartCoroutine(PerformDash(transform.forward));
         else if (DoublePressedA())
@@ -219,6 +228,60 @@ public class PlayerMovement : MonoBehaviour
         else if (DoublePressedS())
             StartCoroutine(PerformDash(-transform.forward));
         else if (DoublePressedD())
+            StartCoroutine(PerformDash(transform.right));
+        else
+            return;
+        */
+        //if (KeyPressed(KeyCode.LeftShift))
+        //    DashAction();
+
+        //if (KeyPressed(KeyCode.W))
+        //    StartCoroutine(PerformDash(transform.forward));
+        //else if (KeyPressed(KeyCode.A))
+        //    StartCoroutine(PerformDash(-transform.right));
+        //else if (KeyPressed(KeyCode.S))
+        //    StartCoroutine(PerformDash(-transform.forward));
+        //else if (KeyPressed(KeyCode.D))
+        //    StartCoroutine(PerformDash(transform.right));
+        //else
+        //    return;       
+
+        /*
+        if (KeyPressed(KeyCode.LeftShift))
+            if (KeyPressed(KeyCode.W))
+                StartCoroutine(PerformDash(transform.forward));
+            else if (KeyPressed(KeyCode.A))
+                StartCoroutine(PerformDash(-transform.right));
+            else if (KeyPressed(KeyCode.S))
+                StartCoroutine(PerformDash(-transform.forward));
+            else if (KeyPressed(KeyCode.D))
+                StartCoroutine(PerformDash(transform.right));
+            else
+                return;       
+        else
+               return;
+        */
+
+        if (KeyPressed(KeyCode.LeftShift))
+        {
+            canDash = false;
+            StartCoroutine(DashInCurrentDirection());
+            StartCoroutine(StartDashCooldown());
+        }
+        else
+            return;
+
+    }
+
+    public void DashAction()
+    {
+        if (KeyPressed(KeyCode.W))
+            StartCoroutine(PerformDash(transform.forward));
+        else if (KeyPressed(KeyCode.A))
+            StartCoroutine(PerformDash(-transform.right));
+        else if (KeyPressed(KeyCode.S))
+            StartCoroutine(PerformDash(-transform.forward));
+        else if (KeyPressed(KeyCode.D))
             StartCoroutine(PerformDash(transform.right));
         else
             return;
@@ -239,6 +302,21 @@ public class PlayerMovement : MonoBehaviour
         rigidbody.useGravity = true;
         //rigidbody.linearVelocity = new Vector3(lV.x, rigidbody.linearVelocity.y, lV.z);
         rigidbody.linearVelocity = rigidbody.linearVelocity.normalized;
+        isDashing = false;
+    }
+    IEnumerator DashInCurrentDirection()
+    {
+        /* Start */
+        isDashing = true;
+        rigidbody.useGravity = false;
+        ResetVerticalVelocity();
+        SetSpeed(rigidbody.linearVelocity * dashForce);
+
+        yield return new WaitForSeconds(0.4f); //Wait
+
+        /* Stop */
+        rigidbody.useGravity = true;
+        SetSpeed(rigidbody.linearVelocity.normalized);
         isDashing = false;
     }
     IEnumerator StartDashCooldown()
