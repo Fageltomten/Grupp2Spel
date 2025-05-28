@@ -44,7 +44,12 @@ public class SceneHandler : Singleton<SceneHandler>
         { Level.HardDrive, new Vector3(-15, 2, -14) },
         { Level.GPU, new Vector3(14, 4, 0) },
         { Level.CPU, new Vector3(90, 36, -129) },
-        { Level.RAM, new Vector3(0, 1, 0) }
+        { Level.RAM, new Vector3(3, 1, -6) }
+    };
+
+    public static Dictionary<Level, Vector3> GetStartingRotation = new Dictionary<Level, Vector3>
+    {
+        { Level.RAM, new Vector3(0, 90, 0) }
     };
 
     ISaver saveSystem;
@@ -140,7 +145,11 @@ public class SceneHandler : Singleton<SceneHandler>
         Debug.Log($"New Position - {pos} $");
 
         player.SetActive(false);
+
         player.transform.position = pos;
+        if (GetStartingRotation.TryGetValue(currentLevel, out Vector3 rotation))
+            player.GetComponent<PlayerLook>().SetRotation(rotation.z, rotation.y);
+
         player.SetActive(true);
         Debug.Log($"After Position - {player.transform.position} $");
         Debug.Log("Position Changed  $");

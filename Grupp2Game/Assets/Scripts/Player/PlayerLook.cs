@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
@@ -73,5 +74,11 @@ public class PlayerLook : MonoBehaviour
 
         Vector3 movementDirection =  new Vector3(moveInput.ReadValue<Vector2>().x, 0, moveInput.ReadValue<Vector2>().y);
         playerBody.localRotation = Quaternion.Slerp(playerBody.localRotation, Quaternion.LookRotation(movementDirection.normalized), 0.2f);
+    }
+
+    public void SetRotation(float verticalRotation, float horizontalRotation)
+    {
+        this.verticalRotation = verticalRotation;
+        this.horizontalRotation = horizontalRotation;
     }
 }
