@@ -12,6 +12,8 @@ public class Portal : MonoBehaviour
             GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
 
             other.GetComponent<PlayerMovement>().ForceResetDash();
+            if(other.GetComponent<GrapplingHook>().IsGrappled())
+                other.GetComponent<GrapplingHook>().ShootRelease();
 
             sceneManager.GetComponent<SceneHandler>().ChangeScene(sceneToLoad);
         }
