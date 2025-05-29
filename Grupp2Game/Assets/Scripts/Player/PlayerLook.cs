@@ -18,12 +18,14 @@ public class PlayerLook : MonoBehaviour
     [SerializeField] bool rotatePlayerBody;
     [SerializeField] Vector3 playerDirection;
 
+    SettingsSave settings;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        settings = SettingsManager.GetSettings();
 
         Debug.Log("Player Initiated");
     }
@@ -39,7 +41,8 @@ public class PlayerLook : MonoBehaviour
 
     void GetInputs()
     {
-        mouseVector = new Vector2(Input.GetAxisRaw("Mouse X") * sensetivity, Input.GetAxisRaw("Mouse Y") * sensetivity);
+        int inverted = (settings.invertedCamera) ?  -1 : 1;
+        mouseVector = new Vector2(Input.GetAxisRaw("Mouse X") * sensetivity, Input.GetAxisRaw("Mouse Y") * sensetivity * inverted) * settings.cameraSensitivity;
     }
 
     void CalculateRotation()
