@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using Unity.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum Level
 {
@@ -21,6 +23,11 @@ public enum Level
 
 public class SceneHandler : Singleton<SceneHandler>
 {
+    [Header("Loading Screen")]
+    [SerializeField] private GameObject loadingCanvas;
+    [SerializeField] private Image progressBar;
+    private float target;
+
     [Header("Levels")]
     [SerializeField] Level currentLevel;
     [SerializeField] Level previousLevel;
@@ -61,9 +68,75 @@ public class SceneHandler : Singleton<SceneHandler>
         SceneManager.sceneLoaded += (sender, e) => ChoosePosition();
     }
 
+    private void Update()
+    {
+        if(progressBar.fillAmount != 1)
+            progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
+    }
+
+    public async void ChangeScene(Level level)
+    {
+        previousLevel = currentLevel;
+        currentLevel = level;
+
+        target = 0f;
+        progressBar.fillAmount = 0;
+
+        var scene = SceneManager.LoadSceneAsync(LevelToString[level]);
+        scene.allowSceneActivation = false;
+
+        loadingCanvas.SetActive(true);
+
+        do
+        {
+            await Task.Delay(100);
+
+            target = scene.progress;
+            progressBar.fillAmount = scene.progress;
+
+        } while (scene.progress < 0.9f);
+
+        await Task.Delay(1000);
+
+        scene.allowSceneActivation = true;
+
+
+        progressBar.fillAmount = 1;
+        await Task.Delay(1000);
+        loadingCanvas.SetActive(false);
+
+        GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
+    }
+
+    public async void ChangeSceneWithPersistance(Level level)
+    {
+        if(currentLevel == Level.MainMenu)
+            GameObject.Find("SaveNotification").SetActive(false);
+
+        progressBar.fillAmount = 0;
+        loadingCanvas.SetActive(true);
+
+        await SceneManager.LoadSceneAsync(LevelToString[Level.Persistance]);
+
+        ChangeScene(level);
+    }
+
+    public void ChangeToLatestScene()
+    {
+        GameData data = saveSystem.LoadLatest();
+        if (data != null)
+        {
+            currentLevel = LevelToString.ToDictionary(x => x.Value, x => x.Key)[data.ActiveScene];
+
+            ChangeSceneWithPersistance(currentLevel);
+        }
+    }   
+
     /* Load without needing save data*/
+    /*
     public IEnumerator ChangeScene(Level level)
     {
+
         previousLevel = currentLevel;
         currentLevel = level;
 
@@ -71,38 +144,12 @@ public class SceneHandler : Singleton<SceneHandler>
         SceneManager.LoadScene(LevelToString[level]);
         Debug.Log("Level Loaded  $");
 
-
-
-        ///* Spelaren hittas inte*/
-        //if (GameObject.FindAnyObjectByType<PlayerMovement>() != null)
-        //    Debug.Log("Player Found $");
-        //else
-        //    Debug.Log("Player Not Found $");
-
-        ////bool looking = true;
-        ////while (looking)
-        ////{
-        ////    if (GameObject.FindAnyObjectByType<PlayerMovement>() != null)
-        ////    {
-        ////        Debug.Log("Player Found $");
-        ////        looking = false;
-        ////    }
-        ////    else
-        ////    {
-        ////        Debug.Log("Player Not Found $");
-        ////        Thread.Sleep(1000);
-        ////    }
-        ////}
-
-        ///* Slutar funka n�r man k�r med persistance */
-        //GameObject.FindAnyObjectByType<PlayerMovement>().transform.position = GetStartingPosition[level];
-        //Debug.Log("Position Changed  $");
-
         GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
 
         return null;
     }
-
+    */
+    /*
     public void ChangeSceneWithPersistance(Level level)
     {
         previousLevel = currentLevel;
@@ -113,9 +160,10 @@ public class SceneHandler : Singleton<SceneHandler>
         StartCoroutine(ChangeScene(level));
         //ChangeScene(level);
     }
+    */
 
-
-    /* Load with needing save data */
+    /*
+    /* Load with needing save data 
     public void ChangeToLatestScene()
     {
         GameData data = saveSystem.LoadLatest();
@@ -125,7 +173,7 @@ public class SceneHandler : Singleton<SceneHandler>
 
             ChangeSceneWithPersistance(currentLevel);
         }
-    }
+    }   */
 
     public void ChoosePosition()
     {
