@@ -16441,7 +16441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1591276111219605865, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: sceneToLoad
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1591276111219605865, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: spawnPosition.y
@@ -16490,6 +16490,18 @@ PrefabInstance:
     - target: {fileID: 6123037078913970230, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680455799027756605, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
+      propertyPath: m_Size.z
+      value: 1.4119148
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680455799027756605, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
+      propertyPath: m_Center.y
+      value: -0.4000001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6680455799027756605, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
+      propertyPath: m_Center.z
+      value: 0.20595741
       objectReference: {fileID: 0}
     - target: {fileID: 7141748473669540163, guid: 21f9e6952a1a39747b0734dc39ff5e81, type: 3}
       propertyPath: m_Mesh
