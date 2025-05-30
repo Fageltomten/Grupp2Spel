@@ -40,6 +40,7 @@ public class WinArea : MonoBehaviour
         if (GameData.totalCollectables <= collectedCollectables)
         {
             Debug.Log("You win");
+            GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
             SceneManager.LoadScene("EndScreen");
         }
     }
