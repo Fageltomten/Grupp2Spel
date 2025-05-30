@@ -14,7 +14,7 @@ public class SaveManager : MonoBehaviour
     private List<ISaveable> _saveables = new List<ISaveable>();
     private ISaver _fileSaverSystem;
     public GameData _gameData;
-    GameData lastGameData;
+    public GameData lastGameData;
     public ISaver GetCurrentFileSaverSystem => _fileSaverSystem;
     public event EventHandler OnSaveHandler;
 
