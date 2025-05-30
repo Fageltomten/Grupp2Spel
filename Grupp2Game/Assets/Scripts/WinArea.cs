@@ -61,8 +61,6 @@ public class WinArea : MonoBehaviour
         }
         foreach (var gamedata in savedGameData)
         {
-            //Loop through each save file
-            //Somehow
             collectedCollectables += gamedata.collectedCollectables;
         }
         return collectedCollectables;

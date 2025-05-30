@@ -23,6 +23,36 @@ public class GameData
         Collectable = new List<CollectableData>();
         Debug.Log("GameData with Default values initialized");
     }
+    public static int CalculateCollectedCollectables()
+    {
+        var savedGameData = GetGameData();
+        int collectedCollectables = 0;
+        if (savedGameData == null)
+        {
+            Debug.Log("Why the fuck is this null?");
+        }
+        foreach (var gamedata in savedGameData)
+        {
+            collectedCollectables += gamedata.collectedCollectables;
+        }
+        return collectedCollectables;
+    }
+    private static List<GameData> GetGameData()
+    {
+        SaveManager saveManager = GameObject.FindAnyObjectByType<SaveManager>();
+        if (saveManager == null)
+        {
+            Debug.Log("saveManaeger returned null for some reason in WinArea");
+        }
+        ISaver fileSaver = saveManager.GetCurrentFileSaverSystem;
+        if (fileSaver == null)
+        {
+            Debug.Log("fileSaver returned null for some reason in WinArea");
+        }
+
+        List<GameData> savedGameData = fileSaver.GetAllCurrentlySavedGameData();
+        return savedGameData;
+    }
 }
 [System.Serializable]
 public class PlayerData

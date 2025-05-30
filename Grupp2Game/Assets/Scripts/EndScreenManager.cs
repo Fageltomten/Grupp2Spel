@@ -8,6 +8,7 @@ public class EndScreenManager : MonoBehaviour
     [SerializeField] private GameObject scrollTextGameobject;
     [SerializeField] private float scrollSpeed;
     [SerializeField] private float scrollDistance;
+    [SerializeField] private bool finishedScrolling;
 
     [Header("Text")]
     [SerializeField] private TMP_Text scoreText;
@@ -21,7 +22,7 @@ public class EndScreenManager : MonoBehaviour
     private void GetScore()
     {
         var saveManager = GameObject.FindAnyObjectByType<SaveManager>();
-        var score = saveManager.lastGameData.collectedCollectables;
+        var score = GameData.CalculateCollectedCollectables();
         var timePlayed = saveManager._gameData.TimePlayed;
 
         scoreText.text = $"You collected\r\n{score}/{GameData.totalCollectables}\r\n";
@@ -30,13 +31,26 @@ public class EndScreenManager : MonoBehaviour
 
     void Update()
     {
+        if (!finishedScrolling)
         Scrolling();
     }
     private void Scrolling()
     {
-        if(scrollTextGameobject.transform.position.y < scrollDistance)
+        if(scrollTextGameobject.transform.position.y < scrollDistance && !finishedScrolling)
         {
             scrollTextGameobject.transform.Translate(0, scrollSpeed * Time.deltaTime, 0);
+            if(scrollTextGameobject.transform.position.y >= scrollDistance)
+            {
+                finishedScrolling = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+        else
+        {
+            finishedScrolling = true;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
