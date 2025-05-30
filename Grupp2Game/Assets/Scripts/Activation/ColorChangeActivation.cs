@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Component that changes color if items when activated and deactivated
 /// </summary>
+[RequireComponent(typeof(ActivationListener))]
 public class ColorChangeActivation : MonoBehaviour, IActivatable
 {
     [Tooltip("Color when activated.")]
@@ -17,7 +18,14 @@ public class ColorChangeActivation : MonoBehaviour, IActivatable
 
     public void Start()
     {
-        Deactivate();
+        if (GetComponent<ActivationListener>().IsActivated)
+        {
+            Activate();
+        }
+        else 
+        {
+            Deactivate();
+        }
     }
     public void Activate()
     {
