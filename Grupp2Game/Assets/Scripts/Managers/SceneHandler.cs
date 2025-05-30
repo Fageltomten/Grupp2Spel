@@ -72,6 +72,7 @@ public class SceneHandler : Singleton<SceneHandler>
 
     public async void ChangeScene(Level level)
     {
+        GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
         previousLevel = currentLevel;
         currentLevel = level;
 
@@ -100,7 +101,7 @@ public class SceneHandler : Singleton<SceneHandler>
         await Task.Delay(1000);
         loadingCanvas.SetActive(false);
 
-        GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
+       // GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
     }
 
     public async void ChangeSceneWithPersistance(Level level)
