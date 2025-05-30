@@ -10,6 +10,10 @@ enum DashMode
     Shift
 }
 
+// Author: Hugo Clarke
+/// <summary>
+/// Handles the movement of the player
+/// </summary>
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rigidbody;

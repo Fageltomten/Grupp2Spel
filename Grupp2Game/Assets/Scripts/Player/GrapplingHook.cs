@@ -10,6 +10,11 @@ using UnityEngine.InputSystem;
 using Unity.Cinemachine;
 using UnityEditor;
 
+// Author: Hugo Clarke
+/// <summary>
+/// Handles the Grappling hook physics and visuals
+/// </summary>
+
 [RequireComponent(typeof(LineRenderer))]
 [RequireComponent(typeof(Rigidbody))]
 public class GrapplingHook : MonoBehaviour
@@ -182,6 +187,7 @@ public class GrapplingHook : MonoBehaviour
         }
     }
 
+    //Obsolete
     private void CheckCollisionPoints()
     {
         int runs = 0;
