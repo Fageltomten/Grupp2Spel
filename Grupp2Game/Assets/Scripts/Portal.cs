@@ -1,21 +1,21 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+/* Author: Anton Andersson */
 
 public class Portal : MonoBehaviour
 {
     [SerializeField] private Level sceneToLoad;
     private void OnTriggerEnter(Collider other)
     {
-        //Check for player, can be whatever script or tag or layer
-        if(other.tag == "Player")
-        {
-            GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
+        if (other.tag != "Player")
+            return;
 
-            other.GetComponent<PlayerMovement>().ForceResetDash();
-            if(other.GetComponent<GrapplingHook>().IsGrappled())
-                other.GetComponent<GrapplingHook>().ShootRelease();
+        GameObject sceneManager = GameObject.FindGameObjectWithTag("SceneManager");
 
-            sceneManager.GetComponent<SceneHandler>().ChangeScene(sceneToLoad);
-        }
+        other.GetComponent<PlayerMovement>().ForceResetDash(); // Resets Dash, because otherwise dash can get stuck
+        if (other.GetComponent<GrapplingHook>().IsGrappled()) // Releases grappling hook, because it doesn't reset if you go through level
+            other.GetComponent<GrapplingHook>().ShootRelease();
+
+        sceneManager.GetComponent<SceneHandler>().ChangeScene(sceneToLoad);
     }
 }

@@ -8,6 +8,7 @@ using Unity.Loading;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+/* Author: Anton Andersson */
 
 public enum Level
 {
@@ -16,8 +17,6 @@ public enum Level
     Hub,
     HardDrive,
     CPU,
-    GPU,
-    Powersupply,
     RAM
 }
 
@@ -31,8 +30,6 @@ public class SceneHandler : Singleton<SceneHandler>
     [Header("Levels")]
     [SerializeField] Level currentLevel;
     [SerializeField] Level previousLevel;
-    public Level CurrentLevel { get { return currentLevel; } }
-    public Level PreviousLevel { get { return previousLevel; } }
 
     public static Dictionary<Level, string> LevelToString = new Dictionary<Level, string>
     {
@@ -40,7 +37,6 @@ public class SceneHandler : Singleton<SceneHandler>
         { Level.Persistance, "PersistManagersScene" },
         { Level.Hub, "Hub" },
         { Level.HardDrive, "HDD" },
-        { Level.GPU, "GPU" },
         { Level.RAM, "RAM" },
         { Level.CPU, "CPULevel" }
     };
@@ -49,7 +45,6 @@ public class SceneHandler : Singleton<SceneHandler>
     {
         { Level.Hub, new Vector3(0, 1, 0)},
         { Level.HardDrive, new Vector3(-15, 2, -14) },
-        { Level.GPU, new Vector3(14, 4, 0) },
         { Level.CPU, new Vector3(90, 36, -129) },
         { Level.RAM, new Vector3(3, 1, -6) }
     };
@@ -70,6 +65,7 @@ public class SceneHandler : Singleton<SceneHandler>
 
     private void Update()
     {
+        /* Updates the progressbar in the loading screen slowly instead of directly */
         if(progressBar.fillAmount != 1)
             progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
     }
@@ -99,7 +95,6 @@ public class SceneHandler : Singleton<SceneHandler>
         await Task.Delay(1000);
 
         scene.allowSceneActivation = true;
-
 
         progressBar.fillAmount = 1;
         await Task.Delay(1000);
@@ -132,57 +127,11 @@ public class SceneHandler : Singleton<SceneHandler>
         }
     }   
 
-    /* Load without needing save data*/
-    /*
-    public IEnumerator ChangeScene(Level level)
-    {
-
-        previousLevel = currentLevel;
-        currentLevel = level;
-
-        Debug.Log("Loading Level $");
-        SceneManager.LoadScene(LevelToString[level]);
-        Debug.Log("Level Loaded  $");
-
-        GameObject.FindAnyObjectByType<SaveManager>().SaveGame();
-
-        return null;
-    }
-    */
-    /*
-    public void ChangeSceneWithPersistance(Level level)
-    {
-        previousLevel = currentLevel;
-        currentLevel = level;
-
-        SceneManager.LoadScene(LevelToString[Level.Persistance]);
-
-        StartCoroutine(ChangeScene(level));
-        //ChangeScene(level);
-    }
-    */
-
-    /*
-    /* Load with needing save data 
-    public void ChangeToLatestScene()
-    {
-        GameData data = saveSystem.LoadLatest();
-        if (data != null)
-        {
-            currentLevel = LevelToString.ToDictionary(x => x.Value, x => x.Key)[data.ActiveScene];
-
-            ChangeSceneWithPersistance(currentLevel);
-        }
-    }   */
-
     public void ChoosePosition()
     {
         Vector3 pos = Vector3.zero;
-
-
         pos = GetStartingPosition[currentLevel];
 
-        //GameObject player = GameObject.FindAnyObjectByType<PlayerMovement>().gameObject;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
             Debug.Log("Player Found $");
