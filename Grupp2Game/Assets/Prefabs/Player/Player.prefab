@@ -7098,7 +7098,7 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0.9374714, a: 1}
   - {r: 0.19881582, g: 0, b: 1, a: 1}
   - {r: 0.98761463, g: 0, b: 1, a: 1}
-  colorChangeTime: 0.3
+  colorChangeTime: 2
   EmissionStrength: 10
 --- !u!114 &792349411145263768
 MonoBehaviour:
