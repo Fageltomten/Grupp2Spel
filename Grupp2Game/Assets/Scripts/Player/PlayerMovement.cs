@@ -2,12 +2,14 @@ using System.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+/* Author: Anton Andersson och Hugo Clarke */
 
 enum DashMode
 {
     DoubleTap,
     Shift
 }
+
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody rigidbody;
@@ -308,13 +310,15 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator DashInVectorDirection(Vector3 v)
     {
+        /* Start */
         isDashing = true;
         rigidbody.useGravity = false;
         ResetVerticalVelocity();
         AddForce(v * dashForce, ForceMode.Impulse);
 
-        yield return new WaitForSeconds(dashTime);
+        yield return new WaitForSeconds(dashTime); //Wait
 
+        /* Stop */
         rigidbody.useGravity = true;
         SetSpeed(rigidbody.linearVelocity.normalized * maxSpeed);
         isDashing = false;
