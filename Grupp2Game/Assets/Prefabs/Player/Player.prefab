@@ -6758,6 +6758,23 @@ MonoBehaviour:
   dashCooldown: 2
   canDash: 1
   isDashing: 0
+  dashAction:
+    m_Name: Dash
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: bc7445c9-4470-443e-ad48-cf755edb2627
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 9ed6fe11-ea91-49e2-8b1d-a33682550622
+      m_Path: <Keyboard>/shift
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dash
+      m_Flags: 0
+    m_Flags: 0
 --- !u!114 &6665219890857959908
 MonoBehaviour:
   m_ObjectHideFlags: 0

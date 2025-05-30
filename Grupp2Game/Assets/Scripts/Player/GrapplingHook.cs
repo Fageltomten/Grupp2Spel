@@ -317,7 +317,7 @@ public class GrapplingHook : MonoBehaviour
         lineRenderer.SetPosition(0, Vector3.Lerp(grapplePoints[0], grapplePoints[1], ropeT));
     }
 
-    private void ShootRelease()
+    public  void ShootRelease()
     {
         if (grapplePoints.Count == 0 || grapplePoints == null)
             return;

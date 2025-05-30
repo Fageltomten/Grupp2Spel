@@ -1,12 +1,13 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
+/* Author: Anton Andersson */
 
 public class PlayerLook : MonoBehaviour
 {
     Rigidbody rb;
     [SerializeField] Transform cameraPivotPoint;
-    [SerializeField] Transform playerBody;
 
     [Header("MouseInputs")]
     [SerializeField] Vector2 mouseVector;
@@ -14,9 +15,7 @@ public class PlayerLook : MonoBehaviour
 
     [Header("Rotation")]
     [SerializeField] float horizontalRotation;
-    [SerializeField] float verticalRotation; //Isn't used
-    [SerializeField] bool rotatePlayerBody;
-    [SerializeField] Vector3 playerDirection;
+    [SerializeField] float verticalRotation;
 
     SettingsSave settings;
 
@@ -30,13 +29,11 @@ public class PlayerLook : MonoBehaviour
         Debug.Log("Player Initiated");
     }
 
-    // Update is called once per frame
     void Update()
     {
         GetInputs();  
         CalculateRotation();
         ApplyRotation();
-        RotatePlayer();
     }
 
     void GetInputs()
@@ -58,23 +55,13 @@ public class PlayerLook : MonoBehaviour
 
     void ApplyRotation()
     {
-        transform.rotation = Quaternion.Euler(0, horizontalRotation, 0); //Horizontal
-        /* Vertical */
+        transform.rotation = Quaternion.Euler(0, horizontalRotation, 0); 
         cameraPivotPoint.localRotation = Quaternion.Euler(verticalRotation, 0, 0);
     }
 
-    void RotatePlayer()
+    public void SetRotation(float verticalRotation, float horizontalRotation)
     {
-        if (!rotatePlayerBody)
-            return;
-
-
-        
-        InputAction moveInput = InputSystem.actions.FindAction("Move");
-        if (moveInput.ReadValue<Vector2>() == Vector2.zero)
-            return;
-
-        Vector3 movementDirection =  new Vector3(moveInput.ReadValue<Vector2>().x, 0, moveInput.ReadValue<Vector2>().y);
-        playerBody.localRotation = Quaternion.Slerp(playerBody.localRotation, Quaternion.LookRotation(movementDirection.normalized), 0.2f);
+        this.verticalRotation = verticalRotation;
+        this.horizontalRotation = horizontalRotation;
     }
 }
