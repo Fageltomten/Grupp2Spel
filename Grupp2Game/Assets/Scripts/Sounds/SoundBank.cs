@@ -2,9 +2,9 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-//Author Clara Lönnkrans
 /// <summary>
 /// A class for storing and getting sounds
+/// Author Clara Lönnkrans
 /// </summary>
 public class SoundBank : MonoBehaviour
 {

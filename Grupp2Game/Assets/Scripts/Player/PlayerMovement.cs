@@ -229,6 +229,8 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator PerformDash(Vector3 v)
     {
+        playerSounds.DashParticles();
+        playerSounds.DashSound(1);
         Vector3 lV = rigidbody.linearVelocity;
         isDashing = true;
         rigidbody.useGravity = false;

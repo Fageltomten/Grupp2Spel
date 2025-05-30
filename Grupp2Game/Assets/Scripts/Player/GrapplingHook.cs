@@ -41,6 +41,7 @@ public class GrapplingHook : MonoBehaviour
     [SerializeField] private float dashDelay;
     [SerializeField] private float maxRopeLength = 10f;
 
+
     [Header("Visual")]
     [SerializeField] private float ShootTime;
     [SerializeField] private float releaseTime;
@@ -330,7 +331,8 @@ public class GrapplingHook : MonoBehaviour
     {
         if (grapplePoints.Count == 0 || grapplePoints == null || !canDash)
             return;
-        playerSounds.DashSound();
+        playerSounds.DashSound(5);
+        playerSounds.DashParticles();
         Vector3 dashDirection = grapplePoints[0] - grapplingLastPoint;
         AddForce(dashDirection.normalized * dashForce, ForceMode.Impulse);
         StartCoroutine(DashTimer());

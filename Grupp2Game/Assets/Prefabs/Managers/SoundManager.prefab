@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3163268072813357650}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -166,12 +166,15 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 24c3f6c68e122e142b3e56b70160f763, type: 3}
     - {fileID: 8300000, guid: 6deb8cceefe1dbf4b86c12dfb279c8f2, type: 3}
   enviromentSounds:
-  - soundName: Button
-    sound: []
-  - soundName: Fan
-    sound: []
-  - soundName: LaunchPad
-    sound: []
+  - soundName: ButtonActivation
+    sound:
+    - {fileID: 8300000, guid: acb992fc4bac9144590065761c456357, type: 3}
+  - soundName: FanWind
+    sound:
+    - {fileID: 8300000, guid: 8d0532cc048cb9b4d99e572d01388bec, type: 3}
+  - soundName: FanActivation
+    sound:
+    - {fileID: 8300000, guid: 3ef60d9cc191e4f459363a5f03e35796, type: 3}
   - soundName: Portal
     sound: []
   - soundName: DoorMoving

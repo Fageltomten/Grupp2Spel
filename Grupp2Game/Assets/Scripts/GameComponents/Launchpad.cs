@@ -1,10 +1,10 @@
 using UnityEngine;
 
-//Author Clara Lönnkrans
 public class Launchpad : MonoBehaviour, IActivatable
 {
     /// <summary>
     /// A class for launchpad beahavior
+    /// Author Clara Lönnkrans
     /// </summary>
     [SerializeField] private float force = 30;
 

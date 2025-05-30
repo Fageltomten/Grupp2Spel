@@ -48,10 +48,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6213199230016655408, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -1550514412580984892, guid: fcf4db5c04a1eaa46beedf2d3899dbb2, type: 3}
+    - target: {fileID: -5477749408508380018, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 752.7001
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 488.22583
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 6.295539
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.94
+      objectReference: {fileID: 0}
+    - target: {fileID: -5477749408508380018, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4683669308469848369, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4d137f4dfddcfcd43978b9c026f9b235, type: 2}
+    - target: {fileID: -3542852092398272455, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -306.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -200.50792
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -15.345392
+      objectReference: {fileID: 0}
+    - target: {fileID: -3542852092398272455, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -678588488315902003, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -60,8 +100,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: OldSDcardfbx
       objectReference: {fileID: 0}
+    - target: {fileID: 5334037119324981776, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: -5495902117074765545, guid: fcf4db5c04a1eaa46beedf2d3899dbb2, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8416272007918961125, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4831499562057521237}
   m_SourcePrefab: {fileID: 100100000, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+--- !u!1 &8676441916026481747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8416272007918961125, guid: e253be7e9cc8044419624e07523ccae4, type: 3}
+  m_PrefabInstance: {fileID: 910979739760700854}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &4831499562057521237
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8676441916026481747}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1550514412580984892, guid: fcf4db5c04a1eaa46beedf2d3899dbb2, type: 3}
