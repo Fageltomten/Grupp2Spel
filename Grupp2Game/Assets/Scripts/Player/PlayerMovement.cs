@@ -231,6 +231,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (KeyPressed(KeyCode.LeftShift))
         {
+            playerSounds.DashSound(1);
+            playerSounds.DashParticles();
             canDash = false;
             StartCoroutine(DashInCurrentDirection());
             StartCoroutine(StartDashCooldown());
