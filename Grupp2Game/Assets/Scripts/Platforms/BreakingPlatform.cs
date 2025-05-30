@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 
 // Author Anton Sundell
+// Script not used, moved to MovingPlatform script
 public class BreakingPlatform : Platform, IMovablePlatform
 {
     [SerializeField] bool isMovable = true;
