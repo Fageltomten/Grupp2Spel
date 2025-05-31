@@ -106,7 +106,7 @@ public class SceneHandler : Singleton<SceneHandler>
 
     public async void ChangeSceneWithPersistance(Level level)
     {
-        if(currentLevel == Level.MainMenu)
+        if(currentLevel == Level.MainMenu && GameObject.Find("SaveNotification") != null)
             GameObject.Find("SaveNotification").SetActive(false);
 
         progressBar.fillAmount = 0;
