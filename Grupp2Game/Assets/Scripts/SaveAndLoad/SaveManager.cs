@@ -68,7 +68,7 @@ public class SaveManager : MonoBehaviour
     {
         //Don't wanna save this middle scene
         //Its only used to load our gameobjects that we need
-        if (SceneManager.GetActiveScene().name == "PersistManagersScene") return;
+        if (SceneManager.GetActiveScene().name == "PersistManagersScene" || SceneManager.GetActiveScene().name == "EndScreen") return;
 
         if (_gameData == null) return;
         if(!_fileSaverSystem.FileExists(SceneManager.GetActiveScene().name))

@@ -25,7 +25,7 @@ public class EndScreenManager : MonoBehaviour
         var score = GameData.CalculateCollectedCollectables();
         var timePlayed = saveManager._gameData.TimePlayed;
 
-        scoreText.text = $"You collected\r\n{score}/{GameData.totalCollectables}\r\n";
+        scoreText.text = $"You collected\r\n{score}";
         timePlayedText.text = timePlayed.ToString();
     }
 
@@ -62,15 +62,17 @@ public class EndScreenManager : MonoBehaviour
         GameObject PlayerHud = GameObject.Find("PlayerHUDCanvas");
         GameObject PlayerGameObject = GameObject.Find("Player");
         GameObject PlayerMainCamera = GameObject.Find("Main Camera");
+        GameObject PlayerPauseCanvas = GameObject.Find("PauseCanvas");
 
         Destroy(PlayerHud);
         Destroy(PlayerGameObject);
         Destroy(PlayerMainCamera);
+        Destroy(PlayerPauseCanvas);
     }
     public void TerminateApplication()
     {
        DeleteAllSaveFiles();
-        Application.Quit(); //Kill it
+       Application.Quit(); //Kill it
     }
 
     //When you have beaten the game you shouldn't be able to click "continue" in the mainmenu
@@ -79,12 +81,12 @@ public class EndScreenManager : MonoBehaviour
         SaveManager saveManager = GameObject.FindAnyObjectByType<SaveManager>();
         if (saveManager == null)
         {
-            Debug.Log("saveManaeger returned null for some reason in WinArea");
+            Debug.Log("saveManaeger returned null for some reason in EndScreen");
         }
         ISaver fileSaver = saveManager.GetCurrentFileSaverSystem;
         if (fileSaver == null)
         {
-            Debug.Log("fileSaver returned null for some reason in WinArea");
+            Debug.Log("fileSaver returned null for some reason in EndScreen");
         }
         fileSaver.DeleteAllFiles();
     }
