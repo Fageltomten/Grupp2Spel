@@ -2,6 +2,10 @@ using TMPro;
 using UnityEngine;
 //Author Vidar Edlund
 
+/// <summary>
+/// Script that is responsible for adding a scrolling effect for the endscreen,
+/// Getting the final score and adding logic for terminating the game on quit
+/// </summary>
 public class EndScreenManager : MonoBehaviour
 {
     [Header("End Screen Config")]
@@ -19,6 +23,10 @@ public class EndScreenManager : MonoBehaviour
         RemoveNotNeededGameObjects();
         GetScore();
     }
+    /// <summary>
+    /// Retrieves total amount of collectables collected and time played
+    /// to display it to the player
+    /// </summary>
     private void GetScore()
     {
         var saveManager = GameObject.FindAnyObjectByType<SaveManager>();
@@ -34,6 +42,10 @@ public class EndScreenManager : MonoBehaviour
         if (!finishedScrolling)
         Scrolling();
     }
+    /// <summary>
+    /// Moves a gameobject vertically upwards and stops when all end credits have been shown on screen
+    /// determined by a specific y position
+    /// </summary>
     private void Scrolling()
     {
         if(scrollTextGameobject.transform.position.y < scrollDistance && !finishedScrolling)
@@ -54,9 +66,9 @@ public class EndScreenManager : MonoBehaviour
         }
     }
 
-    //This should probably be moved to a "EndScreenManager"
-    //or something like that. This class should be for scrolling. Not doing this
-    //We don't want the Player, PlayerUI, to follow into the EndScreen so I will remove them
+   
+    //We don't need the Player object, PlayerUI, playerCamera and Pause canvas
+    //in the EndScreen so thye are removed
     private void RemoveNotNeededGameObjects()
     {
         GameObject PlayerHud = GameObject.Find("PlayerHUDCanvas");
@@ -69,13 +81,23 @@ public class EndScreenManager : MonoBehaviour
         Destroy(PlayerMainCamera);
         Destroy(PlayerPauseCanvas);
     }
+    /// <summary>
+    ///We decided that when you beat the game your save files should be deleted so that you can 
+    ///start the game from a clean state next time you play the game.
+    ///(This was a design decision, we could simply have made you spawn in the HUB level when you press continue
+    ///after having beaten the game, and let you roam around freely)
+    /// </summary>
     public void TerminateApplication()
     {
        DeleteAllSaveFiles();
-       Application.Quit(); //Kill it
+       Application.Quit(); 
     }
 
-    //When you have beaten the game you shouldn't be able to click "continue" in the mainmenu
+    
+    /// <summary>
+    /// Gets the current fileSaverSystem that is being used by the SaveManager
+    /// and calls its DeleteAllFiles
+    /// </summary>
     private void DeleteAllSaveFiles()
     {
         SaveManager saveManager = GameObject.FindAnyObjectByType<SaveManager>();

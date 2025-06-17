@@ -1,5 +1,10 @@
 using UnityEngine;
-
+//Author Vidar Edlund
+/// <summary>
+/// Base Singleton class to make using singleton easier.
+/// Just derive from this class and you have a singleton
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public class Singleton<T> : MonoBehaviour where T : Component
 {
     private static T instance;
@@ -22,6 +27,9 @@ public class Singleton<T> : MonoBehaviour where T : Component
     {
         RemoveDuplicates();
     }
+    /// <summary>
+    /// Create a new gameobject with T component and add DontDestroyOnLoad
+    /// </summary>
     private static void SetupInstance()
     {
         instance = (T)FindFirstObjectByType(typeof(T));
@@ -33,6 +41,9 @@ public class Singleton<T> : MonoBehaviour where T : Component
             DontDestroyOnLoad(gameObj);
         }
     }
+    /// <summary>
+    /// Remove any duplicate gameobjects
+    /// </summary>
     private void RemoveDuplicates()
     {
         if (instance == null)

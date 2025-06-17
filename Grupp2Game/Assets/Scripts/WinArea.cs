@@ -35,6 +35,10 @@ public class WinArea : MonoBehaviour
             CheckForWin();
         }
     }
+    /// <summary>
+    /// If your current amount of collected collectables are equal or more than x collectables
+    /// then you win
+    /// </summary>
     public void CheckForWin()
     {
         if (GameData.totalCollectables <= collectedCollectables)
@@ -44,6 +48,9 @@ public class WinArea : MonoBehaviour
             SceneManager.LoadScene("EndScreen");
         }
     }
+    /// <summary>
+    /// Display current collected collectables.
+    /// </summary>
     private void UpdatedCollectedText()
     {
         winAreaText.text = $"{collectedCollectables}/{GameData.totalCollectables}";
@@ -52,6 +59,16 @@ public class WinArea : MonoBehaviour
     {
         collectedCollectables = CalculateCollectedNutsAndScrews();
     }
+
+    //TODO: These 2 methods have duplicate code from GameData class
+    //Should fix duplication
+
+    /// <summary>
+    /// Retrieves a list of all saved gamedata and 
+    /// iterates over each element 
+    /// summing up the number of collectables collected on each gamedata object
+    /// </summary>
+    /// <returns>Collected collectables</returns>
     private int CalculateCollectedNutsAndScrews()
     {
         var savedGameData = GetGameData();
@@ -66,6 +83,10 @@ public class WinArea : MonoBehaviour
         }
         return collectedCollectables;
     }
+    /// <summary>
+    /// Retrieves a list of all currently saved gamedata
+    /// </summary>
+    /// <returns>A list containing all gamedata that is currently saved</returns>
     private List<GameData> GetGameData()
     {
         SaveManager saveManager = GameObject.FindAnyObjectByType<SaveManager>();

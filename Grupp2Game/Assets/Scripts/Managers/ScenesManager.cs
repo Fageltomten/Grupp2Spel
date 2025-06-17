@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//Author Vidar Edlund
+
+/// <summary>
+/// Old component used to handle scene transitions.
+/// No longer in use.
+/// SceneHandler took its place
+/// </summary>
 public class ScenesManager : Singleton<ScenesManager>
 {
     //This should probably be somewhere else

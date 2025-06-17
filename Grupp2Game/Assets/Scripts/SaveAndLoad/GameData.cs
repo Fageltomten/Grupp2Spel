@@ -4,9 +4,8 @@ using UnityEngine;
 //Author Vidar Edlund
 public class GameData
 {
-    //This number should be equal to the total amount of collectables that exists in all scenes
-    //So if that number changes than you need to update this value here
-    public const int totalCollectables = 16; //Change it to 16
+    //This number represents the total amount of collectables that needs to be collected to win the game
+    public const int totalCollectables = 16; //Currently 16 collectables are needed to win the game
 
 
     public int collectedCollectables;
@@ -23,6 +22,12 @@ public class GameData
         Collectable = new List<CollectableData>();
         Debug.Log("GameData with Default values initialized");
     }
+    /// <summary>
+    /// Retrieves a list of all saved gamedata and 
+    /// iterates over each element 
+    /// summing up the number of collectables collected on each gamedata object
+    /// </summary>
+    /// <returns>Collected collectables</returns>
     public static int CalculateCollectedCollectables()
     {
         var savedGameData = GetGameData();
@@ -37,6 +42,11 @@ public class GameData
         }
         return collectedCollectables;
     }
+
+    /// <summary>
+    /// Retrieves a list of all currently saved gamedata
+    /// </summary>
+    /// <returns>A list containing all gamedata that is currently saved</returns>
     private static List<GameData> GetGameData()
     {
         SaveManager saveManager = GameObject.FindAnyObjectByType<SaveManager>();
@@ -54,13 +64,17 @@ public class GameData
         return savedGameData;
     }
 }
+
+//PlayerData class that ended up not being used
 [System.Serializable]
-public class PlayerData
+public class PlayerData 
 {
     public Vector2 Position;
     public float CurrentHealth;
     public int Deaths;
 }
+
+//Base class for handling data to be saved for collectables.
 [System.Serializable]
 public class CollectableData
 {
@@ -75,6 +89,8 @@ public class CollectableData
         IsCollected = isCollected;
     }
 }
+
+//Base class for handling how to save time played data in hours, minutes and seconds.
 [System.Serializable]
 public class TimePlayed
 {

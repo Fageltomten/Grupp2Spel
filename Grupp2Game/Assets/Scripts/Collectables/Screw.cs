@@ -13,11 +13,17 @@ public class Screw : MonoBehaviour, ICollectable, ISaveable
         get => isCollected;
         set => isCollected = value;
     }
-    //I could probably use GUID here, but to lazy
     [SerializeField] private string id;
 
 
     private void Update()
+    {
+        RotateObject();
+    }
+    /// <summary>
+    /// Rotate object as long as it is not collected
+    /// </summary>
+    private void RotateObject()
     {
         if (isCollected) return; //We don't wanna do this stuff if we are collected
 
@@ -25,6 +31,12 @@ public class Screw : MonoBehaviour, ICollectable, ISaveable
         var rotation = speed * Time.deltaTime;
         transform.Rotate(0, rotation, rotation);
     }
+    /// <summary>
+    /// Logic that should happen when collected
+    /// Set IsCollected to true
+    /// visually remove gameobject
+    /// Instantiate particles
+    /// </summary>
     public void Collected()
     {
         //Play particle system or whatever
@@ -32,6 +44,11 @@ public class Screw : MonoBehaviour, ICollectable, ISaveable
         gameObject.SetActive(false);
         Instantiate(collectedParticleSystem, transform.position, Quaternion.identity);
     }
+    /// <summary>
+    /// If a nut with the same ID as this one exists in the loaded data
+    /// than that means this object should use that loaded data
+    /// </summary>
+    /// <param name="data"></param>
     public void LoadData(GameData data)
     {
         bool isInList = data.Collectable.Any(c => c.ID == id);
@@ -50,6 +67,12 @@ public class Screw : MonoBehaviour, ICollectable, ISaveable
         }
     }
 
+    /// <summary>
+    /// Check if the Screw exists in the game data.
+    /// If not then add it to the collectable list and then
+    /// Save the Screws position and if it is collected or not.
+    /// </summary>
+    /// <param name="data"></param>
     public void SaveData(GameData data)
     {
         bool isInList = data.Collectable.Any(c => c.ID == id);

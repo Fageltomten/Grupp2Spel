@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//Author Vidar Edlund
 public class MainMenu : MonoBehaviour
 {
     private ISaver saveSystem;
@@ -13,11 +14,14 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        //if (!IsSceneLoaded(persistentScene))
-        //{
-        //    SceneManager.LoadScene(persistentScene, LoadSceneMode.Additive);
-        //}
-
+        CanContinue();
+    }
+    /// <summary>
+    /// Try to load latest save. If latest save returns null then you have no saved data.
+    /// Which means the continue button should be grayed out and disabled.
+    /// </summary>
+    private void CanContinue()
+    {
         saveSystem = new JsonSaver(false);
         GameData data = saveSystem.LoadLatest();
         if (data != null)
@@ -32,24 +36,13 @@ public class MainMenu : MonoBehaviour
             continueBtn.GetComponent<Button>().interactable = false;
         }
     }
-    //private bool IsSceneLoaded(string sceneName)
-    //{
-    //    for (int i = 0; i < SceneManager.sceneCount; i++)
-    //    {
-    //        Scene scene = SceneManager.GetSceneAt(i);
-    //        if (scene.name == sceneName)
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
+    
     public void Play()
     {
         //Default scene
-        //So motherboard scene(Or I guess we call it HubLevel)
+        // (HubLevel)
 
-        //We should check if there already is a save
+        //Check if there already is a save
         //If there is a save we should ask them if they really wanna 
         //create a new one and delete the old one
         if(saveSystem.FilesExists())
@@ -76,19 +69,17 @@ public class MainMenu : MonoBehaviour
             LoadStartScene();
         }
     }
+    /// <summary>
+    /// Scene to load when you press play
+    /// </summary>
     private void LoadStartScene()
     {
-        //ScenesManager.Instance.LoadScene("HubLevel");
         SceneHandler.Instance.ChangeSceneWithPersistance(Level.Hub);
     }
     public void Continue()
     {
         //Middle scene to load neccessary GameObjects
         SceneHandler.Instance.ChangeToLatestScene();
-    }
-    public void Options()
-    {
-       //Not implemented
     }
     public void Exit()
     {

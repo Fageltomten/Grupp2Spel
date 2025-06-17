@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 //Author Vidar Edlund
+/// <summary>
+/// Component that handles everything that has to do with player HUD
+/// </summary>
 public class PlayerHUD : MonoBehaviour, ISaveable
 {
     [SerializeField] private TMP_Text collectedCollectablesText;
@@ -50,6 +53,9 @@ public class PlayerHUD : MonoBehaviour, ISaveable
     //   // saveManager.SaveGame();
     //}
 
+    /// <summary>
+    /// Update playerhud and save the game when picking up a collectable
+    /// </summary>
     private void PlayerInteract_OnPickedUpCollectable()
     {
         collectedCollectables++;
@@ -73,6 +79,9 @@ public class PlayerHUD : MonoBehaviour, ISaveable
         UpdateCrosshairColor();
     }
 
+    /// <summary>
+    /// Change the crosshair color when looking at a grapple object
+    /// </summary>
     private void UpdateCrosshairColor()
     {
        if(grapplingHook.CanGrapple())
@@ -85,18 +94,30 @@ public class PlayerHUD : MonoBehaviour, ISaveable
         }
     }
 
+    /// <summary>
+    /// Display current time played which is a combination between timeSinceLevelLoad and time played from other scenes
+    /// </summary>
     private void UpdateTimer()
     {
         time = Time.timeSinceLevelLoad;
         timePlayed = TimeSpan.FromSeconds(time);
         timerScoreText.text = $"Time: {(savedTimePlayed + timePlayed).Hours:00}:{(savedTimePlayed + timePlayed).Minutes:00}:{(savedTimePlayed + timePlayed).Seconds:00}";
     }
+    /// <summary>
+    /// Update collected text and time played text
+    /// </summary>
     public void UpdateHud()
     {
         collectedCollectablesText.text = $"{collectedCollectables}/{collectablesInScene}";
         timerScoreText.text = $"Time: {timePlayed.Hours:00}:{timePlayed.Minutes:00}:{timePlayed.Seconds:00}";
     }
 
+    /// <summary>
+    /// If there is any data to load than
+    /// load collected collectables for this specific scene
+    /// and also time played
+    /// </summary>
+    /// <param name="data"></param>
     public void LoadData(GameData data)
     {
        collectedCollectables = data.collectedCollectables;
@@ -104,7 +125,11 @@ public class PlayerHUD : MonoBehaviour, ISaveable
         Debug.Log("Loading playerdata");
         UpdateHud();
     }
-
+    /// <summary>
+    /// Save current collected collectables and
+    /// time played to game data
+    /// </summary>
+    /// <param name="data"></param>
     public void SaveData(GameData data)
     {
         data.collectedCollectables = collectedCollectables;

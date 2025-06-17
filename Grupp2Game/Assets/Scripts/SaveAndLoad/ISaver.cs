@@ -2,6 +2,10 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 //Author Vidar Edlund
+
+/// <summary>
+/// Interface that contains methods for saving, retrieving, deleting and modyfing data
+/// </summary>
 public interface ISaver
 {
     void Save(GameData gameData);

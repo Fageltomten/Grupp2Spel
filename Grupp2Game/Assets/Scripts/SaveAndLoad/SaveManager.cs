@@ -23,52 +23,42 @@ public class SaveManager : MonoBehaviour
     {
         // _fileSystem.Init();
         _fileSaverSystem = new JsonSaver(_useEncryption);
-        SceneManager.sceneLoaded += SceneManager_sceneLoaded; ;
-      //  SceneManager.activeSceneChanged += SceneManager_activeSceneChanged;
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
     }
 
     private void SceneManager_sceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
+        //If the current scene you load into have any gamedata saved then load it
         _saveables = GetAllSaveableObjects();
         LoadGame();
     }
-    //private void SceneManager_activeSceneChanged(Scene arg0, Scene arg1)
-    //{
-    //    if(SceneManager.GetActiveScene().name == arg0.name)
-    //    SaveGame();
-    //}
+    
     private void Start()
     {
+        //Load in saved gamedata when saveManager is first initialized.
+        //But I think this one should be removed, I don't think this one does anything right now
+        //The event handler above should handle everything^
         _saveables = GetAllSaveableObjects();
         LoadGame();
     }
+
+    /// <summary>
+    /// Find all gameobject that have a component that implement the ISaveable interface
+    /// </summary>
+    /// <returns></returns>
     private List<ISaveable> GetAllSaveableObjects()
     {
-        //Question, is this the only way to find interfaces?
         var saveables = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<ISaveable>().ToList();
         return saveables;
     }
-    private void Update()
-    {
-        //Testing purpose
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    SaveGame();
-        //}
-        //if (Input.GetKeyDown(KeyCode.E))
-        //{
-        //    LoadGame();
-        //}
-    }
+   
     public void NewGame()
     {
         _gameData = new GameData();
     }
     public void SaveGame()
     {
-        //Don't wanna save this middle scene
-        //Its only used to load our gameobjects that we need
-        if (SceneManager.GetActiveScene().name == "PersistManagersScene" || SceneManager.GetActiveScene().name == "EndScreen") return;
+        if (SkipScene()) return;
 
         if (_gameData == null) return;
         if(!_fileSaverSystem.FileExists(SceneManager.GetActiveScene().name))
@@ -91,9 +81,7 @@ public class SaveManager : MonoBehaviour
     }
     public void LoadGame()
     {
-        //Don't wanna load this middle scene
-        //Its only used to load our gameobjects that we need
-        if (SceneManager.GetActiveScene().name == "PersistManagersScene") return;
+        if(SkipScene()) return;
 
         //To pass time from the latest save
         //We need to do it here before Load gets called which will change
@@ -118,6 +106,12 @@ public class SaveManager : MonoBehaviour
         {
             s.LoadData(_gameData);
         }
+    }
+    private bool SkipScene()
+    {
+        //Some scenes shouldn't be saved so we skip over them.
+        if (SceneManager.GetActiveScene().name == "PersistManagersScene" || SceneManager.GetActiveScene().name == "EndScreen") return true;
+        return false;
     }
     private void OnApplicationQuit()
     {

@@ -61,7 +61,10 @@ public class JsonSaver : ISaver
 
 
     }
-   
+   /// <summary>
+   /// Retrieves gamedata of the file that was latest used(read or written to)
+   /// </summary>
+   /// <returns></returns>
     public GameData LoadLatest()
     {
         GetLatestSaveFile();
@@ -151,6 +154,11 @@ public class JsonSaver : ISaver
 
         return gameData;
     }
+    /// <summary>
+    /// Checks if a specific file exists
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
     public bool FileExists(string file)
     {
         string filePath = string.Join('/', dirPath, file);
@@ -165,12 +173,20 @@ public class JsonSaver : ISaver
             return false;
         }
     }
+
+    /// <summary>
+    /// Checks if there exists atleast one .json file in dirPath
+    /// </summary>
+    /// <returns></returns>
     public bool FilesExists()
     {
         DirectoryInfo directoryInfo = new DirectoryInfo(dirPath);
         FileInfo[] fileInfo = directoryInfo.GetFiles("*.json");
         return fileInfo.Length > 0;
     }
+    /// <summary>
+    /// Deletes all .json files in dirPath
+    /// </summary>
     public void DeleteAllFiles()
     {
         if (!Directory.Exists(dirPath))
@@ -234,6 +250,10 @@ if (fileInfo.Length > 0)
     {
         return shouldDelete;
     }
+    /// <summary>
+    /// Returns all files of .json in dirPath
+    /// </summary>
+    /// <returns></returns>
     public FileInfo[] GetAllCurrentlySavedFiles()
     {
         DirectoryInfo directoryInfo = new DirectoryInfo(dirPath);
@@ -297,6 +317,10 @@ if (fileInfo.Length > 0)
 
         return savedGameData;
     }
+
+    /// <summary>
+    /// Gets the file in dirPath that has the last write time
+    /// </summary>
     private void GetLatestSaveFile()
     {
         if (fileName == null)
